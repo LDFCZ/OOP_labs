@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Models">
+      <UniqueIdentifier>{09af955b-d214-4707-b163-3001ddf0e8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Views">
+      <UniqueIdentifier>{3f0cea78-a835-48a6-9da2-ec9ed40bbee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Controllers">
+      <UniqueIdentifier>{ea0fcd10-602f-4e57-bb1c-e2d32ded8ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Drowing_obj">
+      <UniqueIdentifier>{7a2584cb-4bab-4396-b9f1-c911e80b05f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Models">
+      <UniqueIdentifier>{f4e597da-dfb6-46c1-963f-dea012538f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Controllers">
+      <UniqueIdentifier>{d1af4e70-98ee-454d-857b-17e0483da6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Drawing_obj">
+      <UniqueIdentifier>{ee2cc8e1-abbb-4c90-a991-06dd76bf7717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Views">
+      <UniqueIdentifier>{fc778794-a224-4d61-83dd-2898c54fa261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Interfaces">
+      <UniqueIdentifier>{117f2b72-4654-4df7-bd81-f2986bde5452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Contexts">
+      <UniqueIdentifier>{282ecd8c-c888-46d8-b4c5-1de7b0f6d0f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Contexts">
+      <UniqueIdentifier>{616bfa69-6544-4dc8-b2f6-38bf36142765}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CONSTSPACE.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Файлы заголовков\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllersContext.h">
+      <Filter>Файлы заголовков\Contexts</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControllersContext.h">
+      <Filter>Файлы заголовков\Contexts</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOptionController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player1Controller.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player2Controller.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePrepareController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePrepareModel.h">
+      <Filter>Файлы заголовков\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionModel.h">
+      <Filter>Файлы заголовков\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Player1Model.h">
+      <Filter>Файлы заголовков\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Player2Model.h">
+      <Filter>Файлы заголовков\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticModel.h">
+      <Filter>Файлы заголовков\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOptionView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePrepareView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Player1View.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Player2View.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="Ship.h">
+      <Filter>Файлы заголовков\Drawing_obj</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Файлы заголовков\Drawing_obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Файлы заголовков\Drawing_obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Файлы заголовков\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameController.h">
+      <Filter>Файлы заголовков\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameView.h">
+      <Filter>Файлы заголовков\Views</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllersContext.cpp">
+      <Filter>Исходные файлы\Contexts</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerControllersContext.cpp">
+      <Filter>Исходные файлы\Contexts</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOptionController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Player1Controller.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Player2Controller.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePrepareController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePrepareModel.cpp">
+      <Filter>Исходные файлы\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionModel.cpp">
+      <Filter>Исходные файлы\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Player1Model.cpp">
+      <Filter>Исходные файлы\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Player2Model.cpp">
+      <Filter>Исходные файлы\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticModel.cpp">
+      <Filter>Исходные файлы\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOptionView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePrepareView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Player1View.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Player2View.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Исходные файлы\Drowing_obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Ship.cpp">
+      <Filter>Исходные файлы\Drowing_obj</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Исходные файлы\Drowing_obj</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameController.cpp">
+      <Filter>Исходные файлы\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameView.cpp">
+      <Filter>Исходные файлы\Views</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+lab*/.vs
+
+lab*/Debug
+
+lab*/x64
+
+
+lab*/lab*/Debug
+
+lab*/lab*/x64
+
+*.txt
+*.csv

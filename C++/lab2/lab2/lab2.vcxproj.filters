@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\workers">
+      <UniqueIdentifier>{57de5c02-e183-4c73-b37c-795b5291c1fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\workers">
+      <UniqueIdentifier>{fd0ca668-7281-4f73-bfce-f3940b63a95f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\interfaces">
+      <UniqueIdentifier>{33b7bde4-1af5-42d3-847e-59bdda69c456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\creators">
+      <UniqueIdentifier>{542ed344-a97b-46f4-b819-55c09362e643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\creators">
+      <UniqueIdentifier>{80f8358c-47bc-42d5-a59e-8b5c6eec4c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\exceptions">
+      <UniqueIdentifier>{6290f4d3-e238-4060-a223-921dfdb69c47}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWorkflowParser.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ReaderWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="WriterWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="GrepWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="SortWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="ReplaceWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="DumpWorker.cpp">
+      <Filter>Исходные файлы\workers</Filter>
+    </ClCompile>
+    <ClCompile Include="DumpCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="GrepCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="ReaderCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="ReplaceCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="SortCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="WriterCreator.cpp">
+      <Filter>Исходные файлы\creators</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkflowExecutor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFactory.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CONSTSPACE.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWorkflowParser.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaderWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="WriterWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="GrepWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="SortWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="ReplaceWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="DumpWorker.h">
+      <Filter>Файлы заголовков\workers</Filter>
+    </ClInclude>
+    <ClInclude Include="Worker.h">
+      <Filter>Файлы заголовков\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Creator.h">
+      <Filter>Файлы заголовков\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="DumpCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="GrepCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="ReaderCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="ReplaceCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="SortCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="WriterCreator.h">
+      <Filter>Файлы заголовков\creators</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkflowExecutor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkflowParser.h">
+      <Filter>Файлы заголовков\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="BadInputFile.h">
+      <Filter>Файлы заголовков\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="BadSyntax.h">
+      <Filter>Файлы заголовков\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="IncompatibleWorkersTypes.h">
+      <Filter>Файлы заголовков\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Файлы заголовков\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFactory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BadArguments.h">
+      <Filter>Файлы заголовков\exceptions</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
