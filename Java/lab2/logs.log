@@ -1,0 +1,5 @@
+[2022-02-15 20:35:41] [INFO   ] Logger successfully launched! 
+[2022-02-15 20:35:41] [INFO   ] [SISExecutor] SISExecutor started and constructed! 
+[2022-02-15 20:35:49] [INFO   ] [SISExecutor] Read PUSH command 
+[2022-02-15 20:35:54] [INFO   ] [SISExecutor] Read SQRT command 
+[2022-02-15 20:35:54] [SEVERE ] [SISExecutor] Failed to execute command SQRT 
