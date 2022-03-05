@@ -27,7 +27,12 @@ public class DefineCommand extends Command {
             number = Double.parseDouble(this.getArgs().get(CONSTSPACE.NUM_NAME_ARG));
             context.addVariable(this.getArgs().get(CONSTSPACE.VAR_NAME_ARG), number);
         } catch (NumberFormatException ex) {
-            throw new CommandRunTimeException(this.getClass().getSimpleName(), this.getArgs().get(CONSTSPACE.NUM_NAME_ARG) + CONSTSPACE.NAN_ERROR);
+            try {
+                number = context.getVariableValue(this.getArgs().get(CONSTSPACE.NUM_NAME_ARG));
+                context.addVariable(this.getArgs().get(CONSTSPACE.VAR_NAME_ARG), number);
+            } catch (BadVariableException e) {
+                throw new CommandRunTimeException(this.getClass().getSimpleName(), this.getArgs().get(CONSTSPACE.NUM_NAME_ARG) + CONSTSPACE.NAN_OR_NAV_ERROR);
+            }
         } catch (BadVariableException ex) {
             throw new CommandRunTimeException(this.getClass().getSimpleName(), this.getArgs().get(CONSTSPACE.VAR_NAME_ARG) + CONSTSPACE.BAD_NAME_ERROR);
         }

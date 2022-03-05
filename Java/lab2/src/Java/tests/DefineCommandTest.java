@@ -48,6 +48,16 @@ class DefineCommandTest {
     }
 
     @Test
+    void executeSimpleTest4() throws CommandRunTimeException, BadArgsException, BadVariableException {
+        DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A B".split(" "))));
+        CommandContext context = new CommandContext();
+        context.addVariable("B", 9.0);
+        defineCommand.execute(context);
+
+        assertEquals(9.0, context.getVariableValue("A"));
+    }
+
+    @Test
     void executeExceptionTest1() throws CommandRunTimeException, BadArgsException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE #A 9".split(" "))));
         CommandContext context = new CommandContext();
@@ -62,6 +72,7 @@ class DefineCommandTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    @Test
     void executeExceptionTest2() throws CommandRunTimeException, BadArgsException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A A".split(" "))));
         CommandContext context = new CommandContext();
@@ -70,7 +81,7 @@ class DefineCommandTest {
             defineCommand.execute(context);
         });
 
-        String expectedMessage = "A - NAN";
+        String expectedMessage = "A - Not a number or variable";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
