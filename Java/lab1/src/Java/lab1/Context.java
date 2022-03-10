@@ -10,7 +10,7 @@ public class Context {
     private Map<String, Integer> context;
     private int wordCount;
 
-    static private final int shift = 1;
+    static private final int SHIFT = 1;
 
     {
         context = new HashMap<String, Integer>();
@@ -18,7 +18,7 @@ public class Context {
     }
 
     public void addNewWord(String word) {
-        if (context.containsKey(word)) context.put(word, context.get(word) + shift);
+        if (context.containsKey(word)) context.put(word, context.get(word) + SHIFT);
         else context.put(word, 1);
         wordCount++;
     }

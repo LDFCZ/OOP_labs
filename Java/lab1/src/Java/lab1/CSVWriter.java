@@ -13,8 +13,8 @@ public class CSVWriter {
         fileWriter = new FileWriter(fileName);
     }
 
-    public void write(List<String> CSVLine) throws IOException {
-        String result_CSV_line = String.join(separator, CSVLine);
+    public void write(List<String> csvLine) throws IOException {
+        String result_CSV_line = String.join(separator, csvLine);
         fileWriter.write(result_CSV_line + System.lineSeparator());
     }
 

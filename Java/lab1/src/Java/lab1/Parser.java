@@ -6,7 +6,7 @@ public class Parser {
     private FileReader reader;
     private Context context;
 
-    static private final int badValue = -1;
+    static private final int BAD_VALUE = -1;
 
     public Parser(FileReader reader, Context context) {
         this.reader = reader;
@@ -16,7 +16,7 @@ public class Parser {
     public void readFile() {
         StringBuilder word = new StringBuilder();
         while (true) {
-            int value = badValue;
+            int value = BAD_VALUE;
             try {
                 value = reader.getValue();
             } catch (IOException ex) {
@@ -24,7 +24,7 @@ public class Parser {
                 ex.printStackTrace();
                 return;
             }
-            if (value != badValue) {
+            if (value != BAD_VALUE) {
                 if (Character.isLetterOrDigit((char)value)) {
                     word.append((char)value);
                 }
