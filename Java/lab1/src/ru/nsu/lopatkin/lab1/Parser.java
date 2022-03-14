@@ -1,10 +1,10 @@
-package Java.lab1;
+package ru.nsu.lopatkin.lab1;
 
 import java.io.IOException;
 
 public class Parser {
-    private FileReader reader;
-    private Context context;
+    private final FileReader reader;
+    private final Context context;
 
     static private final int BAD_VALUE = -1;
 

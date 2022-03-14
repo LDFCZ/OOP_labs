@@ -1,11 +1,12 @@
-package Java.lab1;
+package ru.nsu.lopatkin.lab1;
 
+import java.io.Closeable;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class CSVWriter {
-    private FileWriter fileWriter;
+public class CSVWriter implements Closeable {
+    private final FileWriter fileWriter;
 
     static private final String separator = ",";
 
@@ -18,6 +19,7 @@ public class CSVWriter {
         fileWriter.write(result_CSV_line + System.lineSeparator());
     }
 
+    @Override
     public void close() throws IOException {
         fileWriter.flush();
         fileWriter.close();

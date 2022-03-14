@@ -1,11 +1,11 @@
-package Java.lab1;
+package ru.nsu.lopatkin.lab1;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class FileReader {
-    private BufferedReader buffer;
-    private FileInputStream fileStream;
+public class FileReader implements Closeable{
+    private final BufferedReader buffer;
+    private final FileInputStream fileStream;
 
     public FileReader(String fileName) throws IOException {
         fileStream = new FileInputStream(fileName);
@@ -16,6 +16,7 @@ public class FileReader {
         return buffer.read();
     }
 
+    @Override
     public void close() throws IOException {
         buffer.close();
         fileStream.close();

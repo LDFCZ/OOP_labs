@@ -1,4 +1,4 @@
-package Java.lab1;
+package ru.nsu.lopatkin.lab1;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 public class Context {
-    private Map<String, Integer> context;
+    private final Map<String, Integer> context;
     private int wordCount;
 
     static private final int SHIFT = 1;

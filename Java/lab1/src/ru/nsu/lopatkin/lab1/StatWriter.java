@@ -1,4 +1,4 @@
-package Java.lab1;
+package ru.nsu.lopatkin.lab1;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StatWriter {
-    private CSVWriter writer;
-    private Context context;
+    private final CSVWriter writer;
+    private final Context context;
 
     public StatWriter(CSVWriter writer, Context context) {
         this.writer = writer;

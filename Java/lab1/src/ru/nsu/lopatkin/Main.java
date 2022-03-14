@@ -1,11 +1,11 @@
-package Java;
+package ru.nsu.lopatkin;
 
 
-import Java.lab1.CSVWriter;
-import Java.lab1.StatWriter;
-import Java.lab1.Context;
-import Java.lab1.FileReader;
-import Java.lab1.Parser;
+import ru.nsu.lopatkin.lab1.CSVWriter;
+import ru.nsu.lopatkin.lab1.StatWriter;
+import ru.nsu.lopatkin.lab1.Context;
+import ru.nsu.lopatkin.lab1.FileReader;
+import ru.nsu.lopatkin.lab1.Parser;
 
 import java.io.IOException;
 
@@ -23,11 +23,9 @@ public class Main {
             return;
         }
         Context context = new Context();
-        FileReader reader = null;
-        CSVWriter writer = null;
-        try {
-            reader = new FileReader(args[INPUT_FILE_NAME]);
-            writer = new CSVWriter(args[OUTPUT_FILE_NAME]);
+
+
+        try (FileReader reader = new FileReader(args[INPUT_FILE_NAME]); CSVWriter writer = new CSVWriter(args[OUTPUT_FILE_NAME])){
 
         Parser parser = new Parser(reader, context);
         parser.readFile();
