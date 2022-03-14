@@ -8,9 +8,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class GameButton extends Button {
     private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('red_button_pressed.png');";
@@ -21,7 +19,12 @@ public class GameButton extends Button {
     public GameButton(String text) {
 
         this.setText(text);
-        //this.setFont(Font.loadFont(this.getClass().getResourceAsStream("kenvector_future.ttf"), 23.0D));
+        try {
+            this.setFont(Font.loadFont(new FileInputStream(FONT_PATH), FONT_SIZE));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
         this.setPrefWidth(190.0D);
         this.setPrefHeight(49.0D);
         this.setStyle(BUTTON_FREE_STYLE);

@@ -1,6 +1,5 @@
-package game.minesweeper.views;
+package game.minesweeper.views.GUI;
 
-import game.minesweeper.controllers.MenuControllerGUI;
 import game.minesweeper.utils.GameButton;
 import game.minesweeper.utils.GameSubScene;
 import javafx.event.ActionEvent;

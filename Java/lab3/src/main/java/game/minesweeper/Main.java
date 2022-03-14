@@ -1,9 +1,7 @@
 package game.minesweeper;
 
-import game.minesweeper.views.MenuViewGUI;
+import game.minesweeper.views.GUI.MenuViewGUI;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
