@@ -1,5 +1,11 @@
-[2022-02-15 20:35:41] [INFO   ] Logger successfully launched! 
-[2022-02-15 20:35:41] [INFO   ] [SISExecutor] SISExecutor started and constructed! 
-[2022-02-15 20:35:49] [INFO   ] [SISExecutor] Read PUSH command 
-[2022-02-15 20:35:54] [INFO   ] [SISExecutor] Read SQRT command 
-[2022-02-15 20:35:54] [SEVERE ] [SISExecutor] Failed to execute command SQRT 
+2022-03-18 16:58:12 INFO  Main:21 - Application started and constructed!
+2022-03-18 16:58:12 INFO  SISExecutor:23 - SISExecutor started and constructed!
+2022-03-18 16:58:17 INFO  Main:42 - Application ended)
+2022-03-18 17:03:39 INFO  Main:21 - Application started and constructed!
+2022-03-18 17:03:39 INFO  SISExecutor:23 - SISExecutor started and constructed!
+2022-03-18 17:03:47 INFO  SISExecutor:42 - Read PUSH command
+2022-03-18 17:03:50 INFO  SISExecutor:42 - Read PUSH command
+2022-03-18 17:03:53 INFO  SISExecutor:42 - Read DEFINE command
+2022-03-18 17:03:53 ERROR SISExecutor:54 - bad num of args for command DEFINE
+2022-03-18 17:03:58 INFO  SISExecutor:42 - Read + command
+2022-03-18 17:04:01 INFO  Main:42 - Application ended)
