@@ -31,7 +31,7 @@ class MulCommandTest {
     }
 
     @Test
-    void executeExceptionTest1() throws CommandRunTimeException {
+    void executeExceptionTestFullEmptyStack() throws CommandRunTimeException {
         CommandContext context = new CommandContext();
 
         Exception exception = assertThrows(CommandRunTimeException.class, () -> {
@@ -45,7 +45,7 @@ class MulCommandTest {
     }
 
     @Test
-    void executeExceptionTest2() throws CommandRunTimeException {
+    void executeExceptionTestNotFullEmptyStack() throws CommandRunTimeException {
         CommandContext context = new CommandContext();
         context.addElementToTop(5.0);
 

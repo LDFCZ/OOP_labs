@@ -16,7 +16,7 @@ class PushCommandTest {
 
 
     @Test
-    void executeSimpleTest1() throws CommandRunTimeException, BadArgsException {
+    void executeSimpleTestNum() throws CommandRunTimeException, BadArgsException {
         PushCommand pushCommand = new PushCommand(new ArrayList<String>(Arrays.asList("PUSH 9".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -26,7 +26,7 @@ class PushCommandTest {
     }
 
     @Test
-    void executeExceptionTest1() throws CommandRunTimeException, BadArgsException {
+    void executeExceptionTestNoSuchVar() throws CommandRunTimeException, BadArgsException {
         PushCommand pushCommand = new PushCommand(new ArrayList<String>(Arrays.asList("PUSH a".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -42,7 +42,7 @@ class PushCommandTest {
     }
 
     @Test
-    void executeSimpleTest2() throws CommandRunTimeException, BadArgsException, BadVariableException {
+    void executeSimpleTestVar() throws CommandRunTimeException, BadArgsException, BadVariableException {
         PushCommand pushCommand = new PushCommand(new ArrayList<String>(Arrays.asList("PUSH a".split(" "))));
         CommandContext context = new CommandContext();
 

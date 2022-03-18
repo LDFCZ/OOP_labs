@@ -29,7 +29,7 @@ class PrintCommandTest {
     }
 
     @Test
-    void executeExceptionTest1() throws CommandRunTimeException {
+    void executeExceptionTestEmptyStack() throws CommandRunTimeException {
         CommandContext context = new CommandContext();
 
         Exception exception = assertThrows(CommandRunTimeException.class, () -> {

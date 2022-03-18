@@ -31,7 +31,7 @@ class SqrtCommandTest {
     }
 
     @Test
-    void executeExceptionTest1() throws CommandRunTimeException {
+    void executeExceptionTestEmptyStack() throws CommandRunTimeException {
         CommandContext context = new CommandContext();
 
         Exception exception = assertThrows(CommandRunTimeException.class, () -> {
@@ -45,7 +45,7 @@ class SqrtCommandTest {
     }
 
     @Test
-    void executeExceptionTest2() throws CommandRunTimeException {
+    void executeExceptionTestComplexNum() throws CommandRunTimeException {
         CommandContext context = new CommandContext();
         context.addElementToTop(-3.0);
         Exception exception = assertThrows(CommandRunTimeException.class, () -> {

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DefineCommandTest {
     @Test
-    void executeSimpleTest1() throws CommandRunTimeException, BadArgsException, BadVariableException {
+    void executeSimpleTestVarNum() throws CommandRunTimeException, BadArgsException, BadVariableException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A 9".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -25,7 +25,7 @@ class DefineCommandTest {
     }
 
     @Test
-    void executeSimpleTest2() throws CommandRunTimeException, BadArgsException, BadVariableException {
+    void executeSimpleTestHardNameVarNum() throws CommandRunTimeException, BadArgsException, BadVariableException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE Aa_9 9".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -35,7 +35,7 @@ class DefineCommandTest {
     }
 
     @Test
-    void executeSimpleTest3() throws CommandRunTimeException, BadArgsException, BadVariableException {
+    void executeSimpleTestVarHardNum() throws CommandRunTimeException, BadArgsException, BadVariableException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A 9.0".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -45,7 +45,7 @@ class DefineCommandTest {
     }
 
     @Test
-    void executeSimpleTest4() throws CommandRunTimeException, BadArgsException, BadVariableException {
+    void executeSimpleTestVarVar() throws CommandRunTimeException, BadArgsException, BadVariableException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A B".split(" "))));
         CommandContext context = new CommandContext();
         context.addVariable("B", 9.0);
@@ -55,7 +55,7 @@ class DefineCommandTest {
     }
 
     @Test
-    void executeExceptionTest1() throws CommandRunTimeException, BadArgsException {
+    void executeExceptionTestBadVarName() throws CommandRunTimeException, BadArgsException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE #A 9".split(" "))));
         CommandContext context = new CommandContext();
 
@@ -70,7 +70,7 @@ class DefineCommandTest {
     }
 
     @Test
-    void executeExceptionTest2() throws CommandRunTimeException, BadArgsException {
+    void executeExceptionTestNoSuchVar() throws CommandRunTimeException, BadArgsException {
         DefineCommand defineCommand = new DefineCommand(new ArrayList<String>(Arrays.asList("DEFINE A A".split(" "))));
         CommandContext context = new CommandContext();
 
