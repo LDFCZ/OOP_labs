@@ -57,7 +57,9 @@ public class FileExecutor implements Executor{
         for (Command command : commandList) {
             try {
                 log.info(ConstSpace.LOG_EXECUTE_INFO_2 + command.getCommandName());
-                command.execute(context);
+                String res = command.execute(context);
+                if (res != null)
+                    System.out.print(res + System.lineSeparator());
             } catch (CommandRunTimeException ex) {
                 log.error(ConstSpace.EXECUTION_ERROR + command.getCommandName());
                 System.out.print(ex.getMessage());
