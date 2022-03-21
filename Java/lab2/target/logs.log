@@ -1,0 +1,181 @@
+2022-03-21 17:14:24 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:14:24 INFO  SISExecutor:23 - SISExecutor started and constructed!
+2022-03-21 17:14:27 INFO  SISExecutor:42 - Read PUSH command
+2022-03-21 17:14:30 INFO  Main:42 - Application ended)
+2022-03-21 17:15:33 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:15:33 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:15:33 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:15:33 INFO  SISExecutor:79 - Read PUSH command
+2022-03-21 17:15:33 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:15:33 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:15:33 INFO  SISExecutor:79 - Read + command
+2022-03-21 17:15:33 INFO  SISExecutor:79 - Read PRINT command
+2022-03-21 17:15:33 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:15:33 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:15:33 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:15:33 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:15:33 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:15:33 ERROR SISExecutor:62 - Failed to execute command +
+2022-03-21 17:15:33 INFO  Main:42 - Application ended)
+2022-03-21 17:15:51 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:15:51 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:15:51 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read PUSH command
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read PUSH command
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read + command
+2022-03-21 17:15:52 INFO  SISExecutor:79 - Read PRINT command
+2022-03-21 17:15:52 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:15:52 INFO  SISExecutor:59 - Start to execute commandPRINT
+2022-03-21 17:15:52 INFO  Main:42 - Application ended)
+2022-03-21 17:16:02 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:16:02 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:16:02 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read PUSH command
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read DEFINE command
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read PUSH command
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read + command
+2022-03-21 17:16:02 INFO  SISExecutor:79 - Read PRINT command
+2022-03-21 17:16:02 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:16:02 INFO  SISExecutor:59 - Start to execute commandPRINT
+2022-03-21 17:16:02 INFO  Main:42 - Application ended)
+2022-03-21 17:17:25 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:17:25 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:17:25 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:17:25 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:17:25 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:17:25 INFO  SISExecutor:59 - Start to execute commandPRINT
+2022-03-21 17:17:25 INFO  Main:42 - Application ended)
+2022-03-21 17:17:56 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:17:56 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:17:56 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:17:56 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:17:56 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:17:56 INFO  SISExecutor:59 - Start to execute commandPRINT
+2022-03-21 17:17:56 INFO  Main:42 - Application ended)
+2022-03-21 17:18:13 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:18:13 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:18:13 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:18:13 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:18:13 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute commandDEFINE
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute command+
+2022-03-21 17:18:13 INFO  SISExecutor:59 - Start to execute commandPRINT
+2022-03-21 17:18:13 INFO  Main:42 - Application ended)
+2022-03-21 17:18:37 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:18:37 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:18:37 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:18:37 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:18:37 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:18:37 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:18:37 ERROR SISExecutor:64 - Failed to execute command PUSH
+2022-03-21 17:18:37 INFO  Main:42 - Application ended)
+2022-03-21 17:18:56 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:18:56 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:18:56 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:18:56 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:18:56 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:18:56 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:18:56 ERROR SISExecutor:64 - Failed to execute command PUSH
+2022-03-21 17:18:56 INFO  Main:42 - Application ended)
+2022-03-21 17:19:08 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:19:08 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:19:08 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read + command
+2022-03-21 17:19:08 INFO  SISExecutor:81 - Read PRINT command
+2022-03-21 17:19:08 INFO  SISExecutor:56 - Start to execute commands
+2022-03-21 17:19:08 INFO  SISExecutor:59 - Start to execute commandPUSH
+2022-03-21 17:19:08 ERROR SISExecutor:64 - Failed to execute command PUSH
+2022-03-21 17:19:08 INFO  Main:42 - Application ended)
+2022-03-21 17:19:18 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:19:18 INFO  SISExecutor:40 - FileExecutor started and constructed!
+2022-03-21 17:19:18 INFO  SISExecutor:47 - Start to read file
+2022-03-21 17:19:18 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:19:18 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:19:18 INFO  SISExecutor:81 - Read DEFINE command
+2022-03-21 17:19:18 INFO  SISExecutor:81 - Read PUSH command
+2022-03-21 17:19:18 INFO  SISExecutor:81 - Read ++ command
+2022-03-21 17:19:18 ERROR SISExecutor:92 - File reading failed, command not found 
+Command ++ not found
+2022-03-21 17:19:18 INFO  Main:42 - Application ended)
+2022-03-21 17:19:26 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:19:26 INFO  SISExecutor:23 - SISExecutor started and constructed!
+2022-03-21 17:19:31 INFO  SISExecutor:42 - Read PUSH command
+2022-03-21 17:19:31 ERROR SISExecutor:58 - Failed to execute command PUSH
+2022-03-21 17:19:32 INFO  SISExecutor:42 - Read  command
+2022-03-21 17:19:32 ERROR SISExecutor:50 - Failed to create command . No such command
+2022-03-21 17:19:37 INFO  SISExecutor:42 - Read PUSH command
+2022-03-21 17:19:41 INFO  SISExecutor:42 - Read PRINT command
+2022-03-21 17:19:54 INFO  SISExecutor:42 - Read  command
+2022-03-21 17:19:54 ERROR SISExecutor:50 - Failed to create command . No such command
+2022-03-21 17:19:56 INFO  SISExecutor:42 - Read EOF command
+2022-03-21 17:19:56 ERROR SISExecutor:50 - Failed to create command EOF. No such command
+2022-03-21 17:20:11 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:20:11 INFO  SISExecutor:23 - SISExecutor started and constructed!
+2022-03-21 17:20:15 INFO  SISExecutor:42 - Read PUSH command
+2022-03-21 17:20:17 INFO  SISExecutor:42 - Read SQRT command
+2022-03-21 17:20:17 ERROR SISExecutor:58 - Failed to execute command SQRT
+2022-03-21 17:20:20 INFO  SISExecutor:42 - Read  command
+2022-03-21 17:20:20 ERROR SISExecutor:50 - Failed to create command . No such command
+2022-03-21 17:20:28 INFO  SISExecutor:42 - Read PUSH command
+2022-03-21 17:20:30 INFO  SISExecutor:42 - Read + command
+2022-03-21 17:20:33 INFO  SISExecutor:42 - Read SQRT command
+2022-03-21 17:20:35 INFO  SISExecutor:42 - Read PRINT command
+2022-03-21 17:20:46 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:20:46 ERROR Main:25 - Args Count Exception
+2022-03-21 17:20:53 INFO  Main:21 - Application started and constructed!
+2022-03-21 17:20:53 ERROR Main:33 - Bad Input File Exception

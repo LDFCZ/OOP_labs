@@ -34,7 +34,9 @@ public class Parser {
                 }
             }
             else {
-              return;
+                context.addNewWord(word.toString());
+                word.delete(0, word.length());
+                return;
             }
         }
     }
