@@ -1,5 +1,6 @@
-package game.minesweeper.utils;
+package game.minesweeper.utils.GUI;
 
+import game.minesweeper.constspace.ConstSpace;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -11,36 +12,33 @@ import javafx.scene.text.Font;
 import java.io.*;
 
 public class GameButton extends Button {
-    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('red_button_pressed.png');";
-    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('red_button.png');";
-    private final String FONT_PATH = "src/main/resources/kenvector_future.ttf";
-    private final int FONT_SIZE = 23;
+
+    public static final double WIDTH = 190;
+    public static final double HEIGHT = 49;
+    public static final double PRESSED_HEIGHT = 45;
+    public static final double SHIFT = 4;
+    private static final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('red_button_pressed.png');";
+    private static final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('red_button.png');";
 
     public GameButton(String text) {
-
         this.setText(text);
-        try {
-            this.setFont(Font.loadFont(new FileInputStream(FONT_PATH), FONT_SIZE));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        this.setPrefWidth(190.0D);
-        this.setPrefHeight(49.0D);
+        this.setFont(ConstSpace.getDefaultFont());
+        this.setPrefWidth(WIDTH);
+        this.setPrefHeight(HEIGHT);
         this.setStyle(BUTTON_FREE_STYLE);
         this.initializeButtonListeners();
     }
 
     private void setButtonPressedStyle() {
         this.setStyle(BUTTON_PRESSED_STYLE);
-        this.setPrefHeight(45.0D);
-        this.setLayoutY(this.getLayoutY() + 4.0D);
+        this.setPrefHeight(PRESSED_HEIGHT);
+        this.setLayoutY(this.getLayoutY() + SHIFT);
     }
 
     private void setButtonReleasedStyle() {
         this.setStyle(BUTTON_FREE_STYLE);
-        this.setPrefHeight(45.0D);
-        this.setLayoutY(this.getLayoutY() - 4.0D);
+        this.setPrefHeight(PRESSED_HEIGHT);
+        this.setLayoutY(this.getLayoutY() - SHIFT);
     }
 
     private void initializeButtonListeners() {
