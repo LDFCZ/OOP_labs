@@ -20,9 +20,10 @@ public class ViewGUI {
         return stage;
     }
 
-    public void show() {stage.show();}
+    public void show() { stage.show(); }
 
     public void setNewScene(AnchorPane anchorPane) {
         stage.setScene(new Scene(anchorPane, WIDTH, HEIGHT));
+        stage.setResizable(false);
     }
 }

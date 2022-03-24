@@ -1,6 +1,8 @@
 package game.minesweeper.views.GUI;
 
 import game.minesweeper.constspace.ConstSpace;
+import game.minesweeper.controllers.MenuController;
+import game.minesweeper.models.GameModel;
 import game.minesweeper.models.StatModel;
 import game.minesweeper.utils.GUI.*;
 import game.minesweeper.utils.Mode;
@@ -15,12 +17,11 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MenuViewGUI extends ViewGUI {
 
-    //private final MenuControllerGUI menuController;
+    private final MenuController menuController;
+    private final GameModel gameModel;
     private final StatModel statModel = new StatModel();
 
     private final List<GameButton> buttons;
@@ -37,9 +38,10 @@ public class MenuViewGUI extends ViewGUI {
     private GameSubScene statSubScene;
     private GameSubScene playSubScene;
 
-    public MenuViewGUI(Stage stage) {
+    public MenuViewGUI(Stage stage, GameModel gameModel) {
         super(stage);
-
+        this.gameModel = gameModel;
+        this.menuController = new MenuController(gameModel);
         buttons = new ArrayList<>();
 
         createSubScenes();
@@ -139,12 +141,8 @@ public class MenuViewGUI extends ViewGUI {
             @Override
             public void handle(ActionEvent e) {
                 if (!name.getText().isEmpty()) {
-                    Pattern p = Pattern.compile(ConstSpace.REGEX, Pattern.CASE_INSENSITIVE);
-                    Matcher m = p.matcher(name.getText());
-
-                    if (m.matches()) {
-                        // TODO переход в минера :)
-                        System.out.print(name.getText());
+                    if (menuController.setPlayerName(name.getText())) {
+                        GameViewGUI new_view = new GameViewGUI(getStage(), gameModel, gameModel.getMode(), gameModel.getPlayerName());
                     }
                     else {
                         InfoLabel label = new InfoLabel(ConstSpace.BAD_NAME);
@@ -264,11 +262,13 @@ public class MenuViewGUI extends ViewGUI {
                     }
                     modeToPick.setIsCircleChosen(true);
                     chosenMod = modeToPick.getMode();
+                    menuController.setFieldParameters(chosenMod);
                 }
             });
             if (modeToPick.getMode() == Mode.SMALL) {
                 modeToPick.setIsCircleChosen(true);
                 chosenMod = modeToPick.getMode();
+                menuController.setFieldParameters(chosenMod);
             }
         }
         box.setLayoutX(ConstSpace.STAT_TOP_LAYOUT_POS);
