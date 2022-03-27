@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class MainGUI extends Application {
 
     public static final String MINESWEEPER = "Minesweeper";
 

@@ -9,6 +9,10 @@ import javafx.scene.input.MouseEvent;
 
 public class FieldPiece extends Button {
 
+    public static final String F = "F";
+    public static final String MINE = "*";
+    public static final String ZERO = "0";
+    public static final String CLOSE = "#";
     private final int x;
     private final int y;
 
@@ -32,16 +36,16 @@ public class FieldPiece extends Button {
     }
 
     public void setCondition(String condition) {
-        if (condition.equals("F")) {
+        if (condition.equals(F)) {
             this.setStyle(BUTTON_FLAG_STYLE);
-        } else if (condition.equals("*")) {
+        } else if (condition.equals(MINE)) {
             this.setStyle(BUTTON_MINE_STYLE);
-        } else if (condition.equals("0")) {
+        } else if (condition.equals(ZERO)) {
             this.setStyle(BUTTON_OPEN_STYLE);
-        } else if (condition.equals("#")){
+        } else if (condition.equals(CLOSE)){
             this.setStyle(BUTTON_CLOSE_STYLE);
         } else {
-            this.setText(String.valueOf(condition));
+            this.setText(condition);
             this.setStyle(BUTTON_OPEN_STYLE);
         }
     }

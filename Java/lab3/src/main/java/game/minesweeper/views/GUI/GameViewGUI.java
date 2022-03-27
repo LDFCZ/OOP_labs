@@ -20,6 +20,23 @@ import javafx.stage.Stage;
 import java.util.Vector;
 
 public class GameViewGUI extends ViewGUI{
+
+    public static final String BACK = "BACK";
+    public static final int BACK_BUTTON_LAYOUT_X = 400;
+    public static final int BACK_BUTTON_LAYOUT_Y = 718;
+    public static final int LAYOUT_X_START = 162;
+    public static final int CELL_SIZE = 40;
+    public static final int LAYOUT_Y_START = 15;
+    public static final String WIN = "WIN";
+    public static final String OK = "OK";
+    public static final int END_GAME_X = 224;
+    public static final int END_GAME_Y = 100;
+    public static final int LABEL_X = 270;
+    public static final int LABEL_Y = 250;
+    public static final int BACK_X = 215;
+    public static final int BACK_Y = 300;
+    public static final String MINES = "Mines: ";
+
     private final GameModel gameModel;
     private final GameController gameController;
 
@@ -43,9 +60,9 @@ public class GameViewGUI extends ViewGUI{
     }
 
     private void createBackButton() {
-        GameButton backButton = new GameButton("BACK");
-        backButton.setLayoutX(400);
-        backButton.setLayoutY(718);
+        GameButton backButton = new GameButton(BACK);
+        backButton.setLayoutX(BACK_BUTTON_LAYOUT_X);
+        backButton.setLayoutY(BACK_BUTTON_LAYOUT_Y);
         anchorPane.getChildren().add(backButton);
         createMineCounter();
         backButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -61,10 +78,10 @@ public class GameViewGUI extends ViewGUI{
     private void createField() {
         double size = gameModel.getFieldSize();
         field = new Vector<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < gameModel.getFieldSize(); i++) {
             field.add(new Vector<>());
-            for (int j = 0; j < size; j++) {
-                FieldPiece fp = new FieldPiece(162 + 700/size * i, 15 + 700/size*j, i, j, 700/size - 1);
+            for (int j = 0; j < gameModel.getFieldSize(); j++) {
+                FieldPiece fp = new FieldPiece(LAYOUT_X_START + CELL_SIZE * i, LAYOUT_Y_START + CELL_SIZE * j, i, j, CELL_SIZE);
                 int finalI = i;
                 int finalJ = j;
                 fp.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -89,7 +106,7 @@ public class GameViewGUI extends ViewGUI{
     private void processMove(MoveResults result) {
         if (result == MoveResults.WIN) {
             gameController.writeStat();
-            endGame("WIN");
+            endGame(WIN);
         } else if (result == MoveResults.LOSE) {
             gameController.endGame();
         }
@@ -99,16 +116,16 @@ public class GameViewGUI extends ViewGUI{
         anchorPane.getChildren().clear();
         GameSubScene endScene = new GameSubScene();
 
-        endScene.setLayoutX(224);
-        endScene.setLayoutY(100);
+        endScene.setLayoutX(END_GAME_X);
+        endScene.setLayoutY(END_GAME_Y);
 
         GameLabel label = new GameLabel(status);
-        label.setLayoutX(270);
-        label.setLayoutY(250);
+        label.setLayoutX(LABEL_X);
+        label.setLayoutY(LABEL_Y);
 
-        GameButton back = new GameButton("OK");
-        back.setLayoutX(215);
-        back.setLayoutY(300);
+        GameButton back = new GameButton(OK);
+        back.setLayoutX(BACK_X);
+        back.setLayoutY(BACK_Y);
 
         back.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -131,7 +148,7 @@ public class GameViewGUI extends ViewGUI{
     }
 
     private void createMineCounter() {
-        mineCounter = new GameLabel("Mines: " + gameModel.getMineCount());
+        mineCounter = new GameLabel(MINES + gameModel.getMineCount());
         mineCounter.setLayoutX(600);
         mineCounter.setLayoutY(730);
         anchorPane.getChildren().add(mineCounter);

@@ -14,6 +14,13 @@ import java.util.*;
 import static java.util.Comparator.comparing;
 
 public class GameController {
+    public static final String F = "F";
+    public static final String CLOSE = "#";
+    public static final int MINE = 10;
+    public static final String MINE_STR = "*";
+    public static final int SHIFT = 1;
+    public static final String DATABASE_PROBLEMS = "database problems\n";
+
     private final GameModel gameModel;
     private final Mode mode;
     private final String playerName;
@@ -40,7 +47,7 @@ public class GameController {
             frontEndField.add(new Vector<>());
             for (int j = 0; j < mode.getFieldSize(); j++) {
                 backEndField.get(i).add(0);
-                frontEndField.get(i).add("#");
+                frontEndField.get(i).add(CLOSE);
             }
         }
         gameModel.setMode(mode);
@@ -53,10 +60,10 @@ public class GameController {
 
     public MoveResults setFlag(int x, int y) {
         if (endGame) return MoveResults.LOSE;
-        if (frontEndField.get(x).get(y).equals("F"))
-            frontEndField.get(x).set(y, "#");
-        else if (frontEndField.get(x).get(y).equals("#"))
-            frontEndField.get(x).set(y, "F");
+        if (frontEndField.get(x).get(y).equals(F))
+            frontEndField.get(x).set(y, CLOSE);
+        else if (frontEndField.get(x).get(y).equals(CLOSE))
+            frontEndField.get(x).set(y, F);
         else return MoveResults.EMPTY;
 
         gameModel.setFields(backEndField, frontEndField);
@@ -65,14 +72,14 @@ public class GameController {
 
     public MoveResults openCell(int x, int y) {
         if (endGame) return MoveResults.LOSE;
-        if (!frontEndField.get(x).get(y).equals("#"))
+        if (!frontEndField.get(x).get(y).equals(CLOSE))
             return MoveResults.EMPTY;
-        if (backEndField.get(x).get(y) == 10) { // if mine
+        if (backEndField.get(x).get(y) == MINE) { // if mine
             openMinesCells();
             gameModel.setFields(backEndField, frontEndField);
             return MoveResults.LOSE;
         }
-        if (frontEndField.get(x).get(y).equals("F")) // if flag
+        if (frontEndField.get(x).get(y).equals(F)) // if flag
             return MoveResults.EMPTY;
         if (!isGameStarts) {
             setMines(x, y);
@@ -86,7 +93,7 @@ public class GameController {
     private Boolean checkWin() {
         for (int i = 0; i < mode.getFieldSize(); i++) {
             for (int j = 0; j < mode.getFieldSize(); j++) {
-                if (frontEndField.get(i).get(j).equals("#"))
+                if (frontEndField.get(i).get(j).equals(CLOSE))
                     return false;
             }
         }
@@ -96,14 +103,14 @@ public class GameController {
     private void openMinesCells() {
         for (int i = 0; i < mode.getFieldSize(); i++) {
             for (int j = 0; j < mode.getFieldSize(); j++) {
-                if (backEndField.get(i).get(j) == 10)
-                    frontEndField.get(i).set(j, "*");
+                if (backEndField.get(i).get(j) == MINE)
+                    frontEndField.get(i).set(j, MINE_STR);
             }
         }
     }
 
     private Boolean isValid(int x, int y) {
-        return  x >= 0 && x < mode.getFieldSize()  && y >= 0 && y < mode.getFieldSize() && frontEndField.get(x).get(y).equals("#");
+        return  x >= 0 && x < mode.getFieldSize()  && y >= 0 && y < mode.getFieldSize() && frontEndField.get(x).get(y).equals(CLOSE);
     }
 
     private void openEmptyCells(int x, int y) {
@@ -112,17 +119,17 @@ public class GameController {
             return;
         }
 
-        if (isValid(x - 1, y))
-        openEmptyCells(x - 1, y);
+        if (isValid(x - SHIFT, y))
+        openEmptyCells(x - SHIFT, y);
 
-        if (isValid(x, y - 1))
-            openEmptyCells(x, y - 1);
+        if (isValid(x, y - SHIFT))
+            openEmptyCells(x, y - SHIFT);
 
-        if (isValid(x + 1, y))
-        openEmptyCells(x + 1, y);
+        if (isValid(x + SHIFT, y))
+        openEmptyCells(x + SHIFT, y);
 
-        if (isValid(x, y + 1))
-            openEmptyCells(x, y + 1);
+        if (isValid(x, y + SHIFT))
+            openEmptyCells(x, y + SHIFT);
 
     }
 
@@ -138,51 +145,51 @@ public class GameController {
             y = pos % mode.getFieldSize();
 
             if (x == 0 && y == 0) {
-                backEndField.get(x).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y, backEndField.get(x).get(y) + 1);
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
             }
-            else if (x == mode.getFieldSize() - 1 && y == mode.getFieldSize() - 1) {
-                backEndField.get(x).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y, backEndField.get(x).get(y) + 1);
+            else if (x == mode.getFieldSize() - SHIFT && y == mode.getFieldSize() - SHIFT) {
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
             }
             else if (x == 0) {
-                backEndField.get(x).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y, backEndField.get(x).get(y) + 1);
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
             } else if (y == 0) {
-                backEndField.get(x-1).set(y, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y, backEndField.get(x).get(y) + 1);
-            } else if (x == mode.getFieldSize() - 1) {
-                backEndField.get(x).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y + 1, backEndField.get(x).get(y) + 1);
-            } else if (y == mode.getFieldSize() - 1) {
-                backEndField.get(x + 1).set(y, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y, backEndField.get(x).get(y) + 1);
+                backEndField.get(x- SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+            } else if (x == mode.getFieldSize() - SHIFT) {
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+            } else if (y == mode.getFieldSize() - SHIFT) {
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
             }
             else {
-                backEndField.get(x + 1).set(y, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y + 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y, backEndField.get(x).get(y) + 1);
-                backEndField.get(x - 1).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x).set(y - 1, backEndField.get(x).get(y) + 1);
-                backEndField.get(x + 1).set(y + 1, backEndField.get(x).get(y) + 1);
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
+                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
             }
-            backEndField.get(x).set(y, 10); // set mine
+            backEndField.get(x).set(y, MINE); // set mine
             gameModel.setFields(backEndField, frontEndField);
         }
     }
@@ -196,17 +203,17 @@ public class GameController {
 
                 String[] data = line.split(CSV_SEPARATOR);
                 if (data[ConstSpace.NAME].equals(playerName)) {
-                    data[ConstSpace.COUNT] = String.valueOf(Integer.parseInt(data[ConstSpace.COUNT]) + 1);
+                    data[ConstSpace.COUNT] = String.valueOf(Integer.parseInt(data[ConstSpace.COUNT]) + SHIFT);
                     flag = true;
                 }
                 inData.add(new Pair<>(data[ConstSpace.NAME], Integer.parseInt(data[ConstSpace.COUNT])));
             }
 
         } catch (Exception e) {
-            System.out.print("database problems\n");
+            System.out.print(DATABASE_PROBLEMS);
         }
 
-        if (!flag) inData.add(new Pair<>(playerName, 1));
+        if (!flag) inData.add(new Pair<>(playerName, 1)); //first time play
 
         inData.sort(comparing(Pair::getValue));
         Collections.reverse(inData);
@@ -220,7 +227,7 @@ public class GameController {
             }
             fileWriter.flush();
         } catch (Exception e) {
-            System.out.print("database problems\n");
+            System.out.print(DATABASE_PROBLEMS);
         }
     }
 

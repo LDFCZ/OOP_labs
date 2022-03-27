@@ -9,6 +9,7 @@ import java.util.List;
 public class StatModel {
     private static final String STAT_PATH = "src/main/resources/data.csv";
     private static final String CSV_SEPARATOR = ",";
+    public static final String DATABASE_PROBLEMS = "database problems\n";
 
     public List<String[]> getStat() {
         String line = "";
@@ -21,7 +22,7 @@ public class StatModel {
                 outputData.add(data);
             }
         } catch (Exception e) {
-            System.out.print("database problems\n");
+            System.out.print(DATABASE_PROBLEMS);
         }
 
         return outputData;
