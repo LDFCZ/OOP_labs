@@ -2,7 +2,7 @@ package game.minesweeper.utils;
 
 public enum Mode {
 
-    SMALL(9,12),
+    SMALL(9,1),
     MEDIUM(16,35),
     HARD(16,100);
 

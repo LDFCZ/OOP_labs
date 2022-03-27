@@ -20,8 +20,8 @@ public class StatModel {
                 String[] data = line.split(CSV_SEPARATOR);
                 outputData.add(data);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.print("database problems\n");
         }
 
         return outputData;

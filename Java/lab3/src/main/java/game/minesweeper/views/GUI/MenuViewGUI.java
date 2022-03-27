@@ -71,7 +71,6 @@ public class MenuViewGUI extends ViewGUI {
     }
 
     private void createSubScenes() {
-        //
         helpSubScene = new GameSubScene();
         anchorPane.getChildren().add(helpSubScene);
         GameLabel helpText = new GameLabel(ConstSpace.HELP_TEXT);
@@ -123,7 +122,7 @@ public class MenuViewGUI extends ViewGUI {
     private void refreshPlaySubScene() {
         playSubScene.getPane().getChildren().clear();
 
-        final TextField name = new TextField();
+        TextField name = new TextField();
         name.setPrefWidth(ConstSpace.PREF_WIDTH);
         name.setPrefHeight(ConstSpace.PREF_HEIGHT);
         name.setFont(ConstSpace.getSmallFont());
@@ -197,7 +196,7 @@ public class MenuViewGUI extends ViewGUI {
         statSubScene.getPane().getChildren().add(topLabel);
         for (String[] d : data) {
             if (i == ConstSpace.MAX_TOP_PLAYERS_COUNT) break;
-            GameLabel label = new GameLabel(String.valueOf(i+1) + ConstSpace.BRACKET + d[ConstSpace.NAME] + ConstSpace.SPACE + d[ConstSpace.COUNT]);
+            GameLabel label = new GameLabel(String.valueOf(i + 1) + ConstSpace.BRACKET + d[ConstSpace.NAME] + ConstSpace.SPACE + d[ConstSpace.COUNT]);
             label.setLayoutX(ConstSpace.STAT_TOP_LAYOUT_POS);
             label.setLayoutY(ConstSpace.STAT_Y_LAYOUT_POS + i++ * ConstSpace.SMALL_SHIFT);
             statSubScene.getPane().getChildren().add(label);
@@ -212,7 +211,6 @@ public class MenuViewGUI extends ViewGUI {
 
             @Override
             public void handle(ActionEvent event) {
-
                 showSubScene(helpSubScene);
             }
         });
@@ -226,7 +224,6 @@ public class MenuViewGUI extends ViewGUI {
 
             @Override
             public void handle(ActionEvent event) {
-
                 showSubScene(settingsSubScene);
             }
         });

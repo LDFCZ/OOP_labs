@@ -12,12 +12,10 @@ public class FieldPiece extends Button {
     private final int x;
     private final int y;
 
-    private Boolean isFlag = false;
-    private Boolean isOpen = false;
-
     private static final String BUTTON_CLOSE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('field_piece_1.png');";
     private static final String BUTTON_FLAG_STYLE = "-fx-background-color: transparent; -fx-background-image: url('field_piece_flag.png');";
     private static final String BUTTON_OPEN_STYLE = "-fx-background-color: transparent; -fx-background-image: url('field_piece_2.png');";
+    private static final String BUTTON_MINE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('mine.png');";
 
     public FieldPiece(double posX, double posY, int x, int y, double size) {
 
@@ -33,24 +31,18 @@ public class FieldPiece extends Button {
         initializeButtonListeners();
     }
 
-    public void setFlag() {
-        if (!isFlag && !isOpen) {
+    public void setCondition(String condition) {
+        if (condition.equals("F")) {
             this.setStyle(BUTTON_FLAG_STYLE);
-            isFlag = true;
-        } else if(isOpen) {
+        } else if (condition.equals("*")) {
+            this.setStyle(BUTTON_MINE_STYLE);
+        } else if (condition.equals("0")) {
             this.setStyle(BUTTON_OPEN_STYLE);
-        } else {
+        } else if (condition.equals("#")){
             this.setStyle(BUTTON_CLOSE_STYLE);
-            isFlag = false;
-        }
-    }
-
-    public void setOpen(int mineCount) {
-        if (!isFlag) {
-            if (mineCount != 0)
-                this.setText(String.valueOf(mineCount));
+        } else {
+            this.setText(String.valueOf(condition));
             this.setStyle(BUTTON_OPEN_STYLE);
-            isOpen = true;
         }
     }
 
