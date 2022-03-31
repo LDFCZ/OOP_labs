@@ -14,7 +14,7 @@ import java.util.*;
 import static java.util.Comparator.comparing;
 
 public class GameController {
-    public static final String F = "F";
+    public static final String FLAG = "F";
     public static final String CLOSE = "#";
     public static final int MINE = 10;
     public static final String MINE_STR = "*";
@@ -60,10 +60,10 @@ public class GameController {
 
     public MoveResults setFlag(int x, int y) {
         if (endGame) return MoveResults.LOSE;
-        if (frontEndField.get(x).get(y).equals(F))
+        if (frontEndField.get(x).get(y).equals(FLAG))
             frontEndField.get(x).set(y, CLOSE);
         else if (frontEndField.get(x).get(y).equals(CLOSE))
-            frontEndField.get(x).set(y, F);
+            frontEndField.get(x).set(y, FLAG);
         else return MoveResults.EMPTY;
 
         gameModel.setFields(backEndField, frontEndField);
@@ -79,7 +79,7 @@ public class GameController {
             gameModel.setFields(backEndField, frontEndField);
             return MoveResults.LOSE;
         }
-        if (frontEndField.get(x).get(y).equals(F)) // if flag
+        if (frontEndField.get(x).get(y).equals(FLAG)) // if flag
             return MoveResults.EMPTY;
         if (!isGameStarts) {
             setMines(x, y);
@@ -91,12 +91,17 @@ public class GameController {
     }
 
     private Boolean checkWin() {
+        int flagCounter = 0;
         for (int i = 0; i < mode.getFieldSize(); i++) {
             for (int j = 0; j < mode.getFieldSize(); j++) {
                 if (frontEndField.get(i).get(j).equals(CLOSE))
                     return false;
+                if (frontEndField.get(i).get(j).equals(FLAG))
+                    flagCounter++;
             }
         }
+        if (flagCounter != mode.getMineCount())
+            return false;
         return true;
     }
 
