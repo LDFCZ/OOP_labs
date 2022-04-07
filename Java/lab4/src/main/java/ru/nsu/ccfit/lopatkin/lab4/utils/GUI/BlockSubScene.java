@@ -6,7 +6,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 
-public class BlockSubScene extends SubScene {
+public final class BlockSubScene extends SubScene {
 
     private final Slider slider = new Slider();
     private final InfoLabel label = new InfoLabel();

@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.lopatkin.lab4.utils.GUI;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,7 +12,7 @@ import javafx.scene.text.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class InfoLabel extends Label {
+public final class InfoLabel extends Label {
 
     private final static String FONT_PATH = "src/main/resources/PastiRegular.otf";
     public final static String BACKGROUND_IMAGE = "label.png";
