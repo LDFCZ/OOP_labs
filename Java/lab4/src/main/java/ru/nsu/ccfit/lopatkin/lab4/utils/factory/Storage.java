@@ -18,7 +18,7 @@ public class Storage<T extends Product> {
     public double getOccupancy() {
         return items.size() / (double)storageCapacity;
     }
-
+    public int getStorageCapacity() { return  storageCapacity; }
     public synchronized T get() {
         while (items.size() < 1) {
             try {

@@ -72,7 +72,7 @@ public class MainView {
 
     private void createAccessoriesSuppliers(ScrollSubScene accessoriesSuppliersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < carFactory.getWorkerCount(); i++) {
+        for (int i = 0; i < carFactory.getSupplierCount(); i++) {
             container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
         }
         accessoriesSuppliersSubScene.getPane().setContent(container);
