@@ -1,6 +1,6 @@
 package game.minesweeper.utils.GUI;
 
-import game.minesweeper.constspace.ConstSpace;
+import game.minesweeper.constspace.FontGetter;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -26,7 +26,7 @@ public class FieldPiece extends Button {
         this.x = x;
         this.y = y;
 
-        this.setFont(ConstSpace.getDefaultFont());
+        this.setFont(FontGetter.getInstance().getSmallFont());
         this.setPrefWidth(size);
         this.setPrefHeight(size);
         this.setLayoutX(posX);

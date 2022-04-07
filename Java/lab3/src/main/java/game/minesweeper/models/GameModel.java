@@ -13,17 +13,13 @@ public class GameModel {
     private int mineCount;
     private int fieldSize;
 
-    private Boolean isFirstStep;
-
-    private Vector<Vector<Integer>> backEndField;
     private Vector<Vector<String>> frontEndField;
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
-    public void setFields(Vector<Vector<Integer>> backEndField, Vector<Vector<String>> frontEndField) {
-        this.backEndField = backEndField;
+    public void setFields(Vector<Vector<String>> frontEndField) {
         this.frontEndField = frontEndField;
     }
 

@@ -19,7 +19,6 @@ public class GameController {
     public static final int MINE = 10;
     public static final String MINE_STR = "*";
     public static final int SHIFT = 1;
-    public static final String DATABASE_PROBLEMS = "database problems\n";
 
     private final GameModel gameModel;
     private final Mode mode;
@@ -32,7 +31,6 @@ public class GameController {
     private Boolean isGameStarts = false;
     private Boolean endGame = false;
 
-    private static final String STAT_PATH = "src/main/resources/data.csv";
     private static final String CSV_SEPARATOR = ",";
 
 
@@ -51,7 +49,7 @@ public class GameController {
             }
         }
         gameModel.setMode(mode);
-        gameModel.setFields(backEndField, frontEndField);
+        gameModel.setFields(frontEndField);
     }
 
     public void endGame() {
@@ -66,7 +64,7 @@ public class GameController {
             frontEndField.get(x).set(y, FLAG);
         else return MoveResults.EMPTY;
 
-        gameModel.setFields(backEndField, frontEndField);
+        gameModel.setFields(frontEndField);
         return  checkWin() ? MoveResults.WIN : MoveResults.EMPTY;
     }
 
@@ -76,7 +74,7 @@ public class GameController {
             return MoveResults.EMPTY;
         if (backEndField.get(x).get(y) == MINE) { // if mine
             openMinesCells();
-            gameModel.setFields(backEndField, frontEndField);
+            gameModel.setFields(frontEndField);
             return MoveResults.LOSE;
         }
         if (frontEndField.get(x).get(y).equals(FLAG)) // if flag
@@ -86,7 +84,7 @@ public class GameController {
             isGameStarts = true;
         }
         openEmptyCells(x, y);
-        gameModel.setFields(backEndField, frontEndField);
+        gameModel.setFields(frontEndField);
         return  checkWin() ? MoveResults.WIN : MoveResults.EMPTY;
     }
 
@@ -140,70 +138,62 @@ public class GameController {
 
     private void setMines(int x, int y) {
         Vector<Integer> positions = new Vector<>();
+        Vector<Integer> minePositions = new Vector<>();
         for (int i = 0; i < mode.getFieldSize() * mode.getFieldSize(); i++) positions.add(i);
 
         positions.remove(x * mode.getFieldSize() + y);
 
         for(int i = 0; i < mode.getMineCount(); i++) {
             int pos = positions.remove((int)(Math.random() * positions.size()));
+            minePositions.add(pos);
             x = pos / mode.getFieldSize();
             y = pos % mode.getFieldSize();
 
-            if (x == 0 && y == 0) {
-                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-            }
-            else if (x == mode.getFieldSize() - SHIFT && y == mode.getFieldSize() - SHIFT) {
-                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-            }
-            else if (x == 0) {
-                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-            } else if (y == 0) {
-                backEndField.get(x- SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-            } else if (x == mode.getFieldSize() - SHIFT) {
-                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-            } else if (y == mode.getFieldSize() - SHIFT) {
-                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-            }
-            else {
-                backEndField.get(x + SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y) + SHIFT);
-                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x).get(y) + SHIFT);
-            }
-            backEndField.get(x).set(y, MINE); // set mine
-            gameModel.setFields(backEndField, frontEndField);
+            try {
+                backEndField.get(x + SHIFT).set(y, backEndField.get(x + SHIFT).get(y) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x + SHIFT).set(y - SHIFT, backEndField.get(x + SHIFT).get(y - SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x).set(y - SHIFT, backEndField.get(x).get(y - SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x - SHIFT).set(y - SHIFT, backEndField.get(x - SHIFT).get(y - SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x - SHIFT).set(y, backEndField.get(x - SHIFT).get(y) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x - SHIFT).set(y + SHIFT, backEndField.get(x - SHIFT).get(y + SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x).set(y + SHIFT, backEndField.get(x).get(y + SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
+
+            try {
+                backEndField.get(x + SHIFT).set(y + SHIFT, backEndField.get(x + SHIFT).get(y + SHIFT) + SHIFT);
+            } catch (Exception ignored) {}
         }
+        for (Integer minePosition : minePositions) {
+            x = minePosition / mode.getFieldSize();
+            y = minePosition % mode.getFieldSize();
+            backEndField.get(x).set(y, MINE); // set mine
+        }
+        gameModel.setFields(frontEndField);
     }
 
     public void writeStat() {
         String line = "";
         ArrayList<Pair<String ,Integer>> inData = new ArrayList<>();
         boolean flag = false;
-        try (BufferedReader br = new BufferedReader(new FileReader(STAT_PATH))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(ConstSpace.STAT_PATH))) {
             while ((line = br.readLine()) != null) {
 
                 String[] data = line.split(CSV_SEPARATOR);
@@ -215,7 +205,7 @@ public class GameController {
             }
 
         } catch (Exception e) {
-            System.out.print(DATABASE_PROBLEMS);
+            System.out.print(ConstSpace.DATABASE_PROBLEMS);
         }
 
         if (!flag) inData.add(new Pair<>(playerName, 1)); //first time play
@@ -224,7 +214,7 @@ public class GameController {
         Collections.reverse(inData);
 
 
-        try (FileWriter fileWriter = new FileWriter(STAT_PATH);) {
+        try (FileWriter fileWriter = new FileWriter(ConstSpace.STAT_PATH);) {
             for (Pair<String ,Integer> p: inData ) {
 
                 String result_CSV_line = p.getKey() + CSV_SEPARATOR + p.getValue();
@@ -232,7 +222,7 @@ public class GameController {
             }
             fileWriter.flush();
         } catch (Exception e) {
-            System.out.print(DATABASE_PROBLEMS);
+            System.out.print(ConstSpace.DATABASE_PROBLEMS);
         }
     }
 

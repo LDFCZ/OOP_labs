@@ -1,33 +1,10 @@
 package game.minesweeper.constspace;
 
-import javafx.scene.text.Font;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 public class ConstSpace {
-    private final static String FONT_PATH = "src/main/resources/kenvector_future.ttf";
+    public final static String FONT_PATH = "src/main/resources/kenvector_future.ttf";
 
-    private static Font DEFAULT_FONT = null;
-    private static Font SMALL_FONT = null;
-
-    static {
-        try {
-            DEFAULT_FONT = Font.loadFont(new FileInputStream(FONT_PATH), 23);
-            SMALL_FONT = Font.loadFont(new FileInputStream(FONT_PATH), 14);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Font getDefaultFont() {
-        return DEFAULT_FONT;
-    }
-
-    public static Font getSmallFont() {
-        return SMALL_FONT;
-    }
-
+    public static final String STAT_PATH = "src/main/resources/data.csv";
+    public static final String DATABASE_PROBLEMS = "database problems\n";
     public static final String BG_IMAGE = "bg.jpg";
     public final static int MENU_BUTTON_START_X = 100;
     public final static int MENU_BUTTON_START_Y = 100;

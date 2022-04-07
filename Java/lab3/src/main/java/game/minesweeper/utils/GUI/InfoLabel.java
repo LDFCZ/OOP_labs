@@ -1,6 +1,6 @@
 package game.minesweeper.utils.GUI;
 
-import game.minesweeper.constspace.ConstSpace;
+import game.minesweeper.constspace.FontGetter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -28,7 +28,7 @@ public class InfoLabel extends Label{
         setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER_LEFT);
         setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
-        setFont(ConstSpace.getSmallFont());
+        setFont(FontGetter.getInstance().getSmallFont());
         setText(text);
     }
 }

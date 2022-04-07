@@ -25,7 +25,7 @@ public class GameViewGUI extends ViewGUI{
     public static final int BACK_BUTTON_LAYOUT_X = 400;
     public static final int BACK_BUTTON_LAYOUT_Y = 718;
     public static final int LAYOUT_X_START = 162;
-    public static final int CELL_SIZE = 40;
+    public static final int CELL_SIZE = 41;
     public static final int LAYOUT_Y_START = 15;
     public static final String WIN = "WIN";
     public static final String OK = "OK";

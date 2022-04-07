@@ -1,6 +1,7 @@
 package game.minesweeper.views.GUI;
 
 import game.minesweeper.constspace.ConstSpace;
+import game.minesweeper.constspace.FontGetter;
 import game.minesweeper.controllers.MenuController;
 import game.minesweeper.models.GameModel;
 import game.minesweeper.models.StatModel;
@@ -125,7 +126,7 @@ public class MenuViewGUI extends ViewGUI {
         TextField name = new TextField();
         name.setPrefWidth(ConstSpace.PREF_WIDTH);
         name.setPrefHeight(ConstSpace.PREF_HEIGHT);
-        name.setFont(ConstSpace.getSmallFont());
+        name.setFont(FontGetter.getInstance().getSmallFont());
         name.setPromptText(ConstSpace.PROMPT_TEXT);
         name.setLayoutX(ConstSpace.PLAY_LAYOUT_START_POS);
         name.setLayoutY(ConstSpace.PLAY_LAYOUT_START_POS);
@@ -262,7 +263,12 @@ public class MenuViewGUI extends ViewGUI {
                     menuController.setFieldParameters(chosenMod);
                 }
             });
-            if (modeToPick.getMode() == Mode.SMALL) {
+            if (modeToPick.getMode() == Mode.SMALL && gameModel.getMode() == null) {
+                modeToPick.setIsCircleChosen(true);
+                chosenMod = modeToPick.getMode();
+                menuController.setFieldParameters(chosenMod);
+            }
+            if (modeToPick.getMode() == gameModel.getMode()) {
                 modeToPick.setIsCircleChosen(true);
                 chosenMod = modeToPick.getMode();
                 menuController.setFieldParameters(chosenMod);

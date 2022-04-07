@@ -1,15 +1,13 @@
 package game.minesweeper.utils.GUI;
 
-import game.minesweeper.constspace.ConstSpace;
+
+import game.minesweeper.constspace.FontGetter;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
-
-import java.io.*;
 
 public class GameButton extends Button {
 
@@ -22,7 +20,7 @@ public class GameButton extends Button {
 
     public GameButton(String text) {
         this.setText(text);
-        this.setFont(ConstSpace.getDefaultFont());
+        this.setFont(FontGetter.getInstance().getDefaultFont());
         this.setPrefWidth(WIDTH);
         this.setPrefHeight(HEIGHT);
         this.setStyle(BUTTON_FREE_STYLE);
