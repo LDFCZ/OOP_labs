@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.lopatkin.lab4.utils.GUI;
+package ru.nsu.ccfit.lopatkin.lab4.GUI.utils;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -29,7 +29,6 @@ public final class InfoLabel extends Label {
             e.printStackTrace();
         }
     }
-
     public InfoLabel() {
         this("");
     }

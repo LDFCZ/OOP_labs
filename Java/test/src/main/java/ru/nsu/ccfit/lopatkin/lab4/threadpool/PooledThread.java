@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.lopatkin.lab4.threadpool;
 
+import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
+
 import java.util.ArrayDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 

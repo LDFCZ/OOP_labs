@@ -1,28 +1,27 @@
-package ru.nsu.ccfit.lopatkin.lab4.views;
-
+package ru.nsu.ccfit.lopatkin.lab4.GUI.views;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import ru.nsu.ccfit.lopatkin.lab4.factory.CarFactory;
-import ru.nsu.ccfit.lopatkin.lab4.utils.GUI.BlockSlider;
-import ru.nsu.ccfit.lopatkin.lab4.utils.GUI.BlockSubScene;
-import ru.nsu.ccfit.lopatkin.lab4.utils.GUI.InfoLabel;
-import ru.nsu.ccfit.lopatkin.lab4.utils.GUI.ScrollSubScene;
+//import ru.nsu.ccfit.lopatkin.lab4.factory.CarFactory;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSlider;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSubScene;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.InfoLabel;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.ScrollSubScene;
 
-public class MainView {
+public class FactoryView {
 
     private final AnchorPane anchorPane = new AnchorPane();
     private final Stage stage;
 
-    private final CarFactory carFactory;
+    //private final CarFactory carFactory;
 
-    public MainView (Stage stage, CarFactory factory) {
+    public FactoryView (Stage stage) {
         this.stage = stage;
         this.stage.setScene(new Scene(anchorPane, 1635, 900));
 
-        carFactory = factory;
+        //carFactory = factory;
 
         // TODO создание всего и вся
         createBlockSubScenes();
@@ -54,26 +53,26 @@ public class MainView {
 
     private void createDealers(ScrollSubScene dealersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < carFactory.getDealerCount(); i++) {
-            BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105, 1000, 6000);
-            container.getChildren().add(bs);
-        }
+        //for (int i = 0; i < carFactory.getDealerCount(); i++) {
+        //    BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105, 1000, 6000);
+        //    container.getChildren().add(bs);
+        //}
         dealersSubScene.getPane().setContent(container);
     }
 
     private void createWorkers(ScrollSubScene workersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < carFactory.getWorkerCount(); i++) {
-            container.getChildren().add(new BlockSubScene("Worker " + String.valueOf(i + 1), 50, i * 105));
-        }
+        //for (int i = 0; i < carFactory.getWorkerCount(); i++) {
+       //     container.getChildren().add(new BlockSubScene("Worker " + String.valueOf(i + 1), 50, i * 105));
+        //}
         workersSubScene.getPane().setContent(container);
     }
 
     private void createAccessoriesSuppliers(ScrollSubScene accessoriesSuppliersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < carFactory.getSupplierCount(); i++) {
-            container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
-        }
+        //for (int i = 0; i < carFactory.getSupplierCount(); i++) {
+        //    container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
+        //}
         accessoriesSuppliersSubScene.getPane().setContent(container);
     }
 
@@ -109,3 +108,4 @@ public class MainView {
         anchorPane.setBackground(new Background(background));
     }
 }
+

@@ -74,7 +74,7 @@ public class CarFactory {
                 accessoriesSupplierThreadPool.addTask(supplyAccessories);
                 engineSupplierThreadPool.addTask(supplyEngine);
                 carBodySupplierThreadPool.addTask(supplyCarBody);
-                workerThreadPool.addTask();
+                //workerThreadPool.addTask();
             }
         });
     }

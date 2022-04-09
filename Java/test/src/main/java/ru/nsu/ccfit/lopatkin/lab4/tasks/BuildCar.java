@@ -1,15 +1,14 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
-import ru.nsu.ccfit.lopatkin.lab4.factory.CarFactory;
+import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
 import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
-import ru.nsu.ccfit.lopatkin.lab4.threadpool.Task;
-import ru.nsu.ccfit.lopatkin.lab4.utils.factory.Storage;
+import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
 
 public class BuildCar implements Task {
-    private final CarFactory carFactory;
+
     private final int workerID; // for logging
 
     private final Storage<Accessories> accessoriesStorage;
@@ -20,10 +19,9 @@ public class BuildCar implements Task {
     private int delay;
     private float progress;
 
-    public BuildCar(CarFactory carFactory, int workerID, int delay,
-                    Storage<Accessories> accessoriesStorage, Storage<CarBody> carBodyStorage, Storage<Engine> engineStorage, Storage<Car> carStorage) {
-        this.carFactory = carFactory;
-        this.workerID = workerID;
+    public BuildCar(int delay, Storage<Accessories> accessoriesStorage, Storage<CarBody> carBodyStorage, Storage<Engine> engineStorage, Storage<Car> carStorage) {
+
+        this.workerID = 0;
         this.accessoriesStorage = accessoriesStorage;
         this.carBodyStorage = carBodyStorage;
         this.engineStorage = engineStorage;

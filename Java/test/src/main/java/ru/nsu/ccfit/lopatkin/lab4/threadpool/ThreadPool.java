@@ -1,12 +1,14 @@
 package ru.nsu.ccfit.lopatkin.lab4.threadpool;
 
+import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
+
 import java.util.ArrayDeque;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class ThreadPool {
     private final ArrayDeque<Task> taskQueue = new ArrayDeque();
-    private int maxTaskQueueSize;
+    private final int maxTaskQueueSize;
 
     private final Set<PooledThread> availableThreads = new LinkedHashSet<>();
 
@@ -28,12 +30,17 @@ public class ThreadPool {
 
     public void addTask(Task t) {
         synchronized (taskQueue) {
-            if (taskQueue.size() >= maxTaskQueueSize) {
+            try {
+                if (taskQueue.size() >= maxTaskQueueSize) {
+                    taskQueue.notifyAll();
+                    taskQueue.wait();
+                    return;
+                }
+                taskQueue.add(t);
                 taskQueue.notifyAll();
-                return;
+            }catch (InterruptedException e) {
+                // TODO smth
             }
-            taskQueue.add(t);
-            taskQueue.notifyAll();
         }
     }
 
