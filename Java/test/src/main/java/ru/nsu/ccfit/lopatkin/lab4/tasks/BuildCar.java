@@ -22,6 +22,7 @@ public class BuildCar implements Task {
     public BuildCar(int delay, Storage<Accessories> accessoriesStorage, Storage<CarBody> carBodyStorage, Storage<Engine> engineStorage, Storage<Car> carStorage) {
 
         this.workerID = 0;
+        this.delay = delay;
         this.accessoriesStorage = accessoriesStorage;
         this.carBodyStorage = carBodyStorage;
         this.engineStorage = engineStorage;
@@ -36,22 +37,26 @@ public class BuildCar implements Task {
 
     @Override
     public void performWork() throws InterruptedException {
-        try {
-            int d = delay;
-            for (int i = 0; i < d; i++) {
-                Thread.sleep(1);  //I know, this is very bad, but I want to do a progress bar :)
-                progress = i/(float)d;
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                int d = delay;
+                System.out.println(d);
+                for (int i = 0; i < d; i++) {
+                    Thread.sleep(1);  //I know, this is very bad, but I want to do a progress bar :)
+                    progress = i / (float) d;
+                }
+                accessoriesStorage.get();
+                engineStorage.get();
+                carBodyStorage.get();
+                carStorage.put(new Car(0));
+                System.out.println("!" + carStorage.getOccupancy() + "!");
+                // TODO put all in the car
+            } catch (InterruptedException e) {
+                // TODO interrupted
+            } catch (Exception e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
-            accessoriesStorage.get();
-            engineStorage.get();
-            carBodyStorage.get();
-            carStorage.put(new Car(0));
-            // TODO put all in the car
-        } catch (InterruptedException e) {
-            // TODO interrupted
-        } catch (Exception e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
         }
     }
 

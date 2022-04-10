@@ -23,7 +23,7 @@ public class FactoryCreator {
 
     private final int dealerCount;
     private final int workerCount;
-    private final int supplierCount;
+    private final int accessoriesSupplierCount;
 
     private ThreadPool accessoriesSupplierThreadPool;
     private ThreadPool engineSupplierThreadPool;
@@ -84,7 +84,7 @@ public class FactoryCreator {
 
         dealerCount = Integer.parseInt(properties.getProperty("NumberOfDealers"));
         workerCount = Integer.parseInt(properties.getProperty("NumberOfWorkers"));
-        supplierCount = Integer.parseInt(properties.getProperty("NumberOfSuppliers"));
+        accessoriesSupplierCount = Integer.parseInt(properties.getProperty("NumberOfSuppliers"));
 
         createThreadPools();
 
@@ -100,8 +100,8 @@ public class FactoryCreator {
         return workerCount;
     }
 
-    public int getSupplierCount() {
-        return supplierCount;
+    public int getAccessoriesSupplierCount() {
+        return accessoriesSupplierCount;
     }
 
     private void createStorages() {
@@ -112,7 +112,7 @@ public class FactoryCreator {
     }
 
     private void createThreadPools() {
-        accessoriesSupplierThreadPool = new ThreadPool(supplierCount);
+        accessoriesSupplierThreadPool = new ThreadPool(accessoriesSupplierCount);
         engineSupplierThreadPool = new ThreadPool(1);
         carBodySupplierThreadPool = new ThreadPool(1);
         workerThreadPool = new ThreadPool(workerCount, workerCount);
@@ -126,7 +126,8 @@ public class FactoryCreator {
     }
 
     private void runSuppliers() {
-        accessoriesSupplierThreadPool.addTask(supplyAccessories);
+        for (int i = 0; i < accessoriesSupplierCount; i++)
+            accessoriesSupplierThreadPool.addTask(supplyAccessories);
         engineSupplierThreadPool.addTask(supplyEngine);
         carBodySupplierThreadPool.addTask(supplyCarBody);
     }

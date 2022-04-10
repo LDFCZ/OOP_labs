@@ -28,9 +28,14 @@ public class FactoryController implements Runnable {
 
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        for (int i = 0; i < 2; i++) {
+            System.out.println("!");
             workersThreadPool.addTask(new BuildCar(buildCarDelay, accessoriesStorage, carBodyStorage, engineStorage, carStorage));
         }
+        //while (!Thread.currentThread().isInterrupted()) {
+        //    System.out.println("!");
+        //    workersThreadPool.addTask(new BuildCar(buildCarDelay, accessoriesStorage, carBodyStorage, engineStorage, carStorage));
+        //}
     }
 
     public void setBuildCarDelay(int delay) {

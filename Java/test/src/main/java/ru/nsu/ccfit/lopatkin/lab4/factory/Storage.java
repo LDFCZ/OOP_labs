@@ -28,7 +28,7 @@ public class Storage<T extends Product> {
             }
             catch (InterruptedException ignored) {}
         }
-        T item = items.getLast();
+        T item = items.remove();
         notify();
         return item;
     }

@@ -29,15 +29,17 @@ public class ThreadPool {
 
 
     public void addTask(Task t) {
+        System.out.println(t.getTaskName());
         synchronized (taskQueue) {
             try {
                 if (taskQueue.size() >= maxTaskQueueSize) {
-                    taskQueue.notifyAll();
                     taskQueue.wait();
                     return;
                 }
-                taskQueue.add(t);
-                taskQueue.notifyAll();
+                else {
+                    taskQueue.add(t);
+                    taskQueue.notifyAll();
+                }
             }catch (InterruptedException e) {
                 // TODO smth
             }

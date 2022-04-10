@@ -1,24 +1,33 @@
 package ru.nsu.ccfit.lopatkin.lab4.GUI.views;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-//import ru.nsu.ccfit.lopatkin.lab4.factory.CarFactory;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSlider;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSubScene;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.InfoLabel;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.ScrollSubScene;
+import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
+import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryCreator;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FactoryView {
 
     private final AnchorPane anchorPane = new AnchorPane();
     private final Stage stage;
 
-    //private final CarFactory carFactory;
+    private final FactoryCreator factoryCreator;
+    private final FactoryController factoryController;
+    private final Timer upd = new Timer();
 
-    public FactoryView (Stage stage) {
+    public FactoryView (Stage stage, FactoryCreator factoryCreator, FactoryController factoryController) {
         this.stage = stage;
+        this.factoryCreator = factoryCreator;
+        this.factoryController = factoryController;
         this.stage.setScene(new Scene(anchorPane, 1635, 900));
 
         //carFactory = factory;
@@ -53,26 +62,26 @@ public class FactoryView {
 
     private void createDealers(ScrollSubScene dealersSubScene) {
         final AnchorPane container = new AnchorPane();
-        //for (int i = 0; i < carFactory.getDealerCount(); i++) {
-        //    BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105, 1000, 6000);
-        //    container.getChildren().add(bs);
-        //}
+        for (int i = 0; i < factoryCreator.getDealerCount(); i++) {
+            BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105, 1000, 6000);
+            container.getChildren().add(bs);
+        }
         dealersSubScene.getPane().setContent(container);
     }
 
     private void createWorkers(ScrollSubScene workersSubScene) {
         final AnchorPane container = new AnchorPane();
-        //for (int i = 0; i < carFactory.getWorkerCount(); i++) {
-       //     container.getChildren().add(new BlockSubScene("Worker " + String.valueOf(i + 1), 50, i * 105));
-        //}
+        for (int i = 0; i < factoryCreator.getWorkerCount(); i++) {
+            container.getChildren().add(new BlockSubScene("Worker " + String.valueOf(i + 1), 50, i * 105));
+        }
         workersSubScene.getPane().setContent(container);
     }
 
     private void createAccessoriesSuppliers(ScrollSubScene accessoriesSuppliersSubScene) {
         final AnchorPane container = new AnchorPane();
-        //for (int i = 0; i < carFactory.getSupplierCount(); i++) {
-        //    container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
-        //}
+        for (int i = 0; i < factoryCreator.getAccessoriesSupplierCount(); i++) {
+            container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
+        }
         accessoriesSuppliersSubScene.getPane().setContent(container);
     }
 
@@ -98,6 +107,21 @@ public class FactoryView {
         carsSold.setLayoutY(810);
 
         anchorPane.getChildren().addAll(bodySupplier, bodyStore, engineSupplier, engineStore, accessoriesStore, carsStore, carsStoreController, carsSold);
+
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    carsStore.setProgress(factoryCreator.getCarStorage().getOccupancy());
+                    bodyStore.setProgress(factoryCreator.getCarBodyStorage().getOccupancy());
+                    accessoriesStore.setProgress(factoryCreator.getAccessoriesStorage().getOccupancy());
+                    engineStore.setProgress(factoryCreator.getEngineStorage().getOccupancy());
+                });
+            }
+        };
+
+        upd.schedule(task, 0, 300);
 
     }
 
