@@ -1,19 +1,21 @@
 package ru.nsu.ccfit.lopatkin.lab4.GUI.views;
 
 import javafx.application.Platform;
+
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.controller.FactoryViewController;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSlider;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSubScene;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.InfoLabel;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.ScrollSubScene;
-import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
+
 import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryCreator;
 
-import java.util.Timer;
-import java.util.TimerTask;
+
+import java.util.*;
 
 public class FactoryView {
 
@@ -21,18 +23,16 @@ public class FactoryView {
     private final Stage stage;
 
     private final FactoryCreator factoryCreator;
-    private final FactoryController factoryController;
-    private final Timer upd = new Timer();
 
-    public FactoryView (Stage stage, FactoryCreator factoryCreator, FactoryController factoryController) {
+
+    private final FactoryViewController factoryViewController;
+
+    public FactoryView (Stage stage, FactoryCreator factoryCreator) {
         this.stage = stage;
         this.factoryCreator = factoryCreator;
-        this.factoryController = factoryController;
+        this.factoryViewController = new FactoryViewController(factoryCreator);
         this.stage.setScene(new Scene(anchorPane, 1635, 900));
 
-        //carFactory = factory;
-
-        // TODO создание всего и вся
         createBlockSubScenes();
         createScrollSubScenes();
         createBackground();
@@ -46,6 +46,7 @@ public class FactoryView {
         BlockSlider workersDelay = new BlockSlider(0,6000);
         workersDelay.setLayoutX(700);
         workersDelay.setLayoutY(125);
+        workersDelay.valueProperty().addListener((observableValue, old_val, new_val) -> factoryViewController.changeBuildTaskDelay(new_val.intValue()));
 
         ScrollSubScene accessoriesSuppliersSubScene = new ScrollSubScene(648, 495);
         createAccessoriesSuppliers(accessoriesSuppliersSubScene);
@@ -53,20 +54,27 @@ public class FactoryView {
         BlockSlider accessoriesDelay = new BlockSlider(0,6000);
         accessoriesDelay.setLayoutX(700);
         accessoriesDelay.setLayoutY(455);
+        accessoriesDelay.valueProperty().addListener((observableValue, old_val, new_val) -> factoryViewController.changeSupplyAccessoriesDelay(new_val.intValue()));
 
         ScrollSubScene dealersSubScene = new ScrollSubScene(1097, 400);
         createDealers(dealersSubScene);
 
-        anchorPane.getChildren().addAll(workersSubScene, accessoriesSuppliersSubScene, dealersSubScene, workersDelay, accessoriesDelay);
+        BlockSlider dealersDelay = new BlockSlider(0,6000);
+        dealersDelay.setLayoutX(1150);
+        dealersDelay.setLayoutY(360);
+        dealersDelay.valueProperty().addListener((observableValue, old_val, new_val) -> factoryViewController.changeSellCarDelay(new_val.intValue()));
+
+        anchorPane.getChildren().addAll(workersSubScene, accessoriesSuppliersSubScene, dealersSubScene, workersDelay, accessoriesDelay, dealersDelay);
     }
 
     private void createDealers(ScrollSubScene dealersSubScene) {
         final AnchorPane container = new AnchorPane();
         for (int i = 0; i < factoryCreator.getDealerCount(); i++) {
-            BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105, 1000, 6000);
+            BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105);
             container.getChildren().add(bs);
         }
         dealersSubScene.getPane().setContent(container);
+
     }
 
     private void createWorkers(ScrollSubScene workersSubScene) {
@@ -87,10 +95,12 @@ public class FactoryView {
 
     private void createBlockSubScenes() {
         BlockSubScene bodySupplier = new BlockSubScene("body supplier",150, 17, 0, 6000);
+        bodySupplier.addSliderListener((observableValue, old_val, new_val) -> factoryViewController.changeSupplyCarBodyDelay(new_val.intValue()));
 
         BlockSubScene bodyStore = new BlockSubScene("body store", 292, 336);
 
         BlockSubScene engineSupplier = new BlockSubScene("engine supplier", 574, 17, 0, 6000);
+        engineSupplier.addSliderListener((observableValue, old_val, new_val) -> factoryViewController.changeSupplyEnginDelay(new_val.intValue()));
 
         BlockSubScene engineStore = new BlockSubScene("engine store", 290, 169);
 
@@ -108,7 +118,7 @@ public class FactoryView {
 
         anchorPane.getChildren().addAll(bodySupplier, bodyStore, engineSupplier, engineStore, accessoriesStore, carsStore, carsStoreController, carsSold);
 
-
+        Timer upd = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -120,7 +130,6 @@ public class FactoryView {
                 });
             }
         };
-
         upd.schedule(task, 0, 300);
 
     }

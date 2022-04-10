@@ -1,15 +1,16 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
-import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
+import lombok.extern.slf4j.Slf4j;
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
 import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
 import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
+import ru.nsu.ccfit.lopatkin.lab4.service.CarService;
 
+@Slf4j
 public class BuildCar implements Task {
-
-    private final int workerID; // for logging
+    private final CarService carService = new CarService();
 
     private final Storage<Accessories> accessoriesStorage;
     private final Storage<CarBody> carBodyStorage;
@@ -17,11 +18,8 @@ public class BuildCar implements Task {
     private final Storage<Car> carStorage;
 
     private int delay;
-    private float progress;
 
     public BuildCar(int delay, Storage<Accessories> accessoriesStorage, Storage<CarBody> carBodyStorage, Storage<Engine> engineStorage, Storage<Car> carStorage) {
-
-        this.workerID = 0;
         this.delay = delay;
         this.accessoriesStorage = accessoriesStorage;
         this.carBodyStorage = carBodyStorage;
@@ -29,28 +27,16 @@ public class BuildCar implements Task {
         this.carStorage = carStorage;
     }
 
-
-    @Override
-    public String getTaskName() {
-        return "Worker " + workerID;
-    }
-
     @Override
     public void performWork() throws InterruptedException {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 int d = delay;
-                System.out.println(d);
-                for (int i = 0; i < d; i++) {
-                    Thread.sleep(1);  //I know, this is very bad, but I want to do a progress bar :)
-                    progress = i / (float) d;
-                }
-                accessoriesStorage.get();
-                engineStorage.get();
-                carBodyStorage.get();
-                carStorage.put(new Car(0));
-                System.out.println("!" + carStorage.getOccupancy() + "!");
-                // TODO put all in the car
+                Thread.sleep(d);
+                Car newCar = new Car(carBodyStorage.get() ,engineStorage.get(), accessoriesStorage.get());
+                carStorage.put(newCar);
+                carService.producedCar(newCar);
+                log.info("Produced car: " + newCar.getFullVin());
             } catch (InterruptedException e) {
                 // TODO interrupted
             } catch (Exception e) {
@@ -65,8 +51,4 @@ public class BuildCar implements Task {
         delay= newDelay;
     }
 
-    @Override
-    public float getProgress() {
-        return progress;
-    }
 }

@@ -29,12 +29,10 @@ public class ThreadPool {
 
 
     public void addTask(Task t) {
-        System.out.println(t.getTaskName());
         synchronized (taskQueue) {
             try {
                 if (taskQueue.size() >= maxTaskQueueSize) {
                     taskQueue.wait();
-                    return;
                 }
                 else {
                     taskQueue.add(t);
@@ -55,9 +53,5 @@ public class ThreadPool {
                 // TODO log it or smth
             }
         }
-    }
-
-    public Set<PooledThread> getPoledThreads() {
-        return availableThreads;
     }
 }

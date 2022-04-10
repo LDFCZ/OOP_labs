@@ -7,11 +7,11 @@ import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.views.FactoryView;
-import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
 import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryCreator;
 
 public class JavaFXApplication extends Application {
     private ConfigurableApplicationContext applicationContext;
+    private FactoryCreator factoryCreator;
 
     @Override
     public void init() {
@@ -25,17 +25,16 @@ public class JavaFXApplication extends Application {
     @Override
     public void start(Stage stage) {
         stage.setResizable(false);
-        //CarFactory factory = new CarFactory();
-        FactoryCreator fc = new FactoryCreator();
-        FactoryController fcon = new FactoryController(fc.getAccessoriesStorage(), fc.getCarBodyStorage(), fc.getEngineStorage(), fc.getCarStorage(), fc.getWorkerThreadPool(), 3000);
-        Thread fcoT = new Thread(fcon);
-        fcoT.start();
-        FactoryView view = new FactoryView(stage, fc, fcon);
+
+        factoryCreator = new FactoryCreator();
+
+        FactoryView view = new FactoryView(stage, factoryCreator);
     }
 
     @Override
     public void stop() {
         this.applicationContext.close();
+        factoryCreator.stopFactory();
         Platform.exit();
     }
 }

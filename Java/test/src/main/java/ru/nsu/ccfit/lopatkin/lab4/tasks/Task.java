@@ -1,8 +1,6 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
 public interface Task {
-    String getTaskName();
     void performWork() throws InterruptedException;
     void changeDelay(int newDelay);
-    float getProgress();
 }

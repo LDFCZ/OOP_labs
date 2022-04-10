@@ -41,7 +41,6 @@ public final class InfoLabel extends Label {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER);
-        //setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         setFont(DEFAULT_FONT);
         setText(text);
     }
