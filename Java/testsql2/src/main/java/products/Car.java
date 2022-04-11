@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.lopatkin.lab4.products;
+package products;
 
 import javax.persistence.*;
 
@@ -27,7 +27,7 @@ public class Car extends Product{
     }
 
     public void generateVin(long carBodyID, long engineID, long accessoriesID) {
-        this.vin = carBody.getVin() + carBodyID + engine.getVin()+engineID+accessories.getVin()+accessoriesID;
+        this.vin = carBody.getVin() + carBodyID + engine.getVin() + engineID + accessories.getVin() + accessoriesID;
     }
 
     public Car(CarBody carBody, Engine engine, Accessories accessories) {

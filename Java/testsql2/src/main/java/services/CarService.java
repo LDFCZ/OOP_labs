@@ -1,11 +1,12 @@
-package ru.nsu.ccfit.lopatkin.lab4.service;
+package services;
 
-import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAO;
-import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAOImpl;
-import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
-import ru.nsu.ccfit.lopatkin.lab4.products.Car;
-import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
-import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
+
+import dao.CarDAO;
+import dao.CarDAOImpl;
+import products.Accessories;
+import products.Car;
+import products.CarBody;
+import products.Engine;
 
 public class CarService {
 

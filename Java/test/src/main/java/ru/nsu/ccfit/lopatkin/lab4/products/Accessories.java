@@ -13,6 +13,18 @@ public class Accessories extends Product{
     @Column (name = "vin")
     private String vin;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
     public Accessories() {
         vin = "PEPE";
     }
@@ -28,8 +40,10 @@ public class Accessories extends Product{
     public void setVin(String vin) {
         this.vin = vin;
     }
+
     @Override
     public String getFullVin() {
         return vin + id;
     }
 }
+

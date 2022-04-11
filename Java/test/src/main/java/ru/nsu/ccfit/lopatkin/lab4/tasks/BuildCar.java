@@ -33,9 +33,12 @@ public class BuildCar implements Task {
             try {
                 int d = delay;
                 Thread.sleep(d);
-                Car newCar = new Car(carBodyStorage.get() ,engineStorage.get(), accessoriesStorage.get());
+                CarBody carBody = carBodyStorage.get();
+                Engine engine = engineStorage.get();
+                Accessories accessories = accessoriesStorage.get();
+                Car newCar = new Car(carBody, engine, accessories);
                 carStorage.put(newCar);
-                carService.producedCar(newCar);
+                carService.producedCar(newCar, carBody, engine, accessories);
                 log.info("Produced car: " + newCar.getFullVin());
             } catch (InterruptedException e) {
                 // TODO interrupted

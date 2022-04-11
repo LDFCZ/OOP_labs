@@ -1,10 +1,11 @@
-package ru.nsu.ccfit.lopatkin.lab4.products;
+package products;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "engines")
-public class Engine extends Product{
+@Table(name = "accessories")
+public class Accessories extends Product{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,8 +25,8 @@ public class Engine extends Product{
         this.car = car;
     }
 
-    public Engine() {
-        vin = "200TFSI";
+    public Accessories() {
+        vin = "PEPE";
     }
 
     public Long getId() {
@@ -40,6 +41,7 @@ public class Engine extends Product{
         this.vin = vin;
     }
 
+    @Override
     public String getFullVin() {
         return vin + id;
     }

@@ -12,6 +12,18 @@ public class CarBody extends Product{
     @Column (name = "vin")
     private String vin;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
     public CarBody() {
         vin = "MSDN";
     }

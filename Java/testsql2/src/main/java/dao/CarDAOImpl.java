@@ -1,14 +1,12 @@
-package ru.nsu.ccfit.lopatkin.lab4.dao;
+package dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
-import ru.nsu.ccfit.lopatkin.lab4.products.Car;
-import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
-import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
-import ru.nsu.ccfit.lopatkin.lab4.utils.HibernateSessionFactoryUtil;
-
-import java.util.List;
+import products.Accessories;
+import products.Car;
+import products.CarBody;
+import products.Engine;
+import utils.HibernateSessionFactoryUtil;
 
 public class CarDAOImpl implements CarDAO {
     @Override

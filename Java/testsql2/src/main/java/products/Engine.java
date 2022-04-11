@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.lopatkin.lab4.products;
+package products;
 
 import javax.persistence.*;
 
