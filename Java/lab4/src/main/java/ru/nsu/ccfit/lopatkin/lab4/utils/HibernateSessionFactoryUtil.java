@@ -1,14 +1,15 @@
-package utils;
+package ru.nsu.ccfit.lopatkin.lab4.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import products.Accessories;
-import products.Car;
-import products.CarBody;
-import products.Engine;
+import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
+import ru.nsu.ccfit.lopatkin.lab4.products.Car;
+import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
+import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
 
 public class HibernateSessionFactoryUtil {
+
     private static SessionFactory sessionFactory;
 
     private HibernateSessionFactoryUtil() {}
@@ -17,15 +18,15 @@ public class HibernateSessionFactoryUtil {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration().configure();
+                configuration.addAnnotatedClass(Car.class);
                 configuration.addAnnotatedClass(Accessories.class);
                 configuration.addAnnotatedClass(CarBody.class);
                 configuration.addAnnotatedClass(Engine.class);
-                configuration.addAnnotatedClass(Car.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) {
-                System.out.println("Исключение!" + e);
+                e.printStackTrace();
             }
         }
         return sessionFactory;

@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.lopatkin.lab4.utils.factory;
+package ru.nsu.ccfit.lopatkin.lab4.factory;
 
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
 
@@ -7,11 +7,9 @@ import java.util.ArrayDeque;
 public class Storage<T extends Product> {
     private final ArrayDeque<T> items;
     private final int storageCapacity;
-    private final String storageName;
 
-    public Storage(int capacity, String name) {
+    public Storage(int capacity) {
         storageCapacity = capacity;
-        storageName = name;
         items = new ArrayDeque<>();
     }
 

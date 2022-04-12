@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.lopatkin.lab4.utils.GUI;
+package ru.nsu.ccfit.lopatkin.lab4.GUI.utils;
 
 import javafx.beans.value.ChangeListener;
 import javafx.scene.SubScene;

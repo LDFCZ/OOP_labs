@@ -1,30 +1,20 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
-import ru.nsu.ccfit.lopatkin.lab4.factory.CarFactory;
+
+import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
-import ru.nsu.ccfit.lopatkin.lab4.threadpool.Task;
-import ru.nsu.ccfit.lopatkin.lab4.utils.factory.Storage;
 
 public class Supply<T extends Product> implements Task {
-    private final CarFactory factory;
     private final Storage<T> storage;
 
     private int delay;
-    private float progress;
 
     private final Class<T> productType;
 
-    public Supply(CarFactory factory, Storage<T> storage, int delay, Class<T> productType) {
-        this.factory = factory;
+    public Supply(Storage<T> storage, int delay, Class<T> productType) {
         this.storage = storage;
         this.delay = delay;
         this.productType = productType;
-    }
-
-
-    @Override
-    public String getTaskName() {
-        return "Supply " + productType.getName();
     }
 
     @Override
@@ -32,11 +22,8 @@ public class Supply<T extends Product> implements Task {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 int d = delay;
-                for (int i = 0; i < d; i++) {
-                    Thread.sleep(1);  //I know, this is very bad, but I want to do a progress bar :)
-                    progress = i/(float)d;
-                }
-                T product = productType.getDeclaredConstructor(long.class).newInstance(0);
+                Thread.sleep(d);
+                T product = productType.getDeclaredConstructor().newInstance();
                 storage.put(product);
             } catch (InterruptedException e) {
                 break;
@@ -50,10 +37,5 @@ public class Supply<T extends Product> implements Task {
     @Override
     public void changeDelay(int newDelay) {
         delay = newDelay;
-    }
-
-    @Override
-    public float getProgress() {
-        return progress;
     }
 }
