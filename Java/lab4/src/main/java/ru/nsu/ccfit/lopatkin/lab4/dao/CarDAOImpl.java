@@ -18,7 +18,9 @@ public class CarDAOImpl implements CarDAO {
 
     @Override
     public synchronized Car findCarByID(long id) {
-        return sessionFactory.openSession().get(Car.class, id);
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Car.class, id);
+        }
     }
 
     @Override

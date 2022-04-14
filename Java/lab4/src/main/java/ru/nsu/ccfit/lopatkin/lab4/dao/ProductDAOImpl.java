@@ -20,9 +20,9 @@ public class ProductDAOImpl<T extends Product & CarPart> implements ProductDAO<T
     @Override
     public T findById(long id, Class<T> productType) {
         T t = null;
-        try {
+        try (Session session = sessionFactory.openSession()){
             t = productType.getDeclaredConstructor().newInstance();
-            return sessionFactory.openSession().get((Class<T>)t.getClass(), id);
+            return session.get((Class<T>)t.getClass(), id);
         } catch (Exception e) {
            return null;
         }
