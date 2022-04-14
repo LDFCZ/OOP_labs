@@ -1,15 +1,21 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
-import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
+import lombok.extern.slf4j.Slf4j;
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
 import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
+import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
 import ru.nsu.ccfit.lopatkin.lab4.service.CarService;
+import ru.nsu.ccfit.lopatkin.lab4.service.ProductService;
 
-
+@Slf4j
 public class BuildCar implements Task {
     private final CarService carService = new CarService();
+
+    private final ProductService<Accessories> accessoriesProductService = new ProductService<>();
+    private final ProductService<CarBody> carBodyProductService = new ProductService<>();
+    private final ProductService<Engine> engineProductService = new ProductService<>();
 
     private final Storage<Accessories> accessoriesStorage;
     private final Storage<CarBody> carBodyStorage;
@@ -27,7 +33,7 @@ public class BuildCar implements Task {
     }
 
     @Override
-    public void performWork() throws InterruptedException {
+    public void performWork(String threadName) throws InterruptedException {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 int d = delay;
@@ -37,8 +43,11 @@ public class BuildCar implements Task {
                 Accessories accessories = accessoriesStorage.get();
                 Car newCar = new Car(carBody, engine, accessories);
                 carStorage.put(newCar);
-                carService.producedCar(newCar, carBody, engine, accessories);
-                //log.info("Produced car: " + newCar.getFullVin());
+                carService.produceCar(newCar);
+                accessoriesProductService.updateUsedCar(accessories, newCar, Accessories.class);
+                carBodyProductService.updateUsedCar(carBody, newCar, CarBody.class);
+                engineProductService.updateUsedCar(engine, newCar, Engine.class);
+                log.info(threadName + " produced car: " + newCar.getFullVin() + newCar.getProductID());
             } catch (InterruptedException e) {
                 // TODO interrupted
             } catch (Exception e) {

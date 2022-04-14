@@ -26,17 +26,15 @@ public class Car extends Product{
 
     }
 
-    public void generateVin(long carBodyID, long engineID, long accessoriesID) {
-        this.vin = carBody.getVin() + carBodyID + engine.getVin() + engineID + accessories.getVin() + accessoriesID;
+    private void generateVin() {
+        this.vin = carBody.getFullVin() + engine.getFullVin() + accessories.getFullVin();
     }
 
     public Car(CarBody carBody, Engine engine, Accessories accessories) {
         this.carBody = carBody;
-        this.carBody.setCar(this);
         this.engine = engine;
-        this.engine.setCar(this);
         this.accessories = accessories;
-        this.accessories.setCar(this);
+        generateVin();
     }
 
 
@@ -86,4 +84,5 @@ public class Car extends Product{
     public String getFullVin() {
         return vin;
     }
+
 }

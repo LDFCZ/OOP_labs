@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "accessories")
-public class Accessories extends Product{
+public class Accessories extends Product implements CarPart{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,7 @@ public class Accessories extends Product{
         return car;
     }
 
+    @Override
     public void setCar(Car car) {
         this.car = car;
     }
@@ -43,7 +44,7 @@ public class Accessories extends Product{
 
     @Override
     public String getFullVin() {
-        return vin + id;
+        return vin + getProductID();
     }
 }
 

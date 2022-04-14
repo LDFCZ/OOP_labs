@@ -8,6 +8,7 @@ public class Storage<T extends Product> {
     private final ArrayDeque<T> items;
     private final int storageCapacity;
 
+
     public Storage(int capacity) {
         storageCapacity = capacity;
         items = new ArrayDeque<>();
@@ -26,7 +27,7 @@ public class Storage<T extends Product> {
             }
             catch (InterruptedException ignored) {}
         }
-        T item = items.getLast();
+        T item = items.removeLast();
         notify();
         return item;
     }

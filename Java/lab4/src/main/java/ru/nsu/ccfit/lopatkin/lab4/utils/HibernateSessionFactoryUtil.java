@@ -10,7 +10,7 @@ import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
 
 public class HibernateSessionFactoryUtil {
 
-    private static SessionFactory sessionFactory;
+    private static volatile SessionFactory sessionFactory;
 
     private HibernateSessionFactoryUtil() {}
 

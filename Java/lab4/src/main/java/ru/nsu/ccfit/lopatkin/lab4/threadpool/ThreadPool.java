@@ -1,46 +1,36 @@
 package ru.nsu.ccfit.lopatkin.lab4.threadpool;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
 
 import java.util.ArrayDeque;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Slf4j
 public class ThreadPool {
+
+    private final String threadPoolName;
     private final ArrayDeque<Task> taskQueue = new ArrayDeque();
-    private final int maxTaskQueueSize;
 
     private final Set<PooledThread> availableThreads = new LinkedHashSet<>();
 
-    public ThreadPool(int threadCount) {
-        this(threadCount, 100);
-    }
-
-    public ThreadPool(int threadCount, int maxQueueSize) {
+    public ThreadPool(int threadCount, String threadPoolName, String pooledThreadName) {
+        this.threadPoolName = threadPoolName;
         for (int i = 0; i < threadCount; i++) {
-            availableThreads.add(new PooledThread("Performer_" + i, taskQueue));
+            availableThreads.add(new PooledThread(pooledThreadName + " " + i, taskQueue));
         }
         for (PooledThread pt: availableThreads) {
             pt.start();
         }
-
-        this.maxTaskQueueSize = maxQueueSize;
+        log.info("Started " + threadCount + " threads in " + threadPoolName);
     }
 
 
     public void addTask(Task t) {
         synchronized (taskQueue) {
-            try {
-                if (taskQueue.size() >= maxTaskQueueSize) {
-                    taskQueue.wait();
-                }
-                else {
-                    taskQueue.add(t);
-                    taskQueue.notifyAll();
-                }
-            }catch (InterruptedException e) {
-                // TODO smth
-            }
+            taskQueue.add(t);
+            taskQueue.notifyAll();
         }
     }
 
@@ -50,7 +40,7 @@ public class ThreadPool {
             try {
                 pt.join();
             } catch (InterruptedException e) {
-                // TODO log it or smth
+                log.info(threadPoolName + " INTERRUPTED!");
             }
         }
     }

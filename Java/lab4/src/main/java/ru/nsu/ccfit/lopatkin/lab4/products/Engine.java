@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "engines")
-public class Engine extends Product{
+public class Engine extends Product implements CarPart{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +20,8 @@ public class Engine extends Product{
         return car;
     }
 
+
+    @Override
     public void setCar(Car car) {
         this.car = car;
     }
@@ -41,6 +43,6 @@ public class Engine extends Product{
     }
 
     public String getFullVin() {
-        return vin + id;
+        return vin + getProductID();
     }
 }

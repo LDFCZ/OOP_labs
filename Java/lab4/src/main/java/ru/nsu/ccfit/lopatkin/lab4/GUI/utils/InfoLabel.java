@@ -21,6 +21,7 @@ public final class InfoLabel extends Label {
 
     private static Font DEFAULT_FONT = null;
 
+    // TODO font getter
     static {
         try {
             DEFAULT_FONT = Font.loadFont(new FileInputStream(FONT_PATH), 12);
@@ -29,7 +30,6 @@ public final class InfoLabel extends Label {
             e.printStackTrace();
         }
     }
-
     public InfoLabel() {
         this("");
     }
@@ -42,7 +42,6 @@ public final class InfoLabel extends Label {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER);
-        //setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
         setFont(DEFAULT_FONT);
         setText(text);
     }

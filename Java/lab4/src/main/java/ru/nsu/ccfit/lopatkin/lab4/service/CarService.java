@@ -1,26 +1,27 @@
 package ru.nsu.ccfit.lopatkin.lab4.service;
 
+import org.springframework.stereotype.Service;
 import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAO;
 import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAOImpl;
-import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
-import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
-import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
 
+
+@Service
 public class CarService {
 
+    // TODO ProductDAO
     private final CarDAO carDAO = new CarDAOImpl();
 
     public Car findCar(int id) {
-        return carDAO.findById(id);
+        return carDAO.findCarByID(id);
     }
 
-    public void producedCar(Car car, CarBody carBody, Engine engine, Accessories accessories) {
-        carDAO.producedCar(car, carBody, engine, accessories);
+    public void produceCar(Car car) {
+        carDAO.produceCar(car);
     }
 
-    public void delete(Car car) {
-        carDAO.delete(car);
+    public void deleteCar(Car car) {
+        carDAO.deleteCar(car);
     }
 
 }

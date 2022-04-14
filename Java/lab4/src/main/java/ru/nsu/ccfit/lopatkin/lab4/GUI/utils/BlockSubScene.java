@@ -20,9 +20,10 @@ public final class BlockSubScene extends SubScene {
         label.setLayoutY(45);
         this.getPane().getChildren().add(label);
 
-        bar.setPrefSize(230,5);
+        bar.setPrefSize(230,15);
         bar.setLayoutX(5);
         bar.setLayoutY(38);
+        bar.setProgress(0);
         this.getPane().getChildren().add(bar);
 
         setLayoutX(x);

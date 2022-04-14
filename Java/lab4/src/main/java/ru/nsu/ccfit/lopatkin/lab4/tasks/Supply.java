@@ -1,11 +1,17 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
 
-import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
+import lombok.extern.slf4j.Slf4j;
+import ru.nsu.ccfit.lopatkin.lab4.products.CarPart;
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
 
-public class Supply<T extends Product> implements Task {
+import ru.nsu.ccfit.lopatkin.lab4.factory.Storage;
+import ru.nsu.ccfit.lopatkin.lab4.service.ProductService;
+
+@Slf4j
+public class Supply<T extends Product & CarPart> implements Task {
     private final Storage<T> storage;
+    private final ProductService<T> productService = new ProductService<>();
 
     private int delay;
 
@@ -18,13 +24,15 @@ public class Supply<T extends Product> implements Task {
     }
 
     @Override
-    public void performWork() throws InterruptedException {
+    public void performWork(String threadName) throws InterruptedException {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 int d = delay;
                 Thread.sleep(d);
                 T product = productType.getDeclaredConstructor().newInstance();
+                productService.produceProduct(product);
                 storage.put(product);
+                log.info(threadName + " supplied " + product.getFullVin());
             } catch (InterruptedException e) {
                 break;
             } catch (Exception e) {

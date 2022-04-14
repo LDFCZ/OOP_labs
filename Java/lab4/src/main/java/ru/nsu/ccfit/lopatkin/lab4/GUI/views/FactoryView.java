@@ -1,34 +1,36 @@
 package ru.nsu.ccfit.lopatkin.lab4.GUI.views;
 
 import javafx.application.Platform;
+
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import ru.nsu.ccfit.lopatkin.lab4.GUI.controllers.FactoryViewController;
+import ru.nsu.ccfit.lopatkin.lab4.GUI.controller.FactoryViewController;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSlider;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSubScene;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.InfoLabel;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.ScrollSubScene;
-import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryCreator;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
+
+
+import java.util.*;
 
 public class FactoryView {
 
     private final AnchorPane anchorPane = new AnchorPane();
     private final Stage stage;
 
-    private final FactoryCreator factoryCreator;
+    private final FactoryController factoryController;
 
 
     private final FactoryViewController factoryViewController;
 
-    public FactoryView(Stage stage, FactoryCreator factoryCreator) {
+    public FactoryView (Stage stage, FactoryController factoryController) {
         this.stage = stage;
-        this.factoryCreator = factoryCreator;
-        this.factoryViewController = new FactoryViewController(factoryCreator);
+        this.factoryController = factoryController;
+        this.factoryViewController = new FactoryViewController(factoryController);
         this.stage.setScene(new Scene(anchorPane, 1635, 900));
 
         createBlockSubScenes();
@@ -67,7 +69,7 @@ public class FactoryView {
 
     private void createDealers(ScrollSubScene dealersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < factoryCreator.getDealerCount(); i++) {
+        for (int i = 0; i < factoryController.getDealerCount(); i++) {
             BlockSubScene bs = new BlockSubScene("Dealer " + String.valueOf(i + 1), 50, i * 105);
             container.getChildren().add(bs);
         }
@@ -77,7 +79,7 @@ public class FactoryView {
 
     private void createWorkers(ScrollSubScene workersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < factoryCreator.getWorkerCount(); i++) {
+        for (int i = 0; i < factoryController.getWorkerCount(); i++) {
             container.getChildren().add(new BlockSubScene("Worker " + String.valueOf(i + 1), 50, i * 105));
         }
         workersSubScene.getPane().setContent(container);
@@ -85,7 +87,7 @@ public class FactoryView {
 
     private void createAccessoriesSuppliers(ScrollSubScene accessoriesSuppliersSubScene) {
         final AnchorPane container = new AnchorPane();
-        for (int i = 0; i < factoryCreator.getAccessoriesSupplierCount(); i++) {
+        for (int i = 0; i < factoryController.getAccessoriesSupplierCount(); i++) {
             container.getChildren().add(new BlockSubScene("Accessory Supplier " + String.valueOf(i + 1), 50, i * 105));
         }
         accessoriesSuppliersSubScene.getPane().setContent(container);
@@ -121,10 +123,11 @@ public class FactoryView {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    carsStore.setProgress(factoryCreator.getCarStorage().getOccupancy());
-                    bodyStore.setProgress(factoryCreator.getCarBodyStorage().getOccupancy());
-                    accessoriesStore.setProgress(factoryCreator.getAccessoriesStorage().getOccupancy());
-                    engineStore.setProgress(factoryCreator.getEngineStorage().getOccupancy());
+                    carsSold.setText("Cars sold: " + factoryController.getSoldCarCounter());
+                    carsStore.setProgress(factoryController.getCarStorage().getOccupancy());
+                    bodyStore.setProgress(factoryController.getCarBodyStorage().getOccupancy());
+                    accessoriesStore.setProgress(factoryController.getAccessoriesStorage().getOccupancy());
+                    engineStore.setProgress(factoryController.getEngineStorage().getOccupancy());
                 });
             }
         };
