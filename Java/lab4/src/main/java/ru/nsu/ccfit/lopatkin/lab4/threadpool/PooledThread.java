@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
 
 import java.util.ArrayDeque;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 public class PooledThread extends Thread {
-    AtomicBoolean shutdownFlag = new AtomicBoolean(false);
+    private boolean shutdownFlag = false;
 
     private final ArrayDeque<Task> taskQueue;
 
@@ -20,7 +19,7 @@ public class PooledThread extends Thread {
 
     public void interruptPooledThread() {
         interrupt();
-        shutdownFlag.set(true);
+        shutdownFlag = true;
     }
 
     private void performTask(Task t) {
@@ -29,13 +28,13 @@ public class PooledThread extends Thread {
             t.performWork(getName());
         } catch (InterruptedException e) {
             log.info(getName() + " INTERRUPTED!");
-            shutdownFlag.set(true);
+            shutdownFlag = true;
         }
     }
 
     public void run() {
         Task toExecute = null;
-        while (!shutdownFlag.get()) {
+        while (!shutdownFlag) {
             synchronized (taskQueue) {
                 if (taskQueue.isEmpty()) {
                     try {

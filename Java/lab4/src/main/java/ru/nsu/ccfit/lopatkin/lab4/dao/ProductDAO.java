@@ -5,7 +5,6 @@ import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarPart;
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
 
-import java.util.List;
 
 
 public interface ProductDAO<T extends Product & CarPart> {

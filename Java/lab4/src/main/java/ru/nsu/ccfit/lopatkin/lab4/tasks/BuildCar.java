@@ -49,7 +49,7 @@ public class BuildCar implements Task {
                 engineProductService.updateUsedCar(engine, newCar, Engine.class);
                 log.info(threadName + " produced car: " + newCar.getFullVin() + newCar.getProductID());
             } catch (InterruptedException e) {
-                // TODO interrupted
+                throw e;
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();

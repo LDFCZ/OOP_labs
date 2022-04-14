@@ -30,7 +30,7 @@ public class SellCar implements Task {
                 factoryController.sellCar();
                 log.info("Car " + carForSale.getFullVin() + " SOLD! Congratulations to the " + threadName + " GOOD JOB!");
             } catch (InterruptedException e) {
-                break;
+                throw e;
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
