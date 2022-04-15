@@ -6,7 +6,6 @@ import ru.nsu.ccfit.lopatkin.lab4.products.CarPart;
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
 
 
-
 public interface ProductDAO<T extends Product & CarPart> {
     T findById(long id, Class<T> productType);
 

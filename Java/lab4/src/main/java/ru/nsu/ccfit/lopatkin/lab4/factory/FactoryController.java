@@ -7,6 +7,7 @@ import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
 import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
+import ru.nsu.ccfit.lopatkin.lab4.service.CarService;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.BuildCar;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.SellCar;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.Supply;
@@ -51,8 +52,8 @@ public class FactoryController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CarDAO carDAO = new CarDAOImpl();
-        soldCarCounter = new AtomicLong(carDAO.findAll().size());
+        CarService carService = new CarService();
+        soldCarCounter = new AtomicLong(carService.findAll().size());
 
         createStorages();
 

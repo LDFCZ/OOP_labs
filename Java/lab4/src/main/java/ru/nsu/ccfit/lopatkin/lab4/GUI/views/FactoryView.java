@@ -2,10 +2,7 @@ package ru.nsu.ccfit.lopatkin.lab4.GUI.views;
 
 import javafx.application.Platform;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -15,7 +12,6 @@ import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.BlockSubScene;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.InfoLabel;
 import ru.nsu.ccfit.lopatkin.lab4.GUI.utils.ScrollSubScene;
 
-import ru.nsu.ccfit.lopatkin.lab4.JavaFXApplication;
 import ru.nsu.ccfit.lopatkin.lab4.factory.FactoryController;
 
 
@@ -27,6 +23,7 @@ public class FactoryView {
     private final Stage stage;
 
     private final FactoryController factoryController;
+
 
     private final FactoryViewController factoryViewController;
 

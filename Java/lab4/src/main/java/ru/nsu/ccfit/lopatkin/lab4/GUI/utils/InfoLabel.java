@@ -14,25 +14,9 @@ import java.io.FileNotFoundException;
 
 public final class InfoLabel extends Label {
 
-    private final static String FONT_PATH = "src/main/resources/PastiRegular.otf";
     public final static String BACKGROUND_IMAGE = "label.png";
     public static final int WIDTH = 230;
     public static final int HEIGHT = 55;
-
-    private static Font DEFAULT_FONT = null;
-
-    // TODO font getter
-    static {
-        try {
-            DEFAULT_FONT = Font.loadFont(new FileInputStream(FONT_PATH), 12);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    public InfoLabel() {
-        this("");
-    }
 
     public InfoLabel(String text) {
 
@@ -42,7 +26,7 @@ public final class InfoLabel extends Label {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         setBackground(new Background(backgroundImage));
         setAlignment(Pos.CENTER);
-        setFont(DEFAULT_FONT);
+        setFont(FontFactory.getInstance().getDefaultFont());
         setText(text);
     }
 }

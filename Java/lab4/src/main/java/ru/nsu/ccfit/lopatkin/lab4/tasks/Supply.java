@@ -34,7 +34,7 @@ public class Supply<T extends Product & CarPart> implements Task {
                 storage.put(product);
                 log.info(threadName + " supplied " + product.getFullVin());
             } catch (InterruptedException e) {
-                throw e;
+                break;
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
