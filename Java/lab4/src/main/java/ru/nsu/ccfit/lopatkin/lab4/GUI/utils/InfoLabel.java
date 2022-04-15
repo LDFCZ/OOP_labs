@@ -7,16 +7,16 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.text.Font;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public final class InfoLabel extends Label {
 
     public final static String BACKGROUND_IMAGE = "label.png";
     public static final int WIDTH = 230;
     public static final int HEIGHT = 55;
+
+    InfoLabel() {
+        this("");
+    }
 
     public InfoLabel(String text) {
 

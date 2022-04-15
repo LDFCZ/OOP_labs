@@ -37,11 +37,6 @@ public class ThreadPool {
     public void shutdown() {
         for (PooledThread pt : availableThreads) {
             pt.interruptPooledThread();
-            try {
-                pt.join();
-            } catch (InterruptedException e) {
-                log.info(threadPoolName + " INTERRUPTED!");
-            }
         }
     }
 }
