@@ -7,12 +7,13 @@ import java.io.FileNotFoundException;
 
 public class FontFactory {
     private final static String FONT_PATH = "src/main/resources/PastiRegular.otf";
+    private static final int SIZE = 12;
     private static Font defaultFont = null;
     private static volatile FontFactory fontFactory;
 
     private FontFactory() {
         try {
-            defaultFont = Font.loadFont(new FileInputStream(FONT_PATH), 12);
+            defaultFont = Font.loadFont(new FileInputStream(FONT_PATH), SIZE);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

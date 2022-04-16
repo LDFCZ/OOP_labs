@@ -1,12 +1,14 @@
 package ru.nsu.ccfit.lopatkin.lab4.threadpool;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.nsu.ccfit.lopatkin.lab4.ConstSpace.ConstSpace;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
 
 import java.util.ArrayDeque;
 
 @Slf4j
 public class PooledThread extends Thread {
+
     private boolean shutdownFlag = false;
 
     private final ArrayDeque<Task> taskQueue;
@@ -27,7 +29,7 @@ public class PooledThread extends Thread {
         try {
             t.performWork(getName());
         } catch (InterruptedException e) {
-            log.info(getName() + " INTERRUPTED!");
+            log.info(getName() + ConstSpace.INTERRUPTED);
             shutdownFlag = true;
         }
     }
@@ -40,7 +42,7 @@ public class PooledThread extends Thread {
                     try {
                         taskQueue.wait();
                     } catch (InterruptedException e) {
-                        log.info(getName() + " INTERRUPTED!");
+                        log.info(getName() + ConstSpace.INTERRUPTED);
                         break;
                     }
                 } else {

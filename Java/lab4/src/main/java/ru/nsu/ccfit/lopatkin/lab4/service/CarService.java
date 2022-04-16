@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class CarService {
 
-    // TODO ProductDAO
     private final CarDAO carDAO = new CarDAOImpl();
 
     public Car findCar(int id) {

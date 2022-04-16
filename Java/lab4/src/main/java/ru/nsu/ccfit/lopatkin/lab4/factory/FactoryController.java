@@ -1,8 +1,5 @@
 package ru.nsu.ccfit.lopatkin.lab4.factory;
 
-
-import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAO;
-import ru.nsu.ccfit.lopatkin.lab4.dao.CarDAOImpl;
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
@@ -19,6 +16,26 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class FactoryController {
+
+    private static final String CONFIG_PROPERTIES = "config.properties";
+    private static final String NUMBER_OF_DEALERS = "NumberOfDealers";
+    private static final String NUMBER_OF_WORKERS = "NumberOfWorkers";
+    private static final String NUMBER_OF_SUPPLIERS = "NumberOfSuppliers";
+    private static final String CAR_BODY_STORAGE_CAPACITY = "CarBodyStorageCapacity";
+    private static final String ENGINE_STORAGE_CAPACITY = "EngineStorageCapacity";
+    private static final String ACCESSORIES_STORAGE_CAPACITY = "AccessoriesStorageCapacity";
+    private static final String CAR_STORAGE_CAPACITY = "CarStorageCapacity";
+    private static final String ACCESSORIES_SUPPLIERS = "Accessories Suppliers";
+    private static final String ACCESSORIES_SUPPLIER = "Accessories Supplier";
+    private static final String ENGINE_SUPPLIERS = "Engine Suppliers";
+    private static final String ENGINE_SUPPLIER = "Engine Supplier";
+    private static final String CAR_BODY_SUPPLIERS = "Car Body Suppliers";
+    private static final String CAR_BODY_SUPPLIER = "Car Body Supplier";
+    private static final String WORKERS = "Workers";
+    private static final String WORKER = "Worker";
+    private static final String DEALERS = "Dealers";
+    private static final String DEALER = "Dealer";
+    private static final int START_DELAY = 3000;
 
     private Properties properties;
 
@@ -48,7 +65,7 @@ public class FactoryController {
     public FactoryController() {
         try {
             properties = new Properties();
-            properties.load(this.getClass().getResourceAsStream("config.properties"));
+            properties.load(this.getClass().getResourceAsStream(CONFIG_PROPERTIES));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,9 +74,9 @@ public class FactoryController {
 
         createStorages();
 
-        dealerCount = Integer.parseInt(properties.getProperty("NumberOfDealers"));
-        workerCount = Integer.parseInt(properties.getProperty("NumberOfWorkers"));
-        accessoriesSupplierCount = Integer.parseInt(properties.getProperty("NumberOfSuppliers"));
+        dealerCount = Integer.parseInt(properties.getProperty(NUMBER_OF_DEALERS));
+        workerCount = Integer.parseInt(properties.getProperty(NUMBER_OF_WORKERS));
+        accessoriesSupplierCount = Integer.parseInt(properties.getProperty(NUMBER_OF_SUPPLIERS));
 
         createThreadPools();
 
@@ -72,24 +89,24 @@ public class FactoryController {
     }
 
     private void createStorages() {
-        carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty("CarBodyStorageCapacity")));
-        engineStorage = new Storage<>(Integer.parseInt(properties.getProperty("EngineStorageCapacity")));
-        accessoriesStorage = new Storage<>(Integer.parseInt(properties.getProperty("AccessoriesStorageCapacity")));
-        carStorage = new Storage<>(Integer.parseInt(properties.getProperty("CarStorageCapacity")));
+        carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty(CAR_BODY_STORAGE_CAPACITY)));
+        engineStorage = new Storage<>(Integer.parseInt(properties.getProperty(ENGINE_STORAGE_CAPACITY)));
+        accessoriesStorage = new Storage<>(Integer.parseInt(properties.getProperty(ACCESSORIES_STORAGE_CAPACITY)));
+        carStorage = new Storage<>(Integer.parseInt(properties.getProperty(CAR_STORAGE_CAPACITY)));
     }
 
     private void createThreadPools() {
-        accessoriesSupplierThreadPool = new ThreadPool(accessoriesSupplierCount, "Accessories Suppliers", "Accessories Supplier");
-        engineSupplierThreadPool = new ThreadPool(1, "Engine Suppliers", "Engine Supplier");
-        carBodySupplierThreadPool = new ThreadPool(1, "Car Body Suppliers", "Car Body Supplier");
-        workerThreadPool = new ThreadPool(workerCount, "Workers", "Worker");
-        dealerThreadPool = new ThreadPool(dealerCount, "Dealers", "Dealer");
+        accessoriesSupplierThreadPool = new ThreadPool(accessoriesSupplierCount, ACCESSORIES_SUPPLIERS, ACCESSORIES_SUPPLIER);
+        engineSupplierThreadPool = new ThreadPool(1, ENGINE_SUPPLIERS, ENGINE_SUPPLIER);
+        carBodySupplierThreadPool = new ThreadPool(1, CAR_BODY_SUPPLIERS, CAR_BODY_SUPPLIER);
+        workerThreadPool = new ThreadPool(workerCount, WORKERS, WORKER);
+        dealerThreadPool = new ThreadPool(dealerCount, DEALERS, DEALER);
     }
 
     private void createSuppliers() {
-        supplyAccessories = new Supply<>(accessoriesStorage, 3000, Accessories.class);
-        supplyEngine = new Supply<>(engineStorage, 3000, Engine.class);
-        supplyCarBody = new Supply<>(carBodyStorage, 3000, CarBody.class);
+        supplyAccessories = new Supply<>(accessoriesStorage, START_DELAY, Accessories.class);
+        supplyEngine = new Supply<>(engineStorage, START_DELAY, Engine.class);
+        supplyCarBody = new Supply<>(carBodyStorage, START_DELAY, CarBody.class);
     }
 
     private void runSuppliers() {
@@ -102,7 +119,7 @@ public class FactoryController {
 
 
     private void runDealers() {
-        sellCar = new SellCar(this, carStorage, 3000);
+        sellCar = new SellCar(this, carStorage, START_DELAY);
 
         for (int i = 0; i < dealerCount; i++) {
             dealerThreadPool.addTask(sellCar);
@@ -110,7 +127,7 @@ public class FactoryController {
     }
 
     private void runWorkers() {
-        buildCar = new BuildCar(3000, accessoriesStorage, carBodyStorage, engineStorage, carStorage);
+        buildCar = new BuildCar(START_DELAY, accessoriesStorage, carBodyStorage, engineStorage, carStorage);
 
         for (int i = 0; i < workerCount; i++) {
             workerThreadPool.addTask(buildCar);

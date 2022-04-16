@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.lopatkin.lab4.tasks;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.nsu.ccfit.lopatkin.lab4.ConstSpace.ConstSpace;
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
 import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
@@ -11,6 +12,7 @@ import ru.nsu.ccfit.lopatkin.lab4.service.ProductService;
 
 @Slf4j
 public class BuildCar implements Task {
+    private static final String PRODUCED_CAR = " produced car: ";
     private final CarService carService = new CarService();
 
     private final ProductService<Accessories> accessoriesProductService = new ProductService<>();
@@ -47,9 +49,9 @@ public class BuildCar implements Task {
                 accessoriesProductService.updateUsedCar(accessories, newCar, Accessories.class);
                 carBodyProductService.updateUsedCar(carBody, newCar, CarBody.class);
                 engineProductService.updateUsedCar(engine, newCar, Engine.class);
-                log.info(threadName + " produced car: " + newCar.getFullVin() + newCar.getProductID());
+                log.info(threadName + PRODUCED_CAR + newCar.getFullVin() + newCar.getProductID());
             } catch (InterruptedException e) {
-                // TODO interrupted
+                log.info(threadName + ConstSpace.INTERRUPTED);
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();

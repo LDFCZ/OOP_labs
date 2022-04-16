@@ -1,10 +1,14 @@
 package ru.nsu.ccfit.lopatkin.lab4.factory;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.nsu.ccfit.lopatkin.lab4.products.Product;
 
 import java.util.ArrayDeque;
 
+@Slf4j
 public class Storage<T extends Product> {
+    public static final String STORAGE_WAS_INTERRUPTED = "Storage was interrupted!";
+
     private final ArrayDeque<T> items;
     private final int storageCapacity;
 
@@ -25,7 +29,9 @@ public class Storage<T extends Product> {
             try {
                 wait();
             }
-            catch (InterruptedException ignored) {}
+            catch (InterruptedException e) {
+                log.info(STORAGE_WAS_INTERRUPTED);
+            }
         }
         T item = items.removeLast();
         notify();
@@ -37,7 +43,9 @@ public class Storage<T extends Product> {
             try {
                 wait();
             }
-            catch (InterruptedException ignored) {}
+            catch (InterruptedException e) {
+                log.info(STORAGE_WAS_INTERRUPTED);
+            }
         }
 
         items.add(item);

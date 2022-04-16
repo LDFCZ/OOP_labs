@@ -8,21 +8,29 @@ import javafx.scene.layout.AnchorPane;
 
 public final class BlockSubScene extends SubScene {
 
-    private final Slider slider = new Slider();
+    private static final int WIDTH = 240;
+    private static final int HEIGHT = 105;
+    private static final int LAYOUT_X = 5;
+    private static final int LABEL_LAYOUT_Y = 45;
+    private static final int BAR_LAYOUT_Y = 38;
+    private static final int PREF_WIDTH = 230;
+    private static final int PREF_HEIGHT = 15;
+
+    private final BlockSlider slider = new BlockSlider();
     private final InfoLabel label = new InfoLabel();
     private final ProgressBar bar = new ProgressBar();
 
     public BlockSubScene(String name, double x, double y) {
-        super(new AnchorPane(), 240, 105);
+        super(new AnchorPane(), WIDTH, HEIGHT);
 
         label.setText(name);
-        label.setLayoutX(5);
-        label.setLayoutY(45);
+        label.setLayoutX(LAYOUT_X);
+        label.setLayoutY(LABEL_LAYOUT_Y);
         this.getPane().getChildren().add(label);
 
-        bar.setPrefSize(230,15);
-        bar.setLayoutX(5);
-        bar.setLayoutY(38);
+        bar.setPrefSize(PREF_WIDTH, PREF_HEIGHT);
+        bar.setLayoutX(LAYOUT_X);
+        bar.setLayoutY(BAR_LAYOUT_Y);
         bar.setProgress(0);
         this.getPane().getChildren().add(bar);
 
@@ -35,16 +43,9 @@ public final class BlockSubScene extends SubScene {
         slider.setMin(min_value);
         slider.setMax(max_value);
         slider.setValue((max_value + min_value) / 2);
-        slider.setShowTickMarks(true);
-        slider.setShowTickLabels(true);
-        slider.setBlockIncrement(100);
-        slider.setMajorTickUnit(1000);
-        slider.setMinorTickCount(9);
-        slider.setSnapToTicks(true);
 
-        slider.setPrefSize(230, 25);
-        slider.setLayoutX(5);
-        slider.setLayoutY(5);
+        slider.setLayoutX(LAYOUT_X);
+        slider.setLayoutY(LAYOUT_X);
 
         this.getPane().getChildren().add(slider);
 

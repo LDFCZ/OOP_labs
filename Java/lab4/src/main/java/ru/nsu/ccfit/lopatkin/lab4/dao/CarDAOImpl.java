@@ -11,6 +11,9 @@ import java.util.List;
 
 @Repository
 public class CarDAOImpl implements CarDAO {
+
+    public static final String FROM_CAR = "From Car";
+
     @Override
     public synchronized Car findCarByID(long id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Car.class, id);
@@ -35,7 +38,7 @@ public class CarDAOImpl implements CarDAO {
     }
 
     public List<Car> findAll() {
-        List<Car> cars = (List<Car>)HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Car").list();
+        List<Car> cars = (List<Car>)HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery(FROM_CAR).list();
         return cars;
     }
 

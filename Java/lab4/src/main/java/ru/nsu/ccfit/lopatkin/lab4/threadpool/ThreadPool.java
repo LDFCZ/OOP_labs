@@ -10,20 +10,21 @@ import java.util.Set;
 @Slf4j
 public class ThreadPool {
 
-    private final String threadPoolName;
+    private static final String STARTED = "Started ";
+    private static final String THREADS_IN = " threads in ";
+
     private final ArrayDeque<Task> taskQueue = new ArrayDeque();
 
     private final Set<PooledThread> availableThreads = new LinkedHashSet<>();
 
     public ThreadPool(int threadCount, String threadPoolName, String pooledThreadName) {
-        this.threadPoolName = threadPoolName;
         for (int i = 0; i < threadCount; i++) {
             availableThreads.add(new PooledThread(pooledThreadName + " " + i, taskQueue));
         }
         for (PooledThread pt: availableThreads) {
             pt.start();
         }
-        log.info("Started " + threadCount + " threads in " + threadPoolName);
+        log.info(STARTED + threadCount + THREADS_IN + threadPoolName);
     }
 
 

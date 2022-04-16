@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.lopatkin.lab4.products;
 
+import ru.nsu.ccfit.lopatkin.lab4.products.ConstSpace.ConstSpace;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +29,7 @@ public class Engine extends Product implements CarPart{
     }
 
     public Engine() {
-        vin = "200TFSI";
+        vin = ConstSpace.ENGINE_VIN;
     }
 
     public Long getId() {

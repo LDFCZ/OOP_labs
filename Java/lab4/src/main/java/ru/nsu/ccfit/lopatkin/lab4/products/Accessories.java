@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.lopatkin.lab4.products;
 
+import ru.nsu.ccfit.lopatkin.lab4.products.ConstSpace.ConstSpace;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +29,7 @@ public class Accessories extends Product implements CarPart{
     }
 
     public Accessories() {
-        vin = "PEPE";
+        vin = ConstSpace.ACCESSORIES_VIN;
     }
 
     public Long getId() {
