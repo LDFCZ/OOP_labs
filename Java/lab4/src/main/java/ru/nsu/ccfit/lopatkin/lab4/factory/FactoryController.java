@@ -1,16 +1,11 @@
 package ru.nsu.ccfit.lopatkin.lab4.factory;
 
 import ru.nsu.ccfit.lopatkin.lab4.products.Accessories;
-import ru.nsu.ccfit.lopatkin.lab4.products.Car;
 import ru.nsu.ccfit.lopatkin.lab4.products.CarBody;
 import ru.nsu.ccfit.lopatkin.lab4.products.Engine;
 import ru.nsu.ccfit.lopatkin.lab4.service.CarService;
-import ru.nsu.ccfit.lopatkin.lab4.tasks.BuildCar;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.SellCar;
-import ru.nsu.ccfit.lopatkin.lab4.tasks.Supply;
-import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
 import ru.nsu.ccfit.lopatkin.lab4.threadpool.ThreadPool;
-
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
@@ -44,7 +39,7 @@ public class FactoryController {
     private Storage<Engine> engineStorage;
     private Storage<CarBody> carBodyStorage;
     private Storage<Accessories> accessoriesStorage;
-    private Storage<Car> carStorage;
+    private CarStorage carStorage;
 
     private final int dealerCount;
     private final int workerCount;
@@ -56,11 +51,25 @@ public class FactoryController {
     private ThreadPool workerThreadPool;
     private ThreadPool dealerThreadPool;
 
-    private Task supplyAccessories;
-    private Task supplyEngine;
-    private Task supplyCarBody;
-    private Task sellCar;
-    private Task buildCar;
+    public ThreadPool getEngineSupplierThreadPool() {
+        return engineSupplierThreadPool;
+    }
+
+    public ThreadPool getAccessoriesSupplierThreadPool() {
+        return accessoriesSupplierThreadPool;
+    }
+
+    public ThreadPool getCarBodySupplierThreadPool() {
+        return carBodySupplierThreadPool;
+    }
+
+    public ThreadPool getWorkerThreadPool() {
+        return workerThreadPool;
+    }
+
+    public ThreadPool getDealerThreadPool() {
+        return dealerThreadPool;
+    }
 
     public FactoryController() {
         try {
@@ -72,67 +81,29 @@ public class FactoryController {
         CarService carService = new CarService();
         soldCarCounter = new AtomicLong(carService.findAll().size());
 
-        createStorages();
-
         dealerCount = Integer.parseInt(properties.getProperty(NUMBER_OF_DEALERS));
         workerCount = Integer.parseInt(properties.getProperty(NUMBER_OF_WORKERS));
         accessoriesSupplierCount = Integer.parseInt(properties.getProperty(NUMBER_OF_SUPPLIERS));
 
         createThreadPools();
-
-        createSuppliers();
-        runSuppliers();
-
-        runDealers();
-
-        runWorkers();
+        createStorages();
     }
 
     private void createStorages() {
-        carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty(CAR_BODY_STORAGE_CAPACITY)));
-        engineStorage = new Storage<>(Integer.parseInt(properties.getProperty(ENGINE_STORAGE_CAPACITY)));
-        accessoriesStorage = new Storage<>(Integer.parseInt(properties.getProperty(ACCESSORIES_STORAGE_CAPACITY)));
-        carStorage = new Storage<>(Integer.parseInt(properties.getProperty(CAR_STORAGE_CAPACITY)));
+        carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty(CAR_BODY_STORAGE_CAPACITY)), carBodySupplierThreadPool, CarBody.class);
+        engineStorage = new Storage<>(Integer.parseInt(properties.getProperty(ENGINE_STORAGE_CAPACITY)), engineSupplierThreadPool ,Engine.class);
+        accessoriesStorage = new Storage<>(Integer.parseInt(properties.getProperty(ACCESSORIES_STORAGE_CAPACITY)), accessoriesSupplierThreadPool ,Accessories.class);
+        carStorage = new CarStorage(Integer.parseInt(properties.getProperty(CAR_STORAGE_CAPACITY)), workerThreadPool ,accessoriesStorage, carBodyStorage, engineStorage);
     }
 
     private void createThreadPools() {
-        accessoriesSupplierThreadPool = new ThreadPool(accessoriesSupplierCount, ACCESSORIES_SUPPLIERS, ACCESSORIES_SUPPLIER);
-        engineSupplierThreadPool = new ThreadPool(1, ENGINE_SUPPLIERS, ENGINE_SUPPLIER);
-        carBodySupplierThreadPool = new ThreadPool(1, CAR_BODY_SUPPLIERS, CAR_BODY_SUPPLIER);
-        workerThreadPool = new ThreadPool(workerCount, WORKERS, WORKER);
-        dealerThreadPool = new ThreadPool(dealerCount, DEALERS, DEALER);
+        accessoriesSupplierThreadPool = new ThreadPool(accessoriesSupplierCount, ACCESSORIES_SUPPLIERS, ACCESSORIES_SUPPLIER, START_DELAY);
+        engineSupplierThreadPool = new ThreadPool(1, ENGINE_SUPPLIERS, ENGINE_SUPPLIER, START_DELAY);
+        carBodySupplierThreadPool = new ThreadPool(1, CAR_BODY_SUPPLIERS, CAR_BODY_SUPPLIER, START_DELAY);
+        workerThreadPool = new ThreadPool(workerCount, WORKERS, WORKER, START_DELAY);
+        dealerThreadPool = new ThreadPool(dealerCount, DEALERS, DEALER, START_DELAY);
     }
 
-    private void createSuppliers() {
-        supplyAccessories = new Supply<>(accessoriesStorage, START_DELAY, Accessories.class);
-        supplyEngine = new Supply<>(engineStorage, START_DELAY, Engine.class);
-        supplyCarBody = new Supply<>(carBodyStorage, START_DELAY, CarBody.class);
-    }
-
-    private void runSuppliers() {
-        for (int i = 0; i < accessoriesSupplierCount; i++)
-            accessoriesSupplierThreadPool.addTask(supplyAccessories);
-        engineSupplierThreadPool.addTask(supplyEngine);
-        carBodySupplierThreadPool.addTask(supplyCarBody);
-    }
-
-
-
-    private void runDealers() {
-        sellCar = new SellCar(this, carStorage, START_DELAY);
-
-        for (int i = 0; i < dealerCount; i++) {
-            dealerThreadPool.addTask(sellCar);
-        }
-    }
-
-    private void runWorkers() {
-        buildCar = new BuildCar(START_DELAY, accessoriesStorage, carBodyStorage, engineStorage, carStorage);
-
-        for (int i = 0; i < workerCount; i++) {
-            workerThreadPool.addTask(buildCar);
-        }
-    }
 
     public void stopFactory() {
         workerThreadPool.shutdown();
@@ -160,7 +131,7 @@ public class FactoryController {
         return accessoriesStorage;
     }
 
-    public Storage<Car> getCarStorage() {
+    public CarStorage getCarStorage() {
         return carStorage;
     }
 
@@ -176,13 +147,8 @@ public class FactoryController {
         return accessoriesSupplierCount;
     }
 
-    public Task getSupplyAccessoriesTask() { return supplyAccessories; }
+    public void addSellTask() {
+        dealerThreadPool.addTask(new SellCar(this, carStorage));
+    }
 
-    public Task getSupplyEngineTask() { return supplyEngine; }
-
-    public Task getSupplyCarBodyTask() { return supplyCarBody; }
-
-    public Task getSellCarTask() { return sellCar; }
-
-    public Task getBuildCarTask() { return buildCar; }
 }

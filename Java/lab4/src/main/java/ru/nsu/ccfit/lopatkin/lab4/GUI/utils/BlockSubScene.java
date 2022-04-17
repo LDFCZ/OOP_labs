@@ -3,7 +3,6 @@ package ru.nsu.ccfit.lopatkin.lab4.GUI.utils;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.SubScene;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 
 public final class BlockSubScene extends SubScene {

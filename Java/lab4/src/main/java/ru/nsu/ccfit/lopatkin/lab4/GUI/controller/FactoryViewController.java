@@ -10,22 +10,24 @@ public class FactoryViewController {
     }
 
     public void changeBuildTaskDelay(int new_val) {
-        factoryController.getBuildCarTask().changeDelay(new_val);
+        factoryController.getWorkerThreadPool().setDelay(new_val);
     }
 
     public void changeSupplyCarBodyDelay(int new_val) {
-        factoryController.getSupplyCarBodyTask().changeDelay(new_val);
+        factoryController.getCarBodySupplierThreadPool().setDelay(new_val);
     }
 
     public void changeSupplyEnginDelay(int new_val) {
-        factoryController.getSupplyEngineTask().changeDelay(new_val);
+        factoryController.getEngineSupplierThreadPool().setDelay(new_val);
     }
 
     public void changeSupplyAccessoriesDelay(int new_val) {
-        factoryController.getSupplyAccessoriesTask().changeDelay(new_val);
+        factoryController.getAccessoriesSupplierThreadPool().setDelay(new_val);
     }
 
     public void changeSellCarDelay(int new_val) {
-        factoryController.getSellCarTask().changeDelay(new_val);
+        factoryController.getDealerThreadPool().setDelay(new_val);
     }
+
+    public void addSellCarTask() {factoryController.addSellTask();}
 }

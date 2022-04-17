@@ -1,33 +1,29 @@
 package ru.nsu.ccfit.lopatkin.lab4.threadpool;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.nsu.ccfit.lopatkin.lab4.ConstSpace.ConstSpace;
+import ru.nsu.ccfit.lopatkin.lab4.constSpace.ConstSpace;
 import ru.nsu.ccfit.lopatkin.lab4.tasks.Task;
 
-import java.util.ArrayDeque;
-
 @Slf4j
-public class PooledThread extends Thread {
-
+public class PooledThread extends Thread{
     private boolean shutdownFlag = false;
 
-    private final ArrayDeque<Task> taskQueue;
+    private final ThreadPool threadPool;
 
 
-    public PooledThread(String name, ArrayDeque<Task> taskQueue) {
+    public PooledThread(String name, ThreadPool threadPool) {
         super(name);
-        this.taskQueue = taskQueue;
+        this.threadPool = threadPool;
     }
 
     public void interruptPooledThread() {
-        interrupt();
         shutdownFlag = true;
+        interrupt();
     }
 
     private void performTask(Task t) {
-        if (t == null) return;
         try {
-            t.performWork(getName());
+            t.performWork(getName(), threadPool.getDelay());
         } catch (InterruptedException e) {
             log.info(getName() + ConstSpace.INTERRUPTED);
             shutdownFlag = true;
@@ -35,22 +31,8 @@ public class PooledThread extends Thread {
     }
 
     public void run() {
-        Task toExecute = null;
         while (!shutdownFlag) {
-            synchronized (taskQueue) {
-                if (taskQueue.isEmpty()) {
-                    try {
-                        taskQueue.wait();
-                    } catch (InterruptedException e) {
-                        log.info(getName() + ConstSpace.INTERRUPTED);
-                        break;
-                    }
-                } else {
-                    toExecute = taskQueue.remove();
-                }
-            }
-            performTask(toExecute);
+            performTask(threadPool.getTask());
         }
     }
-
 }

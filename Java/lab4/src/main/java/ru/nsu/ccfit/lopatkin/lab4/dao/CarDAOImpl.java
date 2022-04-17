@@ -12,34 +12,39 @@ import java.util.List;
 @Repository
 public class CarDAOImpl implements CarDAO {
 
-    public static final String FROM_CAR = "From Car";
+    private static final String FROM_CAR = "From Car";
 
     @Override
     public synchronized Car findCarByID(long id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Car.class, id);
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return session.get(Car.class, id);
+        }
     }
 
     @Override
     public synchronized void produceCar(Car car) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        car.setProductID((long)session.save(car));
-        tx1.commit();
-        session.close();
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction tx1 = session.beginTransaction();
+            car.setProductID((long)session.save(car));
+            tx1.commit();
+        }
     }
 
     @Override
     public void deleteCar(Car car) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.delete(car);
-        tx1.commit();
-        session.close();
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction tx1 = session.beginTransaction();
+            session.delete(car);
+            tx1.commit();
+        }
     }
 
     public List<Car> findAll() {
-        List<Car> cars = (List<Car>)HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery(FROM_CAR).list();
-        return cars;
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            Transaction tx1 = session.beginTransaction();
+            List<Car> cars = session.createQuery(FROM_CAR).list();
+            return cars;
+        }
     }
 
 }
