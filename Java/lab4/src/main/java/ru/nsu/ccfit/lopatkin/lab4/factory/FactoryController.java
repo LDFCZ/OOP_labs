@@ -34,7 +34,7 @@ public class FactoryController {
 
     private Properties properties;
 
-    private volatile AtomicLong soldCarCounter;
+    private AtomicLong soldCarCounter;
 
     private Storage<Engine> engineStorage;
     private Storage<CarBody> carBodyStorage;
