@@ -40,13 +40,14 @@ public class Storage<T extends Product & CarPart> {
 
     public int getStorageCapacity() { return  storageCapacity; }
 
-    public synchronized T get() {
+    public synchronized T get() throws InterruptedException {
         while (items.size() < 1) {
             try {
                 wait();
             }
             catch (InterruptedException e) {
                 log.info(STORAGE_WAS_INTERRUPTED);
+                throw e;
             }
         }
         T item = items.removeLast();

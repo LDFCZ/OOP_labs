@@ -31,8 +31,13 @@ public class PooledThread extends Thread{
     }
 
     public void run() {
-        while (!shutdownFlag) {
-            performTask(threadPool.getTask());
+        try {
+            while (!shutdownFlag) {
+                performTask(threadPool.getTask());
+            }
+        } catch (InterruptedException e) {
+            interruptPooledThread();
+            log.info(getName() + ConstSpace.INTERRUPTED);
         }
     }
 }

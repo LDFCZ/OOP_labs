@@ -18,7 +18,7 @@ public class CarService {
     }
 
     public void produceCar(Car car) {
-        carDAO.produceCar(car);
+        car.setProductID(carDAO.produceCar(car));
     }
 
     public void deleteCar(Car car) {

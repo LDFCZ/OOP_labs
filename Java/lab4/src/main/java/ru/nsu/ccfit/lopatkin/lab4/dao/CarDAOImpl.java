@@ -22,11 +22,12 @@ public class CarDAOImpl implements CarDAO {
     }
 
     @Override
-    public synchronized void produceCar(Car car) {
+    public synchronized long produceCar(Car car) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction tx1 = session.beginTransaction();
-            car.setProductID((long)session.save(car));
+            long id = (long)session.save(car);
             tx1.commit();
+            return id;
         }
     }
 

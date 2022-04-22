@@ -23,11 +23,12 @@ public class ProductDAOImpl<T extends Product & CarPart> implements ProductDAO<T
     }
 
     @Override
-    public synchronized void produceProduct(T product) {
+    public synchronized long produceProduct(T product) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction tx1 = session.beginTransaction();
-            product.setProductID((long)session.save(product));
+            long id = (long)session.save(product);
             tx1.commit();
+            return id;
         }
     }
 
@@ -41,13 +42,10 @@ public class ProductDAOImpl<T extends Product & CarPart> implements ProductDAO<T
     }
 
     @Override
-    public synchronized void updateUsedCar(T product, Car car, Class<T> productType) {
-        T foundProduct = findById(product.getProductID(), productType);
-        foundProduct.setCar(car);
-
+    public synchronized void updateUsedCar(T product) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction tx1 = session.beginTransaction();
-            session.update(foundProduct);
+            session.update(product);
             tx1.commit();
         }
     }

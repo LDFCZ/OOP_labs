@@ -17,7 +17,7 @@ public class ProductService<T extends Product & CarPart> {
     }
 
     public void produceProduct(T product) {
-        productDAO.produceProduct(product);
+        product.setProductID(productDAO.produceProduct(product));
     }
 
     public void deleteProduct(T product) {
@@ -25,6 +25,8 @@ public class ProductService<T extends Product & CarPart> {
     }
 
     public void updateUsedCar(T product, Car car, Class<T> productType ) {
-        productDAO.updateUsedCar(product, car, productType);
+        T updatedProduct = productDAO.findById(product.getProductID(), productType);
+        updatedProduct.setCar(car);
+        productDAO.updateUsedCar(product);
     }
 }

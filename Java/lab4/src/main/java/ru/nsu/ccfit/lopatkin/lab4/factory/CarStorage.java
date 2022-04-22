@@ -44,13 +44,14 @@ public class CarStorage {
 
     public int getStorageCapacity() { return  storageCapacity; }
 
-    public synchronized Car get() {
+    public synchronized Car get() throws InterruptedException {
         while (items.size() < 1) {
             try {
                 wait();
             }
             catch (InterruptedException e) {
                 log.info(STORAGE_WAS_INTERRUPTED);
+                throw e;
             }
         }
         Car car = items.removeLast();

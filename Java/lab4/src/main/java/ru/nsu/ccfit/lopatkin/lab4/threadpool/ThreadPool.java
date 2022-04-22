@@ -63,13 +63,13 @@ public class ThreadPool {
         return delay;
     }
 
-    public synchronized Task getTask() {
+    public synchronized Task getTask() throws InterruptedException {
         while (taskQueue.size() < 1) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 log.info(threadPoolName + ConstSpace.INTERRUPTED);
-                shutdown();
+                throw e;
             }
         }
         Task t = taskQueue.remove();

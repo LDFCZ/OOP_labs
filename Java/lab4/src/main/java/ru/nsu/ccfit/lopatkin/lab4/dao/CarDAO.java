@@ -8,7 +8,7 @@ public interface CarDAO {
 
     Car findCarByID(long id);
 
-    void produceCar(Car car);
+    long produceCar(Car car);
 
     void deleteCar(Car car);
 
