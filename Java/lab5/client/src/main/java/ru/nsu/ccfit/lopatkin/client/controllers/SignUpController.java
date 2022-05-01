@@ -18,6 +18,9 @@ public class SignUpController {
     private URL location;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private Label exceptionLabel;
 
     @FXML
@@ -38,7 +41,13 @@ public class SignUpController {
     }
 
     @FXML
+    void turnToStartPage(ActionEvent event) {
+
+    }
+
+    @FXML
     void initialize() {
+        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'signup_page.fxml'.";
         assert exceptionLabel != null : "fx:id=\"exceptionLabel\" was not injected: check your FXML file 'signup_page.fxml'.";
         assert firstPassword != null : "fx:id=\"firstPassword\" was not injected: check your FXML file 'signup_page.fxml'.";
         assert secondPassword != null : "fx:id=\"secondPassword\" was not injected: check your FXML file 'signup_page.fxml'.";

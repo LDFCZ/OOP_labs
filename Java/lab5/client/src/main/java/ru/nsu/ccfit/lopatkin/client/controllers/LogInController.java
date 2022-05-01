@@ -18,6 +18,9 @@ public class LogInController {
     private URL location;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private Label exceptionLabel;
 
     @FXML
@@ -35,7 +38,13 @@ public class LogInController {
     }
 
     @FXML
+    void turnToStartPage(ActionEvent event) {
+
+    }
+
+    @FXML
     void initialize() {
+        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'login_page.fxml'.";
         assert exceptionLabel != null : "fx:id=\"exceptionLabel\" was not injected: check your FXML file 'login_page.fxml'.";
         assert logInButton != null : "fx:id=\"logInButton\" was not injected: check your FXML file 'login_page.fxml'.";
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'login_page.fxml'.";

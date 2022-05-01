@@ -1,0 +1,10 @@
+*/.idea
+
+*/out
+*/target
+*.txt
+*.csv
+*.iml
+*.jar
+*.class
+*.MF

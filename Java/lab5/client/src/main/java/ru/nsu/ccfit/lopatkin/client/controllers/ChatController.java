@@ -18,7 +18,10 @@ public class ChatController {
     private URL location;
 
     @FXML
-    private ListView chatPane;
+    private ListView<?> chatPane;
+
+    @FXML
+    private Button getUserListButton;
 
     @FXML
     private TextArea messageField;
@@ -30,6 +33,11 @@ public class ChatController {
     private Button sendButton;
 
     @FXML
+    void getUserList(ActionEvent event) {
+
+    }
+
+    @FXML
     void sendMessage(ActionEvent event) {
 
     }
@@ -37,6 +45,7 @@ public class ChatController {
     @FXML
     void initialize() {
         assert chatPane != null : "fx:id=\"chatPane\" was not injected: check your FXML file 'chat_page.fxml'.";
+        assert getUserListButton != null : "fx:id=\"getUserListButton\" was not injected: check your FXML file 'chat_page.fxml'.";
         assert messageField != null : "fx:id=\"messageField\" was not injected: check your FXML file 'chat_page.fxml'.";
         assert nameLabel != null : "fx:id=\"nameLabel\" was not injected: check your FXML file 'chat_page.fxml'.";
         assert sendButton != null : "fx:id=\"sendButton\" was not injected: check your FXML file 'chat_page.fxml'.";
