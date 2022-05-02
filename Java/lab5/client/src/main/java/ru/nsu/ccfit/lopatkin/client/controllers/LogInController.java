@@ -8,8 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class LogInController {
+
+    private boolean logInFlag = false;
+    private long userId = -1;
 
     @FXML
     private ResourceBundle resources;
@@ -40,6 +45,11 @@ public class LogInController {
     @FXML
     void turnToStartPage(ActionEvent event) {
 
+    }
+
+    void allowLogIn(long userId) {
+        this.logInFlag = true;
+        this.userId = userId;
     }
 
     @FXML
