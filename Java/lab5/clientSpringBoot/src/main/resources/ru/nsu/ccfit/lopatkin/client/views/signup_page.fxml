@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.ccfit.lopatkin.client.controllers.SignUpController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="exceptionLabel" alignment="CENTER" prefHeight="30.0" prefWidth="300.0" />
+            <TextField fx:id="userName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="name" />
+            <PasswordField fx:id="firstPassword" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="password" />
+            <PasswordField fx:id="secondPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="300.0" promptText="repeat password" />
+            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signIn" prefHeight="30.0" prefWidth="100.0" text="Sign Up!" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#turnToStartPage" prefHeight="30.0" prefWidth="100.0" text="Back" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
