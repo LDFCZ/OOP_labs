@@ -10,15 +10,29 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
+import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
+import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
+import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
+import ru.nsu.ccfit.lopatkin.client.utils.TimeOutTask;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 @FxmlView("../views/signup_page.fxml")
 public class SignUpController {
 
     private FxWeaver fxWeaver;
+    private GetRequestFactory getRequestFactory;
+
+    private boolean isAuthorized = false;
+    private boolean isBadData = false;
+    private boolean isTimeOut = false;
 
     @FXML
     private ResourceBundle resources;
@@ -45,13 +59,89 @@ public class SignUpController {
     private TextField userName;
 
     @Autowired
-    public SignUpController(FxWeaver fxWeaver) {
+    public SignUpController(FxWeaver fxWeaver, GetRequestFactory getRequestFactory) {
         this.fxWeaver = fxWeaver;
+        this.getRequestFactory = getRequestFactory;
+    }
+
+    private boolean checkNewUserContext(String n, String p1, String p2) {
+        if (!p1.equals(p2)) {
+            exceptionLabel.setText("passwords are not equal!");
+            return false;
+        }
+
+        Pattern p = Pattern.compile("^[a-zA-Z0-9_]{3,20}$", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(n);
+
+        if (!m.matches()) {
+            exceptionLabel.setText("bad name!");
+            return false;
+        }
+        return true;
     }
 
     @FXML
     void signIn(ActionEvent event) {
+        String name = userName.getText();
+        String firstPasswordText = firstPassword.getText();
+        String secondPasswordText = secondPassword.getText();
 
+
+        if (!this.checkNewUserContext(name, firstPasswordText, secondPasswordText)) {
+            return;
+        }
+
+        GetRequest getRequest = getRequestFactory.getGetRequest(GetRequestType.SIGN_UP);
+        ArrayList<String> args = new ArrayList<>();
+        args.add(name);
+        args.add(firstPasswordText);
+        getRequest.setState(args);
+
+
+        Timer timer = new Timer();
+        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, () -> {
+            SignUpController.this.notify();
+            SignUpController.this.setTimeOut();
+        });
+
+        try {
+            getRequest.handleRequest();
+            timer.schedule(timeOutTask, 3000);
+            while (!isAuthorized && !isBadData) {
+                if (isTimeOut) {
+                    exceptionLabel.setText("Request TimeOut!");
+                    return;
+                }
+                wait();
+            }
+        } catch (SocketSendMessageException e) {
+            exceptionLabel.setText(e.getMessage());
+            return;
+        }
+        catch (InterruptedException e) {
+            return;
+        }
+        timer.cancel();
+        if (isAuthorized) {
+            signUpButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
+        }
+    }
+
+    public void setAuthorized() {
+        this.isAuthorized = true;
+    }
+
+    public void setBadData(String message) {
+        this.isBadData = true;
+        exceptionLabel.setText(message);
+    }
+
+    public void setTimeOut() {
+        isTimeOut = true;
+    }
+
+    public void setGoodData() {
+        this.isBadData = false;
     }
 
     @FXML

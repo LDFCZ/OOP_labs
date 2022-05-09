@@ -1,11 +1,13 @@
 package ru.nsu.ccfit.lopatkin.client.PostRequests;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+// TODO do it...............
 @Component
 public class PostOnlineUserListRequestHandler implements PostRequest{
     @Override
-    public void setStateFromJson(String JsonString) {
+    public void setStateFromJson(JSONObject jsonObject) {
 
     }
 
@@ -16,6 +18,6 @@ public class PostOnlineUserListRequestHandler implements PostRequest{
 
     @Override
     public PostRequestType getType() {
-        return null;
+        return PostRequestType.ONLINE_USER_LIST;
     }
 }

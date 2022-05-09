@@ -1,7 +1,11 @@
 package ru.nsu.ccfit.lopatkin.client.utils;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.nsu.ccfit.lopatkin.client.PostRequests.PostRequest;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
+import org.json.JSONObject;
+import ru.nsu.ccfit.lopatkin.client.factories.PostRequestFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -22,7 +26,7 @@ public class SocketHandler {
 
         public void run() {
             try {
-                socket = new Socket("",0/* TODO socket params from property? */);
+                socket = new Socket("25.41.125.221", 4004);
                 writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                 reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -35,6 +39,7 @@ public class SocketHandler {
                     String message = reader.readLine();
                     processMessage(message);
                 }
+                socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 // TODO logging
@@ -45,7 +50,7 @@ public class SocketHandler {
             try {
                 writer.write(message);
             } catch (IOException e) {
-                throw new SocketSendMessageException("Somthing goes wrong while sending");
+                throw new SocketSendMessageException("Something goes wrong while sending");
             }
         }
 
@@ -58,6 +63,13 @@ public class SocketHandler {
                 // TODO process it
             }
         }
+    }
+
+    private PostRequestFactory postRequestFactory;
+
+    @Autowired
+    public SocketHandler(PostRequestFactory postRequestFactory) {
+        this.postRequestFactory = postRequestFactory;
     }
 
     private Listener listenerThread;
@@ -79,8 +91,11 @@ public class SocketHandler {
         }
     }
 
-    public void processMessage(String message) {
-        // TODO PostFabric
+    private void processMessage(String message) {
+        JSONObject json = new JSONObject(message);
+        PostRequest postRequest = postRequestFactory.getGetRequest(json.getString("request_type"));
+        postRequest.setStateFromJson(json);
+        postRequest.handleRequest();
     }
 
     public void sendMessage(String message) throws SocketSendMessageException {
