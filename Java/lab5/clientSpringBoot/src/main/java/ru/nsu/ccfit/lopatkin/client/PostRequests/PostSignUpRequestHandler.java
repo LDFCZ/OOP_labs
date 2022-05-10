@@ -35,13 +35,10 @@ public class PostSignUpRequestHandler implements PostRequest{
     public void handleRequest() {
         if (status.equals("ok")) {
             signUpController.setAuthorized();
-            signUpController.setGoodData();
             session.setSessionId(id);
-            signUpController.notify();
             return;
         }
         signUpController.setBadData(message);
-        signUpController.notify();
     }
 
     @Override

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
@@ -30,9 +31,8 @@ public class SignUpController {
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
 
-    private boolean isAuthorized = false;
-    private boolean isBadData = false;
-    private boolean isTimeOut = false;
+
+    private Timer timer;
 
     @FXML
     private ResourceBundle resources;
@@ -59,7 +59,7 @@ public class SignUpController {
     private TextField userName;
 
     @Autowired
-    public SignUpController(FxWeaver fxWeaver, GetRequestFactory getRequestFactory) {
+    public SignUpController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory) {
         this.fxWeaver = fxWeaver;
         this.getRequestFactory = getRequestFactory;
     }
@@ -86,7 +86,6 @@ public class SignUpController {
         String firstPasswordText = firstPassword.getText();
         String secondPasswordText = secondPassword.getText();
 
-
         if (!this.checkNewUserContext(name, firstPasswordText, secondPasswordText)) {
             return;
         }
@@ -97,51 +96,29 @@ public class SignUpController {
         args.add(firstPasswordText);
         getRequest.setState(args);
 
-
-        Timer timer = new Timer();
-        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, () -> {
-            SignUpController.this.notify();
-            SignUpController.this.setTimeOut();
-        });
+        timer = new Timer();
+        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, SignUpController.this::setTimeOut);
 
         try {
-            getRequest.handleRequest();
             timer.schedule(timeOutTask, 3000);
-            while (!isAuthorized && !isBadData) {
-                if (isTimeOut) {
-                    exceptionLabel.setText("Request TimeOut!");
-                    return;
-                }
-                wait();
-            }
+            getRequest.handleRequest();
+
         } catch (SocketSendMessageException e) {
             exceptionLabel.setText(e.getMessage());
-            return;
-        }
-        catch (InterruptedException e) {
-            return;
-        }
-        timer.cancel();
-        if (isAuthorized) {
-            signUpButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
         }
     }
 
     public void setAuthorized() {
-        this.isAuthorized = true;
+        timer.cancel();
+        signUpButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
     }
 
     public void setBadData(String message) {
-        this.isBadData = true;
         exceptionLabel.setText(message);
     }
 
     public void setTimeOut() {
-        isTimeOut = true;
-    }
-
-    public void setGoodData() {
-        this.isBadData = false;
+        exceptionLabel.setText("Request TimeOut!");
     }
 
     @FXML

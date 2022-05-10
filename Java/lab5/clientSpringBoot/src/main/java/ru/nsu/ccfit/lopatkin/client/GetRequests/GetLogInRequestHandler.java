@@ -32,7 +32,7 @@ public class GetLogInRequestHandler implements GetRequest{
         obj.put("type", this.getType().getType());
         obj.put("name", name);
         obj.put("password", password);
-        return obj.toString();
+        return obj.toString() + "\n";
     }
 
     @Override

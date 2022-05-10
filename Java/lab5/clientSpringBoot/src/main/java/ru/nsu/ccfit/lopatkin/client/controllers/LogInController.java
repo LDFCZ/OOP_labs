@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
@@ -25,11 +26,7 @@ import java.util.Timer;
 @Component
 @FxmlView("../views/login_page.fxml")
 public class LogInController {
-
-    private boolean isAuthorized = false;
-
-    private boolean isBadData = false;
-    private boolean isTimeOut = false;
+    private Timer timer;
 
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
@@ -56,7 +53,7 @@ public class LogInController {
     private TextField userNameField;
 
     @Autowired
-    public LogInController(FxWeaver fxWeaver, GetRequestFactory getRequestFactory) {
+    public LogInController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory) {
         this.fxWeaver = fxWeaver;
         this.getRequestFactory = getRequestFactory;
     }
@@ -77,56 +74,35 @@ public class LogInController {
         args.add(password);
         getRequest.setState(args);
 
-
-        Timer timer = new Timer();
-        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, () -> {
-            LogInController.this.notify();
-            LogInController.this.setTimeOut();
-        });
+        timer = new Timer();
+        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, LogInController.this::setTimeOut);
 
         try {
-            getRequest.handleRequest();
             timer.schedule(timeOutTask, 3000);
-            while (!isAuthorized && !isBadData) {
-                if (isTimeOut) {
-                    exceptionLabel.setText("Request TimeOut!");
-                    return;
-                }
-                wait();
-            }
+            getRequest.handleRequest();
         } catch (SocketSendMessageException e) {
             exceptionLabel.setText(e.getMessage());
-            return;
-        }
-        catch (InterruptedException e) {
-            return;
-        }
-        timer.cancel();
-        if (isAuthorized) {
-            logInButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
         }
     }
 
     @FXML
     void turnToStartPage(ActionEvent event) {
+        timer.cancel();
         backButton.getScene().setRoot(fxWeaver.loadView(StartController.class));
     }
 
     public void setAuthorized() {
-        this.isAuthorized = true;
+        timer.cancel();
+        logInButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
     }
 
     public void setTimeOut() {
-        isTimeOut = true;
+        exceptionLabel.setText("Request TimeOut!");
     }
 
     public void setBadData(String message) {
-        this.isBadData = true;
+        timer.cancel();
         exceptionLabel.setText(message);
-    }
-
-    public void setGoodData() {
-        this.isBadData = false;
     }
 
     @FXML
@@ -136,7 +112,6 @@ public class LogInController {
         assert logInButton != null : "fx:id=\"logInButton\" was not injected: check your FXML file 'login_page.fxml'.";
         assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'login_page.fxml'.";
         assert userNameField != null : "fx:id=\"userNameField\" was not injected: check your FXML file 'login_page.fxml'.";
-
     }
 
 }

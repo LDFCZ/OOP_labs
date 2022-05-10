@@ -32,13 +32,10 @@ public class PostLogInRequestHandler implements PostRequest{
     public void handleRequest() {
         if (status.equals("ok")) {
             logInController.setAuthorized();
-            logInController.setGoodData();
             session.setSessionId(id);
-            logInController.notify();
             return;
         }
         logInController.setBadData(message);
-        logInController.notify();
     }
 
     @Override

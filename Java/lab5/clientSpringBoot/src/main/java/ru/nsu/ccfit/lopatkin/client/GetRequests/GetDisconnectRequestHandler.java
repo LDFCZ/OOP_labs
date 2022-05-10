@@ -24,7 +24,7 @@ public class GetDisconnectRequestHandler implements GetRequest{
         JSONObject obj = new JSONObject();
         obj.put("type", this.getType().getType());
         obj.put("id", session.getSessionId());
-        return null;
+        return obj.toString() + "\n";
     }
 
     @Override

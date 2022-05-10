@@ -9,6 +9,7 @@ public enum GetRequestType {
     LOG_IN("login"),
     SIGN_UP("signup"),
     NEW_MESSAGE("new_message"),
+    ASK_MESSAGE("ask_message"),
     ONLINE_USER_LIST("online_user_list"),
     DISCONNECT("disconnect");
 
