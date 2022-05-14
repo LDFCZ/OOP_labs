@@ -2,6 +2,8 @@ package ru.nsu.ccfit.lopatkin.server.requestFactory;
 
 
 import org.json.JSONObject;
+import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
+import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
 import ru.nsu.ccfit.lopatkin.server.requestHandlers.RequestHandler;
 
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class RequestFactory {
         return requestFactory;
     }
 
-    public RequestHandler getRequestHandler(JSONObject object)
+    public RequestHandler getRequestHandler(JSONObject object, MessageContext messageContext, SessionContext sessionContext)
             throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Properties requests = new Properties();
         requests.load(RequestFactory.class.getClassLoader().getResourceAsStream("request.properties"));
@@ -32,7 +34,9 @@ public class RequestFactory {
             throw new RuntimeException("No such request: " + object.getString("type"));
         }
 
-        return (RequestHandler) Class.forName((String) requests.get(object.getString("type"))).getConstructor(new Class[] {JSONObject.class}).newInstance(object);
+        return (RequestHandler) Class.forName((String) requests.get(object.getString("type")))
+                .getConstructor(new Class[] {JSONObject.class, MessageContext.class, SessionContext.class})
+                .newInstance(object, messageContext, sessionContext);
     }
 
 }

@@ -1,6 +1,8 @@
 package ru.nsu.ccfit.lopatkin.server.threadPool;
 
 import org.json.JSONObject;
+import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
+import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
 import ru.nsu.ccfit.lopatkin.server.requestFactory.RequestFactory;
 
 import java.io.*;
@@ -11,11 +13,14 @@ import java.net.Socket;
 public class WorkerRunnable implements Runnable{
 
     protected Socket clientSocket = null;
-    protected String serverText   = null;
 
-    public WorkerRunnable(Socket clientSocket, String serverText) {
+    private final MessageContext messageContext;
+    private final SessionContext sessionContext;
+
+    public WorkerRunnable(Socket clientSocket, MessageContext messageContext, SessionContext sessionContext) {
         this.clientSocket = clientSocket;
-        this.serverText   = serverText;
+        this.messageContext = messageContext;
+        this.sessionContext = sessionContext;
     }
 
     public void run() {
@@ -26,7 +31,8 @@ public class WorkerRunnable implements Runnable{
             JSONObject obj = new JSONObject(input.readLine());
             try {
                 System.out.println("get " + obj.getString("type"));
-                output.write(RequestFactory.getInstance().getRequestHandler(obj).handleRequest());
+                output.write(RequestFactory.getInstance().getRequestHandler(obj, messageContext, sessionContext).handleRequest() + "\n");
+                output.flush();
             } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
                      InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);

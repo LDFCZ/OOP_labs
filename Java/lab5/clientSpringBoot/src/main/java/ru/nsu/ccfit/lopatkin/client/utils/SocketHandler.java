@@ -20,15 +20,14 @@ public class SocketHandler {
             this.message = message;
         }
         private void send() {
-                try {
-                    Socket socket = new Socket("25.41.125.221", 4004);
+                try (Socket socket = new Socket("25.41.125.221", 4004);
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
                     writer.write(message);
                     writer.flush();
                     String answer = reader.readLine();
                     processMessage(answer);
-                    socket.close();
                 } catch (IOException e) {
                     // TODO logging
                 }

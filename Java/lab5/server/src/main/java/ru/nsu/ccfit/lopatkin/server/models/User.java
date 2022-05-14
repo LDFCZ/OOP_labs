@@ -1,33 +1,17 @@
 package ru.nsu.ccfit.lopatkin.server.models;
 
-import javax.persistence.*;
+import java.util.List;
 
-@Entity
-@Table(name = "users")
+
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private long id;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-    public User() {}
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "password")
     private String password;
 
     public String getName() {
@@ -48,6 +32,6 @@ public class User {
 
     @Override
     public String toString() {
-        return name + " " + password;
+        return name;
     }
 }

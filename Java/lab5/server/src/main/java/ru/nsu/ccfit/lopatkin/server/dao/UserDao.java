@@ -1,35 +1,39 @@
 package ru.nsu.ccfit.lopatkin.server.dao;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
+import ru.nsu.ccfit.lopatkin.server.exceptions.FindUserException;
+import ru.nsu.ccfit.lopatkin.server.exceptions.SaveUserException;
 import ru.nsu.ccfit.lopatkin.server.models.User;
-import ru.nsu.ccfit.lopatkin.server.utils.HibernateFactory;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 
 public class UserDao {
-    //new user
 
-    //find by name
-
-    //new user
-    public long save(User user) {
-        long id = -1;
-        try (Session session = HibernateFactory.getSessionFactory().openSession()) {
-            Transaction tx1 = session.beginTransaction();
-            id = (long) session.save(user);
-            tx1.commit();
+    public long save(User user) throws SaveUserException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter("users.csv", true))){
+            String[] record = {user.getName(), user.getPassword()};
+            writer.writeNext(record);
+        } catch (IOException e) {
+            throw new SaveUserException("DaraBaseSaving EXCEPTION!");
         }
-        return id;
+        return 0;
     }
 
-    public User findByName(String name) {
-        User user = null;
-        try (Session session = HibernateFactory.getSessionFactory().openSession()) {
-            Query<User> query = session.createQuery("FROM User u where u.name = :name", User.class);
-            query.setParameter("name", name);
-            user = query.getSingleResult();
+    public User findByName(String name) throws FindUserException {
+        try (CSVReader reader = new CSVReader(new FileReader("users.csv"))) {
+            List<String[]> r = reader.readAll();
+            for (String[] s : r ) {
+                if (s[0].equals(name)) return new User(s[0], s[1]);
+            }
+        } catch (IOException | CsvException e) {
+            throw new FindUserException("DataBaseReading EXCEPTION!");
         }
-        return user;
+        return null;
     }
 }

@@ -1,38 +1,41 @@
 package ru.nsu.ccfit.lopatkin.server;
 
-import ru.nsu.ccfit.lopatkin.server.dao.UserDao;
-import ru.nsu.ccfit.lopatkin.server.models.User;
+
+import org.apache.log4j.Logger;
+import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
+import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
 import ru.nsu.ccfit.lopatkin.server.threadPool.ThreadPooledServer;
+import ru.nsu.ccfit.lopatkin.server.utils.TimeOutTask;
 
 import java.util.Scanner;
+import java.util.Timer;
 
 public class Main {
+
+    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Timer timer = new Timer();
     public static void main(String[] args) {
-        //Scanner scanner = new Scanner(System.in);
+        logger.info("Server Starts!");
+        SessionContext sessionContext = new SessionContext();
+        MessageContext messageContext = new MessageContext(sessionContext);
 
-        //ThreadPooledServer server = new ThreadPooledServer(4004);
-        //new Thread(server).start();
+        timer.schedule(new TimeOutTask(Thread.currentThread(), timer, sessionContext, messageContext), 3000);
 
+        Scanner scanner = new Scanner(System.in);
 
-        //while (true) {
-        //    String inputString = scanner.nextLine();
-        //    if (inputString.equals("q")) {
-        //        System.out.println("Stopping Server");
-        //        server.stop();
-        //        break;
-        //    }
-        //}
-        User u1 = new User();
-        u1.setName("test");
-        u1.setPassword("test");
+        ThreadPooledServer server = new ThreadPooledServer(4004, messageContext, sessionContext);
+        new Thread(server).start();
+        logger.info("ThreadPool Starts!");
 
-        User u2 = new User();
-        u1.setName("test1");
-        u1.setPassword("test1");
-
-        UserDao userDao = new UserDao();
-
-        userDao.save(u1);
-        userDao.save(u2);
+        while (true) {
+            String inputString = scanner.nextLine();
+            if (inputString.equals("q")) {
+                logger.info("Stopping Server!");
+                server.stop();
+                timer.cancel();
+                logger.info("Server Stopped!");
+                break;
+            }
+        }
     }
 }

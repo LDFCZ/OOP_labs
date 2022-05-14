@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public enum PostRequestType {
     LOG_IN("login"),
     SIGN_UP("signup"),
+
+    ASK_MESSAGE("ask_message"),
     NEW_MESSAGE("new_message"),
     ONLINE_USER_LIST("online_user_list");
 

@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.lopatkin.server.threadPool;
 
+import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
+import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
 import ru.nsu.ccfit.lopatkin.server.threadPool.WorkerRunnable;
 
 import java.net.ServerSocket;
@@ -17,8 +19,13 @@ public class ThreadPooledServer implements Runnable{
     protected ExecutorService threadPool =
             Executors.newFixedThreadPool(10);
 
-    public ThreadPooledServer(int port){
+    private final MessageContext messageContext;
+    private final SessionContext sessionContext;
+
+    public ThreadPooledServer(int port, MessageContext messageContext, SessionContext sessionContext){
         this.serverPort = port;
+        this.messageContext = messageContext;
+        this.sessionContext = sessionContext;
     }
 
     public void run(){
@@ -39,8 +46,7 @@ public class ThreadPooledServer implements Runnable{
                         "Error accepting client connection", e);
             }
             this.threadPool.execute(
-                    new WorkerRunnable(clientSocket,
-                            "Thread Pooled Server"));
+                    new WorkerRunnable(clientSocket, messageContext, sessionContext));
         }
         this.threadPool.shutdown();
         System.out.println("Server Stopped.") ;
