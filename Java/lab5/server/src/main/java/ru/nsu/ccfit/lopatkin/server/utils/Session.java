@@ -53,6 +53,7 @@ public class Session {
     }
 
     public List<Message> getNewMessages() {
+        activityDuringLastTime = true;
         int c = newMessagesCounter;
         newMessagesCounter = 0;
         return messageContext.getLastMessages(c);

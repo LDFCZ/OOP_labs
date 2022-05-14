@@ -15,6 +15,7 @@ import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
 import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
+import ru.nsu.ccfit.lopatkin.client.utils.Session;
 import ru.nsu.ccfit.lopatkin.client.utils.TimeOutTask;
 
 import java.net.URL;
@@ -31,6 +32,7 @@ public class SignUpController {
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
 
+    private Session session;
 
     private Timer timer;
 
@@ -59,9 +61,10 @@ public class SignUpController {
     private TextField userName;
 
     @Autowired
-    public SignUpController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory) {
+    public SignUpController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory, Session session) {
         this.fxWeaver = fxWeaver;
         this.getRequestFactory = getRequestFactory;
+        this.session = session;
     }
 
     private boolean checkNewUserContext(String n, String p1, String p2) {
@@ -95,7 +98,7 @@ public class SignUpController {
         args.add(name);
         args.add(firstPasswordText);
         getRequest.setState(args);
-
+        session.setName(name);
         timer = new Timer();
         TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, SignUpController.this::setTimeOut);
 

@@ -15,6 +15,7 @@ import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
 import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
+import ru.nsu.ccfit.lopatkin.client.utils.Session;
 import ru.nsu.ccfit.lopatkin.client.utils.TimeOutHandler;
 import ru.nsu.ccfit.lopatkin.client.utils.TimeOutTask;
 
@@ -30,6 +31,8 @@ public class LogInController {
 
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
+
+    private Session session;
 
     @FXML
     private ResourceBundle resources;
@@ -53,9 +56,10 @@ public class LogInController {
     private TextField userNameField;
 
     @Autowired
-    public LogInController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory) {
+    public LogInController(FxWeaver fxWeaver, @Lazy GetRequestFactory getRequestFactory, Session session) {
         this.fxWeaver = fxWeaver;
         this.getRequestFactory = getRequestFactory;
+        this.session = session;
     }
 
     @FXML
@@ -73,7 +77,7 @@ public class LogInController {
         args.add(name);
         args.add(password);
         getRequest.setState(args);
-
+        session.setName(name);
         timer = new Timer();
         TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, LogInController.this::setTimeOut);
 

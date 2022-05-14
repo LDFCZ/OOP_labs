@@ -24,7 +24,7 @@ public class SocketHandler {
                     BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                     BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-                    writer.write(message);
+                    writer.write(message + "\n");
                     writer.flush();
                     String answer = reader.readLine();
                     processMessage(answer);

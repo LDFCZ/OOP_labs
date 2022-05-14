@@ -3,6 +3,7 @@ package ru.nsu.ccfit.lopatkin.client.controllers;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -49,6 +50,26 @@ public class ChatController {
     void sendMessage(ActionEvent event) {
 
     }
+    public void addMessage(String name, String text, String time, boolean isMy) {
+        Task<VBox> message = new Task<VBox>() {
+            @Override
+            protected VBox call() throws Exception {
+                Label n = new Label(name);
+                BubbleMessages t = new BubbleMessages(text, time);
+                VBox v = new VBox();
+                v.getChildren().addAll(n, t);
+                if(isMy)
+                    v.setAlignment(Pos.BASELINE_RIGHT);
+                else
+                    v.setAlignment(Pos.BASELINE_LEFT);
+                return v;
+            }
+        };
+        message.setOnSucceeded(event -> chatPane.getItems().add(message.getValue()));
+        Thread t = new Thread(message);
+        t.setDaemon(true);
+        t.start();
+    }
 
     @FXML
     void initialize() {
@@ -57,37 +78,6 @@ public class ChatController {
         assert messageField != null : "fx:id=\"messageField\" was not injected: check your FXML file 'chat_page.fxml'.";
         assert nameLabel != null : "fx:id=\"nameLabel\" was not injected: check your FXML file 'chat_page.fxml'.";
         assert sendButton != null : "fx:id=\"sendButton\" was not injected: check your FXML file 'chat_page.fxml'.";
-
-        Task<VBox> message = new Task<VBox>() {
-            @Override
-            protected VBox call() throws Exception {
-                Label name= new Label("TestName");
-                BubbleMessages text = new BubbleMessages("test\ntext 123321123321 вававава", "11:12");
-                VBox v = new VBox();
-                v.getChildren().addAll(name, text);
-                return v;
-            }
-        };
-        Task<VBox> message2 = new Task<VBox>() {
-            @Override
-            protected VBox call() throws Exception {
-                Label name= new Label("TestName");
-                BubbleMessages text = new BubbleMessages("test2\ntext 123321123321 вававава", "11:12");
-                VBox v = new VBox();
-                v.getChildren().addAll(name, text);
-                return v;
-            }
-        };
-
-        message.setOnSucceeded(event -> chatPane.getItems().add(message.getValue()));
-        Thread t2 = new Thread(message);
-        t2.setDaemon(true);
-        t2.start();
-        message2.setOnSucceeded(event -> chatPane.getItems().add(message2.getValue()));
-        Thread t1 = new Thread(message2);
-        t1.setDaemon(true);
-        t1.start();
-
     }
 
 }
