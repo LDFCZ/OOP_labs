@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.lopatkin.client.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,7 +28,7 @@ import java.util.Timer;
 @Component
 @FxmlView("../views/login_page.fxml")
 public class LogInController {
-    private Timer timer;
+    private Timer timer = new Timer();
 
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
@@ -68,7 +69,7 @@ public class LogInController {
         String password = passwordField.getText();
 
         if (name.length() > 20 || name.length() < 3) {
-            exceptionLabel.setText("this could not be your name!");
+            Platform.runLater(() -> { exceptionLabel.setText("this could not be your name!");});
             return;
         }
 
@@ -85,7 +86,7 @@ public class LogInController {
             timer.schedule(timeOutTask, 3000);
             getRequest.handleRequest();
         } catch (SocketSendMessageException e) {
-            exceptionLabel.setText(e.getMessage());
+            Platform.runLater(() -> { exceptionLabel.setText(e.getMessage());});
         }
     }
 
@@ -101,12 +102,12 @@ public class LogInController {
     }
 
     public void setTimeOut() {
-        exceptionLabel.setText("Request TimeOut!");
+        Platform.runLater(() -> {exceptionLabel.setText("Request TimeOut!");});
     }
 
     public void setBadData(String message) {
         timer.cancel();
-        exceptionLabel.setText(message);
+        Platform.runLater(() -> { exceptionLabel.setText(message);});
     }
 
     @FXML

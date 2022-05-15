@@ -25,6 +25,7 @@ public class GetAskMessageRequestHandler implements GetRequest{
 
     @Override
     public void handleRequest() throws SocketSendMessageException {
+        if(session.getSessionId() == -1) return;
         socketHandler.sendMessage(this.convertToJsonString());
     }
 

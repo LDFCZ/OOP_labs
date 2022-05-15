@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.lopatkin.client.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,7 +35,7 @@ public class SignUpController {
 
     private Session session;
 
-    private Timer timer;
+    private Timer timer = new Timer();
 
     @FXML
     private ResourceBundle resources;
@@ -69,7 +70,7 @@ public class SignUpController {
 
     private boolean checkNewUserContext(String n, String p1, String p2) {
         if (!p1.equals(p2)) {
-            exceptionLabel.setText("passwords are not equal!");
+            Platform.runLater(() -> { exceptionLabel.setText("passwords are not equal!");});
             return false;
         }
 
@@ -77,7 +78,7 @@ public class SignUpController {
         Matcher m = p.matcher(n);
 
         if (!m.matches()) {
-            exceptionLabel.setText("bad name!");
+            Platform.runLater(() -> { exceptionLabel.setText("bad name!");});
             return false;
         }
         return true;
@@ -107,7 +108,7 @@ public class SignUpController {
             getRequest.handleRequest();
 
         } catch (SocketSendMessageException e) {
-            exceptionLabel.setText(e.getMessage());
+            Platform.runLater(() -> { exceptionLabel.setText(e.getMessage());});
         }
     }
 
@@ -117,11 +118,11 @@ public class SignUpController {
     }
 
     public void setBadData(String message) {
-        exceptionLabel.setText(message);
+        Platform.runLater(() -> { exceptionLabel.setText(message);});
     }
 
     public void setTimeOut() {
-        exceptionLabel.setText("Request TimeOut!");
+        Platform.runLater(() -> { exceptionLabel.setText("Request TimeOut!");});
     }
 
     @FXML

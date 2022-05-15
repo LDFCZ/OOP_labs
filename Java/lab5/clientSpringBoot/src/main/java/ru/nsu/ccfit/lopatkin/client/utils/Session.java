@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Session {
 
-    private long sessionId;
+    private long sessionId = -1;
 
     private String name;
 

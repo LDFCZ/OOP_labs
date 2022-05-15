@@ -26,6 +26,7 @@ public class TimeOutTask extends TimerTask {
     @Override
     public void run() {
         if(thread != null && thread.isAlive()) {
+            System.out.println("TimeOutCollector working!");
             Map<Long, Session> sessionList = sessionContext.getSessionMap();
             Iterator<Map.Entry<Long, Session>> i = sessionList.entrySet().iterator();
            while (i.hasNext()) {
@@ -34,8 +35,8 @@ public class TimeOutTask extends TimerTask {
                    logger.info("session " + session.getValue().getId() + " is closed");
                    sessionContext.removeSession(session.getValue());
                    messageContext.addMessage(new Message(new ServerUser(), session.getValue().getUserName() + " disconnected!", new Date()));
-                   timer.cancel();
                } else session.getValue().setActivityDuringLastTimeOut();
+               System.out.println(session.getValue().getActivityDuringLastTime());
            }
         }
         else timer.cancel();

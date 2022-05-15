@@ -21,13 +21,17 @@ public class AskMessageRequestHandler extends RequestHandler{
         long id = jsonObject.getLong("id");
 
         List<Message> messages = sessionContext.getSessionById(id).getNewMessages();
-
+        int count = messages.size();
         JSONObject obj = new JSONObject();
         obj.put("type", "ask_message");
-        obj.put("count", messages.size());
+
         if (messages.size() != 0) {
             JSONArray jsonMessages = new JSONArray();
             for (Message message: messages) {
+                if(message.getUser().getName().equals(sessionContext.getSessionById(id).getUserName())) {
+                    count--;
+                    continue;
+                }
                 JSONObject m = new JSONObject();
                 m.put("name", message.getUser().getName());
                 m.put("text",message.getText());
@@ -35,7 +39,9 @@ public class AskMessageRequestHandler extends RequestHandler{
                 jsonMessages.put(m);
             }
             obj.put("messages",jsonMessages);
+
         }
+        obj.put("count", count);
        return obj.toString();
     }
 }

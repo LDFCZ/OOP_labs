@@ -1,14 +1,11 @@
 package ru.nsu.ccfit.lopatkin.client.utils;
 
-import org.springframework.stereotype.Component;
+
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
-import ru.nsu.ccfit.lopatkin.client.controllers.ChatController;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
 import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -31,14 +28,17 @@ public class AskMessageTask extends TimerTask {
 
     @Override
     public void run() {
-        if(thread != null && thread.isAlive()) {
+        //if(thread != null && thread.isAlive()) {
             GetRequest getRequest = getRequestFactory.getGetRequest(GetRequestType.ASK_MESSAGE);
             try {
                 getRequest.handleRequest();
             } catch (SocketSendMessageException e) {
-                // log it
+                System.out.println(e.getMessage());
             }
-        }
-        else timer.cancel();
+        //}
+        //else {
+        //    System.out.println("!!");
+        //    timer.cancel();
+        //}
     }
 }

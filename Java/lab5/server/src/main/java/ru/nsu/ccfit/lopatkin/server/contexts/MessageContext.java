@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.lopatkin.server.contexts;
 
 import ru.nsu.ccfit.lopatkin.server.models.Message;
+import ru.nsu.ccfit.lopatkin.server.utils.Session;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -37,7 +37,7 @@ public class GetDisconnectRequestHandler implements GetRequest{
 
     @Override
     public void setState(List<String> args) {
-        // for some features in the future :) SOLID cries
+        // for some features in the future :) SOLID cries ಥ_ಥ
     }
 
     @Override

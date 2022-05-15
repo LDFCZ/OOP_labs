@@ -16,7 +16,7 @@ public class SessionContext {
 
 
     public void updateAllMessageCounters() {
-        for (Map.Entry<Long, Session> session : sessionMap.entrySet()) session.getValue().updateMessageCounter();
+        for (Map.Entry<Long, Session> s : sessionMap.entrySet()) s.getValue().updateMessageCounter();
     }
 
     public void removeSession(Session sessionToRemove) {

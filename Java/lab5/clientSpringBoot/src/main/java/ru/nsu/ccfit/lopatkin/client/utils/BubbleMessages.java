@@ -81,6 +81,8 @@ public class BubbleMessages extends Group{
         int metaH = (int) tmp.getLayoutBounds().getHeight();
         h += metaH;
 
+        if (metaW > textW)  w = metaW + p * 2 + s * 2;
+
         // label text
         Label l = new Label(text);
         l.setFont(textFont);

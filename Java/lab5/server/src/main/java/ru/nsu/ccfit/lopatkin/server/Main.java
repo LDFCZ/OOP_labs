@@ -19,7 +19,7 @@ public class Main {
         SessionContext sessionContext = new SessionContext();
         MessageContext messageContext = new MessageContext(sessionContext);
 
-        timer.schedule(new TimeOutTask(Thread.currentThread(), timer, sessionContext, messageContext), 3000);
+        timer.schedule(new TimeOutTask(Thread.currentThread(), timer, sessionContext, messageContext), 3000, 3000);
 
         Scanner scanner = new Scanner(System.in);
 
