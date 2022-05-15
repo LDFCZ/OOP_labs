@@ -1,13 +1,14 @@
 package ru.nsu.ccfit.lopatkin.server.contexts;
 
 import ru.nsu.ccfit.lopatkin.server.models.Message;
-import ru.nsu.ccfit.lopatkin.server.utils.Session;
+
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class MessageContext {
 
+    public static final int MAX_SIZE = 100;
     private final List<Message> messageList = new LinkedList<>();
 
     private final SessionContext sessionContext;
@@ -17,7 +18,7 @@ public class MessageContext {
     }
 
     public synchronized void addMessage(Message message) {
-        if (messageList.size() > 100) messageList.remove(0);
+        if (messageList.size() > MAX_SIZE) messageList.remove(0);
         messageList.add(message);
         sessionContext.updateAllMessageCounters();
     }

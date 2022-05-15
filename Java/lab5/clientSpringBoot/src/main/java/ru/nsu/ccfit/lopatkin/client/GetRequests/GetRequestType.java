@@ -6,12 +6,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 
 public enum GetRequestType {
-    LOG_IN("login"),
-    SIGN_UP("signup"),
-    NEW_MESSAGE("new_message"),
-    ASK_MESSAGE("ask_message"),
-    ONLINE_USER_LIST("online_user_list"),
-    DISCONNECT("disconnect");
+    LOG_IN(Constants.LOGIN),
+    SIGN_UP(Constants.SIGNUP),
+    NEW_MESSAGE(Constants.NEW_MESSAGE1),
+    ASK_MESSAGE(Constants.ASK_MESSAGE1),
+    ONLINE_USER_LIST(Constants.ONLINE_USER_LIST1),
+    DISCONNECT(Constants.DISCONNECT1);
 
     private String type;
     GetRequestType(String type) {
@@ -34,5 +34,14 @@ public enum GetRequestType {
 
     public static GetRequestType get(String type) {
         return ENUM_MAP.get(type.toLowerCase());
+    }
+
+    private static class Constants {
+        public static final String LOGIN = "login";
+        public static final String SIGNUP = "signup";
+        public static final String NEW_MESSAGE1 = "new_message";
+        public static final String ASK_MESSAGE1 = "ask_message";
+        public static final String ONLINE_USER_LIST1 = "online_user_list";
+        public static final String DISCONNECT1 = "disconnect";
     }
 }

@@ -3,7 +3,6 @@ package ru.nsu.ccfit.lopatkin.client.controllers;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
+import ru.nsu.ccfit.lopatkin.client.consts.Consts;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
 import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
 import ru.nsu.ccfit.lopatkin.client.utils.AskMessageTask;
@@ -30,6 +30,13 @@ import java.util.*;
 @FxmlView("../views/chat_page.fxml")
 public class ChatController {
 
+    public static final String ME = "Me";
+    public static final String FX_ID_CHAT_PANE_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML = "fx:id=\"chatPane\" was not injected: check your FXML file 'chat_page.fxml'.";
+    public static final String FX_ID_GET_USER_LIST_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML = "fx:id=\"getUserListButton\" was not injected: check your FXML file 'chat_page.fxml'.";
+    public static final String FX_ID_MESSAGE_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML = "fx:id=\"messageField\" was not injected: check your FXML file 'chat_page.fxml'.";
+    public static final String FX_ID_NAME_LABEL_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML = "fx:id=\"nameLabel\" was not injected: check your FXML file 'chat_page.fxml'.";
+    public static final String FX_ID_SEND_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML = "fx:id=\"sendButton\" was not injected: check your FXML file 'chat_page.fxml'.";
+    public static final int PERIOD = 500;
     private GetRequestFactory getRequestFactory;
     private Session session;
 
@@ -79,8 +86,8 @@ public class ChatController {
         } catch (SocketSendMessageException e) {
             addMessage("", e.getMessage(), "", true);
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        addMessage("Me", messageField.getText(), formatter.format(new Date()), true);
+        SimpleDateFormat formatter = new SimpleDateFormat(Consts.TIME_FORMAT);
+        addMessage(ME, messageField.getText(), formatter.format(new Date()), true);
         messageField.clear();
     }
     public void addMessage(String name, String text, String time, boolean isMy) {
@@ -108,14 +115,14 @@ public class ChatController {
 
     @FXML
     void initialize() {
-        assert chatPane != null : "fx:id=\"chatPane\" was not injected: check your FXML file 'chat_page.fxml'.";
-        assert getUserListButton != null : "fx:id=\"getUserListButton\" was not injected: check your FXML file 'chat_page.fxml'.";
-        assert messageField != null : "fx:id=\"messageField\" was not injected: check your FXML file 'chat_page.fxml'.";
-        assert nameLabel != null : "fx:id=\"nameLabel\" was not injected: check your FXML file 'chat_page.fxml'.";
-        assert sendButton != null : "fx:id=\"sendButton\" was not injected: check your FXML file 'chat_page.fxml'.";
+        assert chatPane != null : FX_ID_CHAT_PANE_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML;
+        assert getUserListButton != null : FX_ID_GET_USER_LIST_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML;
+        assert messageField != null : FX_ID_MESSAGE_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML;
+        assert nameLabel != null : FX_ID_NAME_LABEL_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML;
+        assert sendButton != null : FX_ID_SEND_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_CHAT_PAGE_FXML;
 
         Timer t = new Timer();
-        t.schedule(new AskMessageTask(Thread.currentThread(), t, getRequestFactory, session), 0, 500);
+        t.schedule(new AskMessageTask(Thread.currentThread(), t, getRequestFactory, session), 0, PERIOD);
     }
 
 }

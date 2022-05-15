@@ -12,6 +12,9 @@ import java.util.Properties;
 
 public class RequestFactory {
 
+    public static final String REQUEST_PROPERTIES = "request.properties";
+    public static final String TYPE = "type";
+    public static final String NO_SUCH_REQUEST = "No such request: ";
     private static volatile RequestFactory requestFactory;
 
     public static RequestFactory getInstance() {
@@ -28,13 +31,13 @@ public class RequestFactory {
     public RequestHandler getRequestHandler(JSONObject object, MessageContext messageContext, SessionContext sessionContext)
             throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Properties requests = new Properties();
-        requests.load(RequestFactory.class.getClassLoader().getResourceAsStream("request.properties"));
+        requests.load(RequestFactory.class.getClassLoader().getResourceAsStream(REQUEST_PROPERTIES));
 
-        if(!requests.containsKey(object.getString("type"))) {
-            throw new RuntimeException("No such request: " + object.getString("type"));
+        if(!requests.containsKey(object.getString(TYPE))) {
+            throw new RuntimeException(NO_SUCH_REQUEST + object.getString(TYPE));
         }
 
-        return (RequestHandler) Class.forName((String) requests.get(object.getString("type")))
+        return (RequestHandler) Class.forName((String) requests.get(object.getString(TYPE)))
                 .getConstructor(new Class[] {JSONObject.class, MessageContext.class, SessionContext.class})
                 .newInstance(object, messageContext, sessionContext);
     }

@@ -9,20 +9,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class BubbleMessages extends Group{
-    private int p = 14;
-    private int s = 2;
-    private int pm = 10;
-    private int sm = 2;
-    private Font textFont = Font.font("Arial", 18);
+    public static final String ARIAL = "Arial";
+    public static final int BIG_SIZE = 18;
+    public static final int SMALL_SIZE = 12;
+    public static final int SHIFT = 2;
+    private static int p = 14;
+    private static int s = SHIFT;
+    private static int pm = 10;
+    private int sm = SHIFT;
+    private Font textFont = Font.font(ARIAL, BIG_SIZE);
     private Paint textColor = Color.WHITE;
-    private Font metaFont = Font.font("Arial", 12);
+    private Font metaFont = Font.font(ARIAL, SMALL_SIZE);
     private Paint metaColor = Color.LIGHTGRAY;
 
     private Rectangle r;
 
-    private Paint bubbleColor = Color.rgb(0, 126, 229);
+    private static Paint bubbleColor = Color.rgb(0, 126, 229);
 
-    private int edgeRadius = 30;
+    private static int edgeRadius = 30;
 
 
     public BubbleMessages(String text) {
@@ -70,8 +74,8 @@ public class BubbleMessages extends Group{
         temp.setFont(textFont);
         int textW = (int) temp.getLayoutBounds().getWidth();
         int textH = (int) temp.getLayoutBounds().getHeight();
-        int w = textW + p * 2 + s * 2;
-        int h = textH + p * 2;
+        int w = textW + p * SHIFT + s * SHIFT;
+        int h = textH + p * SHIFT;
         temp = null;
 
         // tmp for meta
@@ -81,7 +85,7 @@ public class BubbleMessages extends Group{
         int metaH = (int) tmp.getLayoutBounds().getHeight();
         h += metaH;
 
-        if (metaW > textW)  w = metaW + p * 2 + s * 2;
+        if (metaW > textW)  w = metaW + p * SHIFT + s * SHIFT;
 
         // label text
         Label l = new Label(text);
@@ -95,7 +99,7 @@ public class BubbleMessages extends Group{
         m.setFont(metaFont);
         m.setTextFill(metaColor);
         m.setTranslateX(x + (w - (metaW + pm + sm)));
-        m.setTranslateY(y + textH + pm * 2);
+        m.setTranslateY(y + textH + pm * SHIFT);
 
         // bubble
         r = new Rectangle();

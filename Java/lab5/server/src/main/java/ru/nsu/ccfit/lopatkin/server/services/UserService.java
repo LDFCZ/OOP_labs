@@ -7,13 +7,15 @@ import ru.nsu.ccfit.lopatkin.server.models.User;
 
 public class UserService {
     private static final UserDao userDao = new UserDao();
+    public static final String NAME = "Name: ";
+    public static final String IS_ALREADY_USED = " is already used!";
 
     private String exceptionMessage = "";
     public boolean createNewUser(String name, String password) {
         User newUser = new User(name, password);
         try {
             if (userDao.findByName(name) != null) {
-                exceptionMessage = "Name: " + name + " is already used!";
+                exceptionMessage = NAME + name + IS_ALREADY_USED;
                 return false;
             }
             userDao.save(newUser);

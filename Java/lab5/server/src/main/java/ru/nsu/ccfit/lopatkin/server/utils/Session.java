@@ -10,6 +10,7 @@ import java.util.List;
 
 
 public class Session {
+    public static final int NEW_MESSAGES_COUNTER = 10;
     private final long id;
 
     private final User user;
@@ -24,7 +25,7 @@ public class Session {
         this.messageContext = messageContext;
         this.user = user;
         this.id = id;
-        this.newMessagesCounter = 10;
+        this.newMessagesCounter = NEW_MESSAGES_COUNTER;
     }
 
     public void updateMessageCounter() {

@@ -28,17 +28,11 @@ public class AskMessageTask extends TimerTask {
 
     @Override
     public void run() {
-        //if(thread != null && thread.isAlive()) {
-            GetRequest getRequest = getRequestFactory.getGetRequest(GetRequestType.ASK_MESSAGE);
-            try {
-                getRequest.handleRequest();
-            } catch (SocketSendMessageException e) {
-                System.out.println(e.getMessage());
-            }
-        //}
-        //else {
-        //    System.out.println("!!");
-        //    timer.cancel();
-        //}
+        GetRequest getRequest = getRequestFactory.getGetRequest(GetRequestType.ASK_MESSAGE);
+        try {
+            getRequest.handleRequest();
+        } catch (SocketSendMessageException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

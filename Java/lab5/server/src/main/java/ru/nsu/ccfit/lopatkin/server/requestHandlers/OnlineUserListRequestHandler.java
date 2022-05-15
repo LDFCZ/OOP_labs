@@ -5,9 +5,13 @@ import org.json.JSONObject;
 import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
 import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
 
-import java.util.List;
 
 public class OnlineUserListRequestHandler extends RequestHandler{
+
+    public static final String TYPE = "type";
+    public static final String ONLINE_USER_LIST = "online_user_list";
+    public static final String LIST = "list";
+
     public OnlineUserListRequestHandler(JSONObject jsonObject, MessageContext messageContext, SessionContext sessionContext) {
         super(jsonObject, messageContext, sessionContext);
     }
@@ -15,8 +19,8 @@ public class OnlineUserListRequestHandler extends RequestHandler{
     public String handleRequest() {
         JSONArray array = sessionContext.getActiveUsersArray();
         JSONObject obj = new JSONObject();
-        obj.put("type", "online_user_list");
-        obj.put("list", array);
+        obj.put(TYPE, ONLINE_USER_LIST);
+        obj.put(LIST, array);
         return obj.toString();
     }
 }

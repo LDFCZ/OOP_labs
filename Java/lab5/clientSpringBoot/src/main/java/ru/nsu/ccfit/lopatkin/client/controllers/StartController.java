@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 @FxmlView("../views/start_page.fxml")
 public class StartController {
 
+    public static final String FX_ID_LOG_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_START_PAGE_FXML = "fx:id=\"logInButton\" was not injected: check your FXML file 'start_page.fxml'.";
+    public static final String FX_ID_SIGN_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_START_PAGE_FXML = "fx:id=\"signInButton\" was not injected: check your FXML file 'start_page.fxml'.";
     private FxWeaver fxWeaver;
 
     @FXML
@@ -52,8 +54,8 @@ public class StartController {
 
     @FXML
     void initialize() {
-        assert logInButton != null : "fx:id=\"logInButton\" was not injected: check your FXML file 'start_page.fxml'.";
-        assert signInButton != null : "fx:id=\"signInButton\" was not injected: check your FXML file 'start_page.fxml'.";
+        assert logInButton != null : FX_ID_LOG_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_START_PAGE_FXML;
+        assert signInButton != null : FX_ID_SIGN_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_START_PAGE_FXML;
     }
 
 }

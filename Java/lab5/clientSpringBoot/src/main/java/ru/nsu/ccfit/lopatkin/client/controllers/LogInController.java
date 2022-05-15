@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequest;
 import ru.nsu.ccfit.lopatkin.client.GetRequests.GetRequestType;
+import ru.nsu.ccfit.lopatkin.client.consts.Consts;
 import ru.nsu.ccfit.lopatkin.client.exceptions.SocketSendMessageException;
 import ru.nsu.ccfit.lopatkin.client.factories.GetRequestFactory;
 import ru.nsu.ccfit.lopatkin.client.utils.Session;
@@ -28,12 +29,23 @@ import java.util.Timer;
 @Component
 @FxmlView("../views/login_page.fxml")
 public class LogInController {
+    public static final String THIS_COULD_NOT_BE_YOUR_NAME = "this could not be your name!";
+    public static final String FX_ID_BACK_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML = "fx:id=\"backButton\" was not injected: check your FXML file 'login_page.fxml'.";
+    public static final String FX_ID_EXCEPTION_LABEL_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML = "fx:id=\"exceptionLabel\" was not injected: check your FXML file 'login_page.fxml'.";
+    public static final String FX_ID_LOG_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML = "fx:id=\"logInButton\" was not injected: check your FXML file 'login_page.fxml'.";
+    public static final String FX_ID_PASSWORD_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML = "fx:id=\"passwordField\" was not injected: check your FXML file 'login_page.fxml'.";
+    public static final String FX_ID_USER_NAME_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML = "fx:id=\"userNameField\" was not injected: check your FXML file 'login_page.fxml'.";
+    public static final String NO_PASSWORD = "No password!";
+
+
     private Timer timer = new Timer();
 
     private FxWeaver fxWeaver;
     private GetRequestFactory getRequestFactory;
 
     private Session session;
+
+    private boolean isAnswered = false;
 
     @FXML
     private ResourceBundle resources;
@@ -68,8 +80,12 @@ public class LogInController {
         String name = userNameField.getText();
         String password = passwordField.getText();
 
-        if (name.length() > 20 || name.length() < 3) {
-            Platform.runLater(() -> { exceptionLabel.setText("this could not be your name!");});
+        if (name.length() > Consts.MAX_L || name.length() < Consts.MIN_L) {
+            Platform.runLater(() -> { exceptionLabel.setText(THIS_COULD_NOT_BE_YOUR_NAME);});
+            return;
+        }
+        if (password.length() == 0) {
+            Platform.runLater(() -> { exceptionLabel.setText(NO_PASSWORD);});
             return;
         }
 
@@ -80,10 +96,13 @@ public class LogInController {
         getRequest.setState(args);
         session.setName(name);
         timer = new Timer();
-        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, LogInController.this::setTimeOut);
+        TimeOutTask timeOutTask = new TimeOutTask(Thread.currentThread(), timer, () -> {
+            if(!LogInController.this.isAnswered) LogInController.this.setTimeOut();
+            LogInController.this.isAnswered = false;
+        });
 
         try {
-            timer.schedule(timeOutTask, 3000);
+            timer.schedule(timeOutTask, Consts.DELAY);
             getRequest.handleRequest();
         } catch (SocketSendMessageException e) {
             Platform.runLater(() -> { exceptionLabel.setText(e.getMessage());});
@@ -97,26 +116,32 @@ public class LogInController {
     }
 
     public void setAuthorized() {
+        setAnswered();
         timer.cancel();
         logInButton.getScene().setRoot(fxWeaver.loadView(ChatController.class));
     }
 
     public void setTimeOut() {
-        Platform.runLater(() -> {exceptionLabel.setText("Request TimeOut!");});
+        Platform.runLater(() -> {exceptionLabel.setText(Consts.REQUEST_TIME_OUT);});
     }
 
     public void setBadData(String message) {
+        setAnswered();
         timer.cancel();
         Platform.runLater(() -> { exceptionLabel.setText(message);});
     }
 
+    public void setAnswered() {
+        isAnswered = true;
+    }
+
     @FXML
     void initialize() {
-        assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'login_page.fxml'.";
-        assert exceptionLabel != null : "fx:id=\"exceptionLabel\" was not injected: check your FXML file 'login_page.fxml'.";
-        assert logInButton != null : "fx:id=\"logInButton\" was not injected: check your FXML file 'login_page.fxml'.";
-        assert passwordField != null : "fx:id=\"passwordField\" was not injected: check your FXML file 'login_page.fxml'.";
-        assert userNameField != null : "fx:id=\"userNameField\" was not injected: check your FXML file 'login_page.fxml'.";
+        assert backButton != null : FX_ID_BACK_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML;
+        assert exceptionLabel != null : FX_ID_EXCEPTION_LABEL_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML;
+        assert logInButton != null : FX_ID_LOG_IN_BUTTON_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML;
+        assert passwordField != null : FX_ID_PASSWORD_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML;
+        assert userNameField != null : FX_ID_USER_NAME_FIELD_WAS_NOT_INJECTED_CHECK_YOUR_FXML_FILE_LOGIN_PAGE_FXML;
     }
 
 }

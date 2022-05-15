@@ -11,6 +11,9 @@ import java.util.List;
 @Component
 public class GetSignUpRequestHandler implements GetRequest{
 
+    public static final String TYPE = "type";
+    public static final String NAME = "name";
+    public static final String PASSWORD = "password";
     private SocketHandler socketHandler;
 
     private String name;
@@ -30,9 +33,9 @@ public class GetSignUpRequestHandler implements GetRequest{
     @Override
     public String convertToJsonString() {
         JSONObject obj = new JSONObject();
-        obj.put("type", this.getType().getType());
-        obj.put("name", name);
-        obj.put("password", password);
+        obj.put(TYPE, this.getType().getType());
+        obj.put(NAME, name);
+        obj.put(PASSWORD, password);
         return obj.toString();
     }
 

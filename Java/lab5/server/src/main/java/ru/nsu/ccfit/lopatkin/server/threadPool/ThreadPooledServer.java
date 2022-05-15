@@ -12,6 +12,9 @@ import java.util.concurrent.Executors;
 
 public class ThreadPooledServer implements Runnable{
 
+    public static final String ERROR_ACCEPTING_CLIENT_CONNECTION = "Error accepting client connection";
+    public static final String ERROR_CLOSING_SERVER = "Error closing server";
+    public static final String CANNOT_OPEN_PORT_4004 = "Cannot open port 4004";
     protected int serverPort   = 4004;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped    = false;
@@ -22,8 +25,7 @@ public class ThreadPooledServer implements Runnable{
     private final MessageContext messageContext;
     private final SessionContext sessionContext;
 
-    public ThreadPooledServer(int port, MessageContext messageContext, SessionContext sessionContext){
-        this.serverPort = port;
+    public ThreadPooledServer(MessageContext messageContext, SessionContext sessionContext){
         this.messageContext = messageContext;
         this.sessionContext = sessionContext;
     }
@@ -39,17 +41,15 @@ public class ThreadPooledServer implements Runnable{
                 clientSocket = this.serverSocket.accept();
             } catch (IOException e) {
                 if(isStopped()) {
-                    System.out.println("Server Stopped.") ;
                     break;
                 }
                 throw new RuntimeException(
-                        "Error accepting client connection", e);
+                        ERROR_ACCEPTING_CLIENT_CONNECTION, e);
             }
             this.threadPool.execute(
                     new WorkerRunnable(clientSocket, messageContext, sessionContext));
         }
         this.threadPool.shutdown();
-        System.out.println("Server Stopped.") ;
     }
 
 
@@ -62,7 +62,7 @@ public class ThreadPooledServer implements Runnable{
         try {
             this.serverSocket.close();
         } catch (IOException e) {
-            throw new RuntimeException("Error closing server", e);
+            throw new RuntimeException(ERROR_CLOSING_SERVER, e);
         }
     }
 
@@ -70,7 +70,7 @@ public class ThreadPooledServer implements Runnable{
         try {
             this.serverSocket = new ServerSocket(this.serverPort);
         } catch (IOException e) {
-            throw new RuntimeException("Cannot open port 4004", e);
+            throw new RuntimeException(CANNOT_OPEN_PORT_4004, e);
         }
     }
 }

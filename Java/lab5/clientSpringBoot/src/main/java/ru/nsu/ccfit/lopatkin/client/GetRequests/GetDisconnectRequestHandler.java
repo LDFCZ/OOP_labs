@@ -13,6 +13,8 @@ import java.util.List;
 @Component
 public class GetDisconnectRequestHandler implements GetRequest{
 
+    public static final String TYPE = "type";
+    public static final String ID = "id";
     private Session session;
     private SocketHandler socketHandler;
 
@@ -30,8 +32,8 @@ public class GetDisconnectRequestHandler implements GetRequest{
     @Override
     public String convertToJsonString() {
         JSONObject obj = new JSONObject();
-        obj.put("type", this.getType().getType());
-        obj.put("id", session.getSessionId());
+        obj.put(TYPE, this.getType().getType());
+        obj.put(ID, session.getSessionId());
         return obj.toString();
     }
 

@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.lopatkin.server.threadPool;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import ru.nsu.ccfit.lopatkin.server.contexts.MessageContext;
 import ru.nsu.ccfit.lopatkin.server.contexts.SessionContext;
@@ -12,6 +13,8 @@ import java.net.Socket;
 
 public class WorkerRunnable implements Runnable{
 
+    private static final Logger logger = Logger.getLogger(WorkerRunnable.class);
+    public static final String TYPE = "type";
     protected Socket clientSocket = null;
 
     private final MessageContext messageContext;
@@ -27,20 +30,20 @@ public class WorkerRunnable implements Runnable{
         try (BufferedReader input  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
              BufferedWriter output =  new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()))) {
             long time = System.currentTimeMillis();
-            // TODO process request and log it
+
             JSONObject obj = new JSONObject(input.readLine());
             try {
-                System.out.println("get " + obj.getString("type"));
+
+                logger.info("get " + obj.getString(TYPE));
                 output.write(RequestFactory.getInstance().getRequestHandler(obj, messageContext, sessionContext).handleRequest() + "\n");
                 output.flush();
             } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException |
                      InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("answered " + obj.getString("type"));
-            //clientSocket.close();
+            logger.info("answered " + obj.getString(TYPE) + " in " + (time -  System.currentTimeMillis()) + " ms!");
         } catch (Exception e) {
-            //report exception somewhere.
+            logger.error("Worker socket ex - " + e.getMessage());
             e.printStackTrace();
         }
     }

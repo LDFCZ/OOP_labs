@@ -12,6 +12,8 @@ import java.util.List;
 @Component
 public class GetOnlineUserListRequestHandler implements GetRequest{
 
+    public static final String TYPE = "type";
+    public static final String ONLINE_USER_LIST = "online_user_list";
     private Session session;
     private SocketHandler socketHandler;
 
@@ -31,7 +33,7 @@ public class GetOnlineUserListRequestHandler implements GetRequest{
     @Override
     public String convertToJsonString() {
         JSONObject obj = new JSONObject();
-        obj.put("type", "online_user_list");
+        obj.put(TYPE, ONLINE_USER_LIST);
         return obj.toString();
     }
 

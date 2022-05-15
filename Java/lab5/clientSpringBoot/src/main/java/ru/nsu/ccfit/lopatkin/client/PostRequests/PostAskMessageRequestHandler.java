@@ -9,6 +9,11 @@ import ru.nsu.ccfit.lopatkin.client.controllers.ChatController;
 @Component
 public class PostAskMessageRequestHandler implements PostRequest{
 
+    public static final String COUNT = "count";
+    public static final String MESSAGES = "messages";
+    public static final String NAME = "name";
+    public static final String TEXT = "text";
+    public static final String TIME = "time";
     private ChatController chatController;
 
     @Autowired
@@ -21,9 +26,9 @@ public class PostAskMessageRequestHandler implements PostRequest{
 
     @Override
     public void setStateFromJson(JSONObject jsonObject) {
-        count = jsonObject.getInt("count");
+        count = jsonObject.getInt(COUNT);
         if (count != 0)
-            array = jsonObject.getJSONArray("messages");
+            array = jsonObject.getJSONArray(MESSAGES);
     }
 
     @Override
@@ -31,7 +36,7 @@ public class PostAskMessageRequestHandler implements PostRequest{
         if (count > 0) {
             for (Object obj : array) {
                 JSONObject message = new JSONObject(obj.toString());
-                chatController.addMessage(message.getString("name"), message.getString("text"), message.getString("time"), false);
+                chatController.addMessage(message.getString(NAME), message.getString(TEXT), message.getString(TIME), false);
             }
         }
     }

@@ -13,6 +13,9 @@ import java.util.List;
 @Component
 public class GetAskMessageRequestHandler implements GetRequest{
 
+    public static final String TYPE = "type";
+    public static final String ID = "id";
+    public static final String ASK_MESSAGE = "ask_message";
     private Session session;
 
     private SocketHandler socketHandler;
@@ -32,8 +35,8 @@ public class GetAskMessageRequestHandler implements GetRequest{
     @Override
     public String convertToJsonString() {
         JSONObject obj = new JSONObject();
-        obj.put("type", "ask_message");
-        obj.put("id", session.getSessionId());
+        obj.put(TYPE, ASK_MESSAGE);
+        obj.put(ID, session.getSessionId());
         return obj.toString();
     }
 

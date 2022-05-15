@@ -15,8 +15,13 @@ import java.util.List;
 
 public class UserDao {
 
+    public static final String USERS_CSV = "src/main/resources/users.csv";
+    public static final int NAME = 0;
+    public static final int PASSWORD = 1;
+    public static final String DATA_BASE_READING_EXCEPTION = "DataBaseReading EXCEPTION!";
+
     public void save(User user) throws SaveUserException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter("src/main/resources/users.csv", true))){
+        try (CSVWriter writer = new CSVWriter(new FileWriter(USERS_CSV, true))){
             String[] record = {user.getName(), user.getPassword()};
             writer.writeNext(record);
             writer.flush();
@@ -26,15 +31,15 @@ public class UserDao {
     }
 
     public User findByName(String name) throws FindUserException {
-        try (CSVReader reader = new CSVReader(new FileReader("src/main/resources/users.csv"))) {
+        try (CSVReader reader = new CSVReader(new FileReader(USERS_CSV))) {
             List<String[]> r = reader.readAll();
             for (String[] s : r ) {
-                if (s[0].equals(name)) return new User(s[0], s[1]);
+                if (s[NAME].equals(name)) return new User(s[NAME], s[PASSWORD]);
             }
         } catch (IOException | CsvException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-            throw new FindUserException("DataBaseReading EXCEPTION!");
+            throw new FindUserException(DATA_BASE_READING_EXCEPTION);
         }
         return null;
     }

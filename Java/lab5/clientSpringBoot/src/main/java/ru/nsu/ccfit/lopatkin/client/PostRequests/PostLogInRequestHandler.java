@@ -9,6 +9,10 @@ import ru.nsu.ccfit.lopatkin.client.utils.Session;
 @Component
 public class PostLogInRequestHandler implements PostRequest{
 
+    public static final String STATUS = "status";
+    public static final String MESSAGE = "message";
+    public static final String ID = "id";
+    public static final String OK = "ok";
     private Session session;
     private LogInController logInController;
 
@@ -23,14 +27,14 @@ public class PostLogInRequestHandler implements PostRequest{
     private String message;
     @Override
     public void setStateFromJson(JSONObject jsonObject) {
-        this.status = jsonObject.getString("status");
-        this.message = jsonObject.getString("message");
-        this.id = jsonObject.getLong("id");
+        this.status = jsonObject.getString(STATUS);
+        this.message = jsonObject.getString(MESSAGE);
+        this.id = jsonObject.getLong(ID);
     }
 
     @Override
     public void handleRequest() {
-        if (status.equals("ok")) {
+        if (status.equals(OK)) {
             logInController.setAuthorized();
             session.setSessionId(id);
             return;

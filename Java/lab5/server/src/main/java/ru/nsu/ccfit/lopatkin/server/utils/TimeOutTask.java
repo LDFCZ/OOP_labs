@@ -9,6 +9,7 @@ import java.util.*;
 
 public class TimeOutTask extends TimerTask {
     private static final Logger logger = Logger.getLogger(TimeOutTask.class);
+    public static final String DISCONNECTED = " disconnected!";
     private final SessionContext sessionContext;
 
     private final MessageContext messageContext;
@@ -26,18 +27,17 @@ public class TimeOutTask extends TimerTask {
     @Override
     public void run() {
         if(thread != null && thread.isAlive()) {
-            System.out.println("TimeOutCollector working!");
+
             Map<Long, Session> sessionList = sessionContext.getSessionMap();
             Iterator<Map.Entry<Long, Session>> i = sessionList.entrySet().iterator();
-           while (i.hasNext()) {
-               Map.Entry<Long, Session> session = i.next();
-               if (!session.getValue().getActivityDuringLastTime()) {
-                   logger.info("session " + session.getValue().getId() + " is closed");
-                   sessionContext.removeSession(session.getValue());
-                   messageContext.addMessage(new Message(new ServerUser(), session.getValue().getUserName() + " disconnected!", new Date()));
-               } else session.getValue().setActivityDuringLastTimeOut();
-               System.out.println(session.getValue().getActivityDuringLastTime());
-           }
+               while (i.hasNext()) {
+                   Map.Entry<Long, Session> session = i.next();
+                   if (!session.getValue().getActivityDuringLastTime()) {
+                       logger.info("session " + session.getValue().getId() + " is closed");
+                       sessionContext.removeSession(session.getValue());
+                       messageContext.addMessage(new Message(new ServerUser(), session.getValue().getUserName() + DISCONNECTED, new Date()));
+                   } else session.getValue().setActivityDuringLastTimeOut();
+               }
         }
         else timer.cancel();
     }
