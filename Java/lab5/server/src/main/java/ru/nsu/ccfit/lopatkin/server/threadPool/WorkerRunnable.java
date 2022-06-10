@@ -41,7 +41,7 @@ public class WorkerRunnable implements Runnable{
                      InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-            logger.info("answered " + obj.getString(TYPE) + " in " + (time -  System.currentTimeMillis()) + " ms!");
+            logger.info("answered " + obj.getString(TYPE) + " in " + (System.currentTimeMillis() - time) + " ms!");
         } catch (Exception e) {
             logger.error("Worker socket ex - " + e.getMessage());
             e.printStackTrace();

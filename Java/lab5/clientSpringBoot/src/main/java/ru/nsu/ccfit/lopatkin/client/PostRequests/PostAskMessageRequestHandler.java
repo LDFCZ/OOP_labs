@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nsu.ccfit.lopatkin.client.controllers.ChatController;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 @Component
 public class PostAskMessageRequestHandler implements PostRequest{
 
@@ -33,10 +36,16 @@ public class PostAskMessageRequestHandler implements PostRequest{
 
     @Override
     public void handleRequest() {
+        ArrayList<JSONObject> m = new ArrayList<>();
         if (count > 0) {
             for (Object obj : array) {
                 JSONObject message = new JSONObject(obj.toString());
-                chatController.addMessage(message.getString(NAME), message.getString(TEXT), message.getString(TIME), false);
+                m.add(message);
+                //chatController.addMessage(message.getString(NAME), message.getString(TEXT), message.getString(TIME), false);
+            }
+            Collections.reverse(m);
+            for (JSONObject jsonObject : m) {
+                chatController.addMessage(jsonObject.getString(NAME), jsonObject.getString(TEXT), jsonObject.getString(TIME), false);
             }
         }
     }
