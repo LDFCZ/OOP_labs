@@ -8,7 +8,9 @@ import ru.nsu.ccfit.lopatkin.client.consts.Consts;
 import ru.nsu.ccfit.lopatkin.client.controllers.ChatController;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Component
@@ -33,12 +35,15 @@ public class PostOnlineUserListRequestHandler implements PostRequest{
 
     @Override
     public void handleRequest() {
-        StringBuilder usersList = new StringBuilder();
+        //StringBuilder usersList = new StringBuilder();
+        List<String> users = new ArrayList<>();
         for (int i = 0; i < array.length(); i++)
-            usersList.append(array.getString(i)).append(SPACE);
+            users.add(array.getString(i));
+            //usersList.append(array.getString(i)).append(SPACE);
 
-        SimpleDateFormat formatter = new SimpleDateFormat(Consts.TIME_FORMAT);
-        chatController.addMessage(ONLINE_USERS, usersList.toString(), formatter.format(new Date()), false);
+        //SimpleDateFormat formatter = new SimpleDateFormat(Consts.TIME_FORMAT);
+        //chatController.addMessage(ONLINE_USERS, usersList.toString(), formatter.format(new Date()), false);
+        chatController.addOnlineUsers(users);
     }
 
     @Override

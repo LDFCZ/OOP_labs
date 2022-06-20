@@ -31,4 +31,7 @@
          </content>
       </ScrollPane>
    </center>
+   <right>
+      <ScrollPane fx:id="onlineUsersPane" prefHeight="308.0" prefWidth="136.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

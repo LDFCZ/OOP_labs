@@ -4,10 +4,8 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +48,8 @@ public class ChatController {
     private ResourceBundle resources;
 
     @FXML
+    private ScrollPane onlineUsersPane;
+    @FXML
     private URL location;
 
     @FXML
@@ -77,6 +77,26 @@ public class ChatController {
         }
     }
 
+    public void addOnlineUsers(List<String> users) {
+
+        Task<AnchorPane> container = new Task<AnchorPane>() {
+            @Override
+            protected AnchorPane call() throws Exception {
+                AnchorPane container = new AnchorPane();
+                for (int i = 0; i < users.size(); i++) {
+                    Label user = new Label(users.get(i));
+                    user.setLayoutX(10);
+                    user.setLayoutY(i*20 + 10);
+                    container.getChildren().add(user);
+                }
+                return container;
+            }
+        };
+        container.setOnSucceeded(event -> onlineUsersPane.setContent(container.getValue()));
+        Thread t = new Thread(container);
+        t.setDaemon(true);
+        t.start();
+    }
     @FXML
     void sendMessage(ActionEvent event) {
         try {

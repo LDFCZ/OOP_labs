@@ -28,9 +28,11 @@ public class AskMessageTask extends TimerTask {
 
     @Override
     public void run() {
-        GetRequest getRequest = getRequestFactory.getGetRequest(GetRequestType.ASK_MESSAGE);
+        GetRequest getRequestAskMessage = getRequestFactory.getGetRequest(GetRequestType.ASK_MESSAGE);
+        GetRequest getRequestAskOnlineUsers = getRequestFactory.getGetRequest(GetRequestType.ONLINE_USER_LIST);
         try {
-            getRequest.handleRequest();
+            getRequestAskMessage.handleRequest();
+            getRequestAskOnlineUsers.handleRequest();
         } catch (SocketSendMessageException e) {
             System.out.println(e.getMessage());
         }

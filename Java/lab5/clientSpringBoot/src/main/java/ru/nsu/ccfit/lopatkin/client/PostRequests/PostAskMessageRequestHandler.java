@@ -43,7 +43,7 @@ public class PostAskMessageRequestHandler implements PostRequest{
                 m.add(message);
                 //chatController.addMessage(message.getString(NAME), message.getString(TEXT), message.getString(TIME), false);
             }
-            Collections.reverse(m);
+            //Collections.reverse(m);
             for (JSONObject jsonObject : m) {
                 chatController.addMessage(jsonObject.getString(NAME), jsonObject.getString(TEXT), jsonObject.getString(TIME), false);
             }
